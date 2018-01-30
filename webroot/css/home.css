@@ -1,0 +1,72 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,300,500,700");
+
+body {
+  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: #fff;
+  font-size: 13px;
+  color: #676a6c;
+  overflow-x: hidden;
+}
+ul{list-style: none;padding: 0;margin: 0;}
+.navbar-default{background: none;border:0;box-shadow: none;padding-top: 15px}
+.banner{width:100%;height:630px;background: url('../images/banner-1.jpg')}
+.nav-pills{margin-top:25px}
+.nav-pills a{color:#fff;font-size:16px;font-weight: 300;padding:6px 10px !important;margin-left:10px}
+.nav-pills li.active a,.nav-pills li:hover a,.nav-pills li:focus a{background: rgba(0,0,0,.3);border:1px solid #b8b8b8}
+.banner-text{display: table;margin:0 auto;position: absolute;top:50%;left:50%;transform: translate(-50%,-50%);z-index: 9;color: #fff;text-align: center;font-weight: 300;}
+.banner-text h1{font-size: 48px}
+.banner-text p{font-size: 24px;}
+.btn-green{background: #abdd76;padding: 15px 30px;font-size:24px;border-radius:2px;margin-top:20px;color:#fff;}
+.btn-sky{background: #97d1e8;padding: 15px 30px;font-size:24px;border-radius:2px;margin-top:20px;color:#fff;}
+
+section{width:100%;height: auto;overflow: hidden;background: #fff;padding: 70px 0;text-align: center;color:#222222}
+section.gray{background: #f8f8f9}
+.features i{color:#fff;display: block;width:77px;height:77px;background: #97d1e8;border-radius: 100%;text-align: center;font-size: 48px;line-height: 77px;margin:0 auto;margin-bottom:15px}
+.features p{font-size:13px;line-height: 24px}
+
+.manage h2{font-size:46px;text-align: left;line-height:56px;margin-bottom:15px}
+.manage img{display: block;margin: 0 auto;}
+.manage p{display: block;text-align: left;color:#313131;font-size: 18px;font-weight: 300;line-height: 30px}
+.manage button{text-transform: uppercase;font-size: 18px;margin: 0;float: left;margin-top:20px}
+
+
+footer{background: #212121;padding: 35px 0}
+footer .quick-links{width:100%;height: auto;overflow: hidden;display: block;float:left}
+footer .quick-links li{float:left;}
+footer .quick-links li a{color:#fff;font-size:14px;font-weight: 300;padding: 0 15px;border-left:1px solid #8c8c8c;line-height: 14px}
+footer .quick-links li:first-child a{border:0;padding-left: 0}
+footer span{color:#ababab;margin-top:10px;float:left}
+
+.social li{float:left;margin-left:15px}
+.social li a{display: block;width:40px;height:40px;border-radius:100%;color:#fff;font-size:25px;text-align: center;line-height: 40px}
+.social li a.ion-social-facebook{background: #204385}
+.social li a.ion-social-twitter{background: #2aa9e0}
+.social li a.ion-social-googleplus{background: #d3492c}
+
+
+/**************************/
+.login-header{width:100%;height:125px;overflow: hidden;background: url('../img/p4.jpg');background-position: top center;position: relative;}
+.login-header:after{position: absolute;top:0;left:0;background: rgba(0,0,0,.4);content: "";z-index: 999;width:100%;height:100%}
+.login-body{padding:100px 0}
+.login-body button{font-size:18px}
+.login-body h2{margin-bottom:30px;margin-top:0}
+.login-body .form-control{height:48px;box-shadow: none;}
+.login-body label{font-size:14px;font-weight:400}
+.login-body h4{display: block;text-align: center;margin-top: 130px}
+.login-body .social{margin:0 auto;display: table;margin-top:15px}
+.login-body .row{display: flex;flex-wrap:wrap}
+.border-left{border-left:1px solid #ddd}
+
+
+
+
+
+
+
+
+
+
+
+
+

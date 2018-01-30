@@ -1,0 +1,264 @@
+<!-- MENU SECTION -->
+  <div id="left" >
+    <div class="media user-media well-small"> <a class="user-link" href="javascript:void(0);"> 
+	<?
+		use Cake\Datasource\ConnectionManager;
+		$connection = ConnectionManager::get('default');
+		if($this->request->Session()->read('Auth.User.type') == "bankadmin") {
+			if($this->request->Session()->read('Auth.User.provider_id') == 0) {
+				$id = $this->request->Session()->read('Auth.User.id');
+			} else {
+				$id = $this->request->Session()->read('Auth.User.provider_id');
+			}
+			$results = $connection->execute('SELECT * FROM bankdetails where service_provider_id = "'.$id.'"')->fetchAll('assoc');
+			echo $this->Html->image('banklogo/'.$results['0']['logo'], ['class'=>'media-object img-thumbnail user-img','width'=>'']);
+		}
+	?>
+	<!--<img class="media-object img-thumbnail user-img" alt="Bank Logo" src="assets/img/user.gif" /> -->
+	
+	</a> <br />
+      <div class="media-body">
+        <h5 class="media-heading"> Qarenhom Admin</h5>
+        <ul class="list-unstyled user-info">
+          <li> <a class="btn btn-success btn-xs btn-circle" style="width: 10px;height: 12px;"></a> Online </li>
+        </ul>
+      </div>
+      <br />
+    </div>
+    <ul id="menu" class="collapse">
+      <li class="panel <?php if($this->request->params['action'] == 'home') { ?> active <?php } else {?><?php }?>"> <a href="<?php echo $this->Url->build(["controller" => "Users","action" => "home"]);?>" > <i class="icon-table"></i> Dashboard </a> </li>
+       <?
+			if($this->request->Session()->read('Auth.User.provider_id') == 0) {
+		  ?>     
+	 <li class="panel <?php if($this->request->params['action'] == 'settings' or $this->request->params['action'] == 'bankdetails' or $this->request->params['action'] == 'showcase' or $this->request->params['action'] == 'add_showcase' or $this->request->params['action'] == 'listuserbank' or $this->request->params['action'] == 'adduserbank') { ?> active <?php } else {?><?php }?>"> <a href="#" data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#component-nav"> 
+      <i class="icon-tasks"> </i> Settings</a>
+        <ul  <?php if($this->request->params['action'] == 'settings' or $this->request->params['action'] == 'bankdetails' or $this->request->params['action'] == 'showcase' or $this->request->params['action'] == 'add_showcase' or $this->request->params['action'] == 'listuserbank' or $this->request->params['action'] == 'adduserbank') { ?>class="in" <?php } else {?>class="collapse"<?php }?> id="component-nav">
+          <li class=""><a href="<? echo $this->Url->build(["controller" => "Users","action" => "settings"]);?>"><i class="icon-angle-right"></i> Admin Details </a></li>
+		  <?
+			if($this->request->Session()->read('Auth.User.type') == "bankadmin" && $this->request->Session()->read('Auth.User.dataentry') == "" && $this->request->Session()->read('Auth.User.provider_id') == 0) {
+		  ?>
+				<li class=""><a href="<? echo $this->Url->build(["controller" => "Users","action" => "bankdetails"]);?>"><i class="icon-angle-right"></i> Bank Details </a></li>
+				<li class=""><a href="<? echo $this->Url->build(["controller" => "Users","action" => "showcase"]);?>"><i class="icon-angle-right"></i> Showcase </a></li>
+				<li class=""><a href="<? echo $this->Url->build(["controller" => "Users","action" => "add_showcase"]);?>"><i class="icon-angle-right"></i> Add Showcase </a></li>
+				<li class=""><a href="<? echo $this->Url->build(["controller" => "Users","action" => "listuserbank"]);?>"><i class="icon-angle-right"></i> Data Entry User List </a></li>					
+				<li class=""><a href="<? echo $this->Url->build(["controller" => "Users","action" => "adduserbank"]);?>"><i class="icon-angle-right"></i> Add Data Entry User </a></li>
+		  <?
+			}
+		  ?>
+        </ul>
+      </li>
+			<?  }//echo $this->request->Session()->read('Auth.User.type');
+		if($this->request->Session()->read('Auth.User.type') == "superadmin") {
+			?>
+			
+				<li class="panel <?php if($this->request->params['action'] == 'monthlydetails' or $this->request->params['action'] == 'monthly_report' or $this->request->params['action'] == 'applyonline' or $this->request->params['action'] == 'nearesr_branch' or $this->request->params['action'] == 'listuser'  or $this->request->params['action'] == 'clickthrough' or ($this->request->params['action'] == 'add' and $this->request->params['controller']=='Users') or $this->request->params['action'] == 'edituser') { ?> active <?php } else {?><?php }?>"> <a href="#" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#form-nav"> 
+					<i class="icon-trophy"></i> Partners</a>
+					<ul <?php if($this->request->params['action'] == 'monthlydetails' or $this->request->params['action'] == 'monthly_report' or $this->request->params['action'] == 'applyonline' or $this->request->params['action'] == 'nearesr_branch' or $this->request->params['action'] == 'listuser' or $this->request->params['action'] == 'clickthrough' or ($this->request->params['action'] == 'add' and $this->request->params['controller']=='Users') or $this->request->params['action'] == 'edituser') { ?>class="in" <?php } else {?>class="collapse"<?php }?> id="form-nav">
+						<li class=""><a href="<? echo $this->Url->build(["controller" => "Users","action" => "listuser"]);?>"><i class="icon-angle-right"></i> User List </a></li>					
+						<li class=""><a href="<? echo $this->Url->build(["controller" => "Users","action" => "add"]);?>"><i class="icon-angle-right"></i> Add User </a></li>
+					</ul>
+				</li>
+				
+				<li class="panel <?php if($this->request->params['action'] == 'generaluser' or $this->request->params['action'] == 'generaluseredit') { ?> active <?php } else {?><?php }?>"> <a href="#" data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#pagesr-nav"> 
+					<i class="icon-dribbble"></i> Users </a>
+					<ul <?php if($this->request->params['action'] == 'generaluser' or $this->request->params['action'] == 'generaluseredit' ) { ?>class="in" <?php } else {?>class="collapse"<?php }?> id="pagesr-nav">
+						<li><?= $this->Html->link(__('> User List'), ['controller'=>'users','action' => 'generaluser']) ?></li>
+						
+					</ul>
+				</li>
+				
+				
+				
+				<!--<li class="panel <?php if(($this->request->params['action'] == 'index'  and $this->request->params['controller']=='Companies') or ($this->request->params['action'] == 'add' and $this->request->params['controller']=='Companies') or ($this->request->params['action'] == 'edit' and $this->request->params['controller']=='Companies')) { ?> active <?php } else {?><?php }?>"> <a href="#" data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#pagesr-nav11"> 
+					<i class="icon-apple"></i> Company </a>
+					<ul <?php if(($this->request->params['action'] == 'index' and $this->request->params['controller']=='Companies') or ($this->request->params['action'] == 'add' and $this->request->params['controller']=='Companies') or ($this->request->params['action'] == 'edit' and $this->request->params['controller']=='Companies')) { ?>class="in" <?php } else {?>class="collapse"<?php }?> id="pagesr-nav11">
+						<li><?= $this->Html->link(__('> Company List'), ['controller'=>'companies','action' => 'index']) ?></li>
+						<li><?= $this->Html->link(__('> Add Company'), ['controller'=>'companies','action' => 'add']) ?></li>
+					</ul>
+				</li>-->
+				
+				<li  class="panel <?php if($this->request->params['action'] == 'newsletter' ) { ?> active <?php } else {?><?php }?>"> <a href="#" data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#pagesr-nav2"> 
+					<i class="icon-file-text"></i> Newsletter Requests</a>
+					<ul <?php if($this->request->params['action'] == 'newsletter') { ?>class="in" <?php } else {?>class="collapse"<?php }?> id="pagesr-nav2">
+						<li><?= $this->Html->link(__('> Newsletter List'), ['controller'=>'Users','action' => 'newsletter']) ?></li>
+					</ul>
+				</li>
+				
+				<li class="panel <?php if($this->request->params['action'] == 'index'  and $this->request->params['controller']=='Callmes' ) { ?> active <?php } else {?><?php }?>"> <a href="#" data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#pagesr-nav1111"> 
+					<i class="icon-phone"></i> Call Back Requests </a>
+					<ul <?php if($this->request->params['action'] == 'index'  and $this->request->params['controller']=='Callmes') { ?>class="in" <?php } else {?>class="collapse"<?php }?> id="pagesr-nav1111">
+						<li><?= $this->Html->link(__('> Call Me List'), ['controller'=>'callmes','action' => 'index']) ?></li>
+						
+					</ul>
+				</li>
+			<?
+		} else if($this->request->Session()->read('Auth.User.type') == "bankadmin") {
+			?>
+
+				<li class="panel <?php if(($this->request->params['controller'] == 'Personalloans' and $this->request->params['action'] == 'index') or  ($this->request->params['controller'] == 'Personalloans' and $this->request->params['action'] == 'addimage') or ($this->request->params['controller'] == 'Personalloans' and $this->request->params['action'] == 'edit') or ($this->request->params['controller'] == 'Personalloans' and $this->request->params['action'] == 'image') or ($this->request->params['controller'] == 'Personalloans' and $this->request->params['action'] == 'add') or
+                                       ($this->request->params['controller'] == 'Homeloans' and $this->request->params['action'] == 'index') or  ($this->request->params['controller'] == 'Homeloans' and $this->request->params['action'] == 'addimage') or ($this->request->params['controller'] == 'Homeloans' and $this->request->params['action'] == 'edit') or ($this->request->params['controller'] == 'Homeloans' and $this->request->params['action'] == 'image') or ($this->request->params['controller'] == 'Homeloans' and $this->request->params['action'] == 'add') or
+				  				       ($this->request->params['controller'] == 'Carloans' and $this->request->params['action'] == 'index') or  ($this->request->params['controller'] == 'Carloans' and $this->request->params['action'] == 'addimage') or ($this->request->params['controller'] == 'Carloans' and $this->request->params['action'] == 'edit') or ($this->request->params['controller'] == 'Carloans' and $this->request->params['action'] == 'image') or ($this->request->params['controller'] == 'Carloans' and $this->request->params['action'] == 'add') or
+							           ($this->request->params['controller'] == 'Creditcards' and $this->request->params['action'] == 'index') or  ($this->request->params['controller'] == 'Creditcards' and $this->request->params['action'] == 'addimage') or ($this->request->params['controller'] == 'Creditcards' and $this->request->params['action'] == 'edit') or ($this->request->params['controller'] == 'Creditcards' and $this->request->params['action'] == 'image') or ($this->request->params['controller'] == 'Creditcards' and $this->request->params['action'] == 'add')  	 
+							            ){?> active <?php } ?>"> <a href="#" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#form-nav"> 
+					<i class="icon-trophy"></i> Borrwing Products</a>
+					<ul <?php if(($this->request->params['controller'] == 'Personalloans' and $this->request->params['action'] == 'index') or ($this->request->params['controller'] == 'Personalloans' and $this->request->params['action'] == 'edit') or ($this->request->params['controller'] == 'Personalloans' and $this->request->params['action'] == 'image') or ($this->request->params['controller'] == 'Personalloans' and $this->request->params['action'] == 'add') or ($this->request->params['controller'] == 'Homeloans' and $this->request->params['action'] == 'index') or  ($this->request->params['controller'] == 'Homeloans' and $this->request->params['action'] == 'addimage') or ($this->request->params['controller'] == 'Homeloans' and $this->request->params['action'] == 'edit') or ($this->request->params['controller'] == 'Homeloans' and $this->request->params['action'] == 'image') or ($this->request->params['controller'] == 'Homeloans' and $this->request->params['action'] == 'add')
+				  				       or ($this->request->params['controller'] == 'Carloans' and $this->request->params['action'] == 'index') or  ($this->request->params['controller'] == 'Carloans' and $this->request->params['action'] == 'addimage') or ($this->request->params['controller'] == 'Carloans' and $this->request->params['action'] == 'edit') or ($this->request->params['controller'] == 'Carloans' and $this->request->params['action'] == 'image') or ($this->request->params['controller'] == 'Carloans' and $this->request->params['action'] == 'add') 
+							           or ($this->request->params['controller'] == 'Creditcards' and $this->request->params['action'] == 'index') or  ($this->request->params['controller'] == 'Creditcards' and $this->request->params['action'] == 'addimage') or ($this->request->params['controller'] == 'Creditcards' and $this->request->params['action'] == 'edit') or ($this->request->params['controller'] == 'Creditcards' and $this->request->params['action'] == 'image') or ($this->request->params['controller'] == 'Creditcards' and $this->request->params['action'] == 'add')){?> class="in" <?php } else {?> class="collapse" <?php }?> id="form-nav">
+						<!--<li class=""><a href="<?= $this->Html->url('/')?>"><i class="icon-angle-right"></i> Personal Loan </a></li>-->
+						<li><?=$this->Html->link(__('> Personal Loan'), ['controller'=>'personalloans','action' => 'index']);?></li>
+						<li class=""><?= $this->Html->link(__('> Home Loan'), ['controller'=>'homeloans','action' => 'index']) ?></li>
+						<li class=""><?= $this->Html->link(__('> Car Loan'), ['controller'=>'carloans','action' => 'index']) ?></li>
+						<li class=""><?= $this->Html->link(__('> Credit Card'), ['controller'=>'creditcards','action' => 'index']) ?></li>
+					</ul>
+				</li>
+				<li class="panel <?php if(($this->request->params['controller'] == 'Currentaccounts' and $this->request->params['action'] == 'index') or  ($this->request->params['controller'] == 'Currentaccounts' and $this->request->params['action'] == 'addimage') or ($this->request->params['controller'] == 'Currentaccounts' and $this->request->params['action'] == 'edit') or ($this->request->params['controller'] == 'Currentaccounts' and $this->request->params['action'] == 'image') or ($this->request->params['controller'] == 'Currentaccounts' and $this->request->params['action'] == 'add') or
+                                       ($this->request->params['controller'] == 'Savingaccounts' and $this->request->params['action'] == 'index') or  ($this->request->params['controller'] == 'Savingaccounts' and $this->request->params['action'] == 'addimage') or ($this->request->params['controller'] == 'Savingaccounts' and $this->request->params['action'] == 'edit') or ($this->request->params['controller'] == 'Savingaccounts' and $this->request->params['action'] == 'image') or ($this->request->params['controller'] == 'Savingaccounts' and $this->request->params['action'] == 'add') or
+				  				       ($this->request->params['controller'] == 'Timedeposits' and $this->request->params['action'] == 'index') or  ($this->request->params['controller'] == 'Timedeposits' and $this->request->params['action'] == 'addimage') or ($this->request->params['controller'] == 'Timedeposits' and $this->request->params['action'] == 'edit') or ($this->request->params['controller'] == 'Timedeposits' and $this->request->params['action'] == 'image') or ($this->request->params['controller'] == 'Timedeposits' and $this->request->params['action'] == 'add') or
+							           ($this->request->params['controller'] == 'Certificateofdeposits' and $this->request->params['action'] == 'index') or  ($this->request->params['controller'] == 'Certificateofdeposits' and $this->request->params['action'] == 'addimage') or ($this->request->params['controller'] == 'Certificateofdeposits' and $this->request->params['action'] == 'edit') or ($this->request->params['controller'] == 'Certificateofdeposits' and $this->request->params['action'] == 'image') or ($this->request->params['controller'] == 'Certificateofdeposits' and $this->request->params['action'] == 'add')  	 
+							            ){?> active <?php } ?>"> <a href="#" data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#pagesr-nav"> 
+					<i class="icon-dribbble"></i> Saving Products</a>
+					<ul <?php if(($this->request->params['controller'] == 'Currentaccounts' and $this->request->params['action'] == 'index') or  ($this->request->params['controller'] == 'Currentaccounts' and $this->request->params['action'] == 'addimage') or ($this->request->params['controller'] == 'Currentaccounts' and $this->request->params['action'] == 'edit') or ($this->request->params['controller'] == 'Currentaccounts' and $this->request->params['action'] == 'image') or ($this->request->params['controller'] == 'Currentaccounts' and $this->request->params['action'] == 'add') or
+                                       ($this->request->params['controller'] == 'Savingaccounts' and $this->request->params['action'] == 'index') or  ($this->request->params['controller'] == 'Savingaccounts' and $this->request->params['action'] == 'addimage') or ($this->request->params['controller'] == 'Savingaccounts' and $this->request->params['action'] == 'edit') or ($this->request->params['controller'] == 'Savingaccounts' and $this->request->params['action'] == 'image') or ($this->request->params['controller'] == 'Savingaccounts' and $this->request->params['action'] == 'add') or
+				  				       ($this->request->params['controller'] == 'Timedeposits' and $this->request->params['action'] == 'index') or  ($this->request->params['controller'] == 'Timedeposits' and $this->request->params['action'] == 'addimage') or ($this->request->params['controller'] == 'Timedeposits' and $this->request->params['action'] == 'edit') or ($this->request->params['controller'] == 'Timedeposits' and $this->request->params['action'] == 'image') or ($this->request->params['controller'] == 'Timedeposits' and $this->request->params['action'] == 'add') or
+							           ($this->request->params['controller'] == 'Certificateofdeposits' and $this->request->params['action'] == 'index') or  ($this->request->params['controller'] == 'Certificateofdeposits' and $this->request->params['action'] == 'addimage') or ($this->request->params['controller'] == 'Certificateofdeposits' and $this->request->params['action'] == 'edit') or ($this->request->params['controller'] == 'Certificateofdeposits' and $this->request->params['action'] == 'image') or ($this->request->params['controller'] == 'Certificateofdeposits' and $this->request->params['action'] == 'add')  	 
+							            ){?> class="in" <?php } else { ?> class="collapse" <?php } ?> id="pagesr-nav">
+						<li><?=$this->Html->link(__('> Current Account'), ['controller'=>'currentaccounts','action' => 'index']);?></li>
+						<!--
+							<li><a href="pages_calendar.html"><i class="icon-angle-right"></i> Current Account </a></li>
+							<li><a href="pages_timeline.html"><i class="icon-angle-right"></i> Saving Account </a></li>
+							<li><a href="pages_calendar.html"><i class="icon-angle-right"></i> Time Deposit </a></li>
+							<li><a href="pages_timeline.html"><i class="icon-angle-right"></i> Certificate Of Deposit </a></li>
+						-->
+						<li><?=$this->Html->link(__('> Saving Account'), ['controller'=>'savingaccounts','action' => 'index']);?></li>
+						<li><?=$this->Html->link(__('> Time Deposit'), ['controller'=>'timedeposits','action' => 'index']);?></li>
+						<li><?=$this->Html->link(__('> Certificate Of Deposit'), ['controller'=>'certificateofdeposits','action' => 'index']);?></li>
+						
+					</ul>
+				</li>
+				<li class="panel <?php if(($this->request->params['controller'] == 'Branches' and $this->request->params['action'] == 'listbranch') or ($this->request->params['controller'] == 'Branches' and $this->request->params['action'] == 'editbranch') or ($this->request->params['controller'] == 'Branches' and $this->request->params['action'] == 'add')) { ?> active <?php } else {}?> "> <a href="#" data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#pagesr-navbranch"> 
+					<i class="icon-dribbble"></i> Branch List</a>
+					<ul <?php if(($this->request->params['controller'] == 'Branches' and $this->request->params['action'] == 'listbranch') or ($this->request->params['controller'] == 'Branches' and $this->request->params['action'] == 'editbranch') or ($this->request->params['controller'] == 'Branches' and $this->request->params['action'] == 'add')) { ?> class="in" <?php } else { ?> class="collapse" <?php } ?> id="pagesr-navbranch">
+						<li><?= $this->Html->link(__('> Branch List'), ['controller'=>'branches', 'action' => 'listbranch']) ?></li>
+						<li><?= $this->Html->link(__('> Add Branch'), ['controller'=>'branches', 'action' => 'add']) ?></li>
+					</ul>
+				</li>
+
+			<?
+		}
+		if($this->request->Session()->read('Auth.User.type') == "bankadmin" && $this->request->Session()->read('Auth.User.provider_id') == 0) {
+			?>
+				<li class="panel <?php if($this->request->params['action'] == 'index'  and $this->request->params['controller']=='Callmes' ) { ?> active <?php } else {?><?php }?>"> <a href="#" data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#pagesr-nav1111"> 
+					<i class="icon-phone"></i> Call Back Requests </a>
+					<ul <?php if($this->request->params['action'] == 'index'  and $this->request->params['controller']=='Callmes') { ?>class="in" <?php } else {?>class="collapse"<?php }?> id="pagesr-nav1111">
+						<li><?= $this->Html->link(__('> Call Me List'), ['controller'=>'callmes','action' => 'index']) ?></li>
+						
+					</ul>
+				</li>	
+
+
+
+                <li class="panel <?php if(($this->request->params['action'] == 'monthlydetails'  and $this->request->params['controller']=='Users') or ($this->request->params['action'] == 'monthly_report'  and $this->request->params['controller']=='Users') or ($this->request->params['action'] == 'clickthrough'  and $this->request->params['controller']=='Users') or ($this->request->params['action'] == 'applyonline'  and $this->request->params['controller']=='Users') or ($this->request->params['action'] == 'clickthroughlist'  and $this->request->params['controller']=='Users') or ($this->request->params['action'] == 'nearesr_branch'  and $this->request->params['controller']=='Users') ) { ?> active <?php } else {?><?php }?>"> <a href="#" data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#pagesr-nav1112"> 
+					<i class="icon-hand-up"></i> Client Leads </a>
+					<ul <?php if(($this->request->params['action'] == 'monthlydetails'  and $this->request->params['controller']=='Users') or ($this->request->params['action'] == 'monthly_report'  and $this->request->params['controller']=='Users') or ($this->request->params['action'] == 'clickthrough'  and $this->request->params['controller']=='Users') or ($this->request->params['action'] == 'applyonline'  and $this->request->params['controller']=='Users') or ($this->request->params['action'] == 'clickthroughlist'  and $this->request->params['controller']=='Users') or ($this->request->params['action'] == 'nearesr_branch'  and $this->request->params['controller']=='Users') ) { ?>class="in" <?php } else {?>class="collapse"<?php }?> id="pagesr-nav1112">
+						<li><?= $this->Html->link(__('> All List'), ['controller'=>'Users','action' => 'clickthroughlist']) ?></li>
+						
+					</ul>
+				</li>
+				
+				<li class="panel <?php if(($this->request->params['action'] == 'sponsor'  and $this->request->params['controller']=='Users') or ($this->request->params['action'] == 'sponsor_monthly_report'  and $this->request->params['controller']=='Users') or ($this->request->params['action'] == 'sponsor_monthlydetails'  and $this->request->params['controller']=='Users')  ) { ?> active <?php } else {?><?php }?>"> <a href="#" data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#pagesr-nav1113"> 
+					<i class="icon-building"></i> Sponsored Listings </a>
+					<ul <?php if(($this->request->params['action'] == 'sponsor'  and $this->request->params['controller']=='Users') or ($this->request->params['action'] == 'sponsor_monthly_report'  and $this->request->params['controller']=='Users') or ($this->request->params['action'] == 'sponsor_monthlydetails'  and $this->request->params['controller']=='Users')) { ?>class="in" <?php } else {?>class="collapse"<?php }?> id="pagesr-nav1113">
+						<li><?= $this->Html->link(__('> All List'), ['controller'=>'Users','action' => 'sponsor/'.$this->request->Session()->read('Auth.User.id')]) ?></li>
+						
+					</ul>
+				</li>
+				
+				<li class="panel <?php if($this->request->params['controller'] == 'advertisements'  and $this->request->params['action']=='myads'){ ?> active <?php } else {?><?php }?>"> <a href="#" data-parent="#menu" data-toggle="collapse" class="accordion-toggle" data-target="#pagesr-nav1114"> 
+					<i class="icon-sort-by-attributes"></i> Banner Ads</a>
+					<ul <?php if(($this->request->params['action'] == 'myads'  and $this->request->params['controller']=='advertisements') or ($this->request->params['action'] == 'sponsor_monthly_report'  and $this->request->params['controller']=='Users') or ($this->request->params['action'] == 'sponsor_monthlydetails'  and $this->request->params['controller']=='Users')) { ?>class="in" <?php } else {?>class="collapse"<?php }?> id="pagesr-nav1114">
+						<li><?= $this->Html->link(__('> All List'), ['controller'=>'advertisements','action' => 'myads/'.$this->request->Session()->read('Auth.User.id')]) ?></li>
+						
+					</ul>
+				</li>
+				
+			<?
+		}
+	  ?>
+	  
+	   <?  
+		if($this->request->Session()->read('Auth.User.type') == "superadmin") {
+			?>
+				<li class="panel <?php if($this->request->params['action'] == 'personalloan' or $this->request->params['action'] == 'homeloan' or $this->request->params['action'] == 'creditcard' or $this->request->params['action'] == 'carloan' or $this->request->params['action'] == 'currentaccount' or $this->request->params['action'] == 'savingsaccount' or $this->request->params['action'] == 'timedeposit'  or $this->request->params['action'] == 'certificate' or $this->request->params['action'] == 'personalKnowMorelist' or $this->request->params['action'] == 'homeKnowMorelist' or $this->request->params['action'] == 'carKnowMorelist' or $this->request->params['action'] == 'creditcardKnowMorelist' or $this->request->params['action'] == 'currentaccountKnowMorelist' or $this->request->params['action'] == 'savingaccountKnowMorelist' or $this->request->params['action'] == 'timedepositKnowMorelist' or $this->request->params['action'] == 'certificateKnowMorelist' or $this->request->params['action'] == 'addknowmore' or ( $this->request->params['controller']=='Bankpages' and $this->request->params['action'] == 'edit' )) { ?> active <?php } else {?><?php }?>"> <a href="#" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#bank-cat"> 
+					<i class="icon-list-alt"></i> Product Knowledge</a>
+					<ul  <?php if($this->request->params['action'] == 'personalloan' or $this->request->params['action'] == 'homeloan' or $this->request->params['action'] == 'creditcard' or $this->request->params['action'] == 'carloan' or $this->request->params['action'] == 'currentaccount' or $this->request->params['action'] == 'savingsaccount' or $this->request->params['action'] == 'timedeposit'  or $this->request->params['action'] == 'certificate' or $this->request->params['action'] == 'personalKnowMorelist' or $this->request->params['action'] == 'homeKnowMorelist' or $this->request->params['action'] == 'carKnowMorelist' or $this->request->params['action'] == 'creditcardKnowMorelist' or $this->request->params['action'] == 'currentaccountKnowMorelist' or $this->request->params['action'] == 'savingaccountKnowMorelist' or $this->request->params['action'] == 'timedepositKnowMorelist' or $this->request->params['action'] == 'certificateKnowMorelist' or $this->request->params['action'] == 'addknowmore' or ( $this->request->params['controller']=='Bankpages' and $this->request->params['action'] == 'edit' )){?>class="in" <?php } else {?>class="collapse"<?php }?> id="bank-cat">
+						<li class=""><a href="<? echo $this->Url->build(["controller" => "bankpages","action" => "personalloan"]);?>"><i class="icon-angle-right"></i> Personal Loan </a></li>					
+						<li class=""><a href="<? echo $this->Url->build(["controller" => "bankpages","action" => "homeloan"]);?>"><i class="icon-angle-right"></i> Home Loan </a></li>
+						<li class=""><a href="<? echo $this->Url->build(["controller" => "bankpages","action" => "carloan"]);?>"><i class="icon-angle-right"></i> Car Loan </a></li>
+						<li class=""><a href="<? echo $this->Url->build(["controller" => "bankpages","action" => "creditcard"]);?>"><i class="icon-angle-right"></i> Credit Card </a></li>
+						<li class=""><a href="<? echo $this->Url->build(["controller" => "bankpages","action" => "currentaccount"]);?>"><i class="icon-angle-right"></i> Current Account </a></li>
+						<li class=""><a href="<? echo $this->Url->build(["controller" => "bankpages","action" => "savingsaccount"]);?>"><i class="icon-angle-right"></i> Saving Account </a></li>
+						<li class=""><a href="<? echo $this->Url->build(["controller" => "bankpages","action" => "timedeposit"]);?>"><i class="icon-angle-right"></i> Time Deposit </a></li>
+						<li class=""><a href="<? echo $this->Url->build(["controller" => "bankpages","action" => "certificate"]);?>"><i class="icon-angle-right"></i> Certificate of Deposit </a></li>
+					</ul>
+				</li>
+				<li class="panel <?php if($this->request->params['action'] == 'index' or $this->request->params['action'] == 'add_news' and $this->request->params['controller']=='sitenews') { ?> active <?php } else {?><?php }?>"> <a href="javascript:void(0);" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#bank-catnews"> 
+					<i class="icon-file-alt"></i> Site News</a>
+					<ul  <?php if($this->request->params['action'] == 'index' or $this->request->params['action'] == 'add_news' and $this->request->params['controller']=='sitenews'){?>class="in" <?php } else {?>class="collapse"<?php }?> id="bank-catnews">
+						<li class=""><a href="<? echo $this->Url->build(["controller" => "sitenews", "action" => "index"]);?>"><i class="icon-angle-right"></i> News List</a></li>					
+						<li class=""><a href="<? echo $this->Url->build(["controller" => "sitenews", "action" => "add_news"]);?>"><i class="icon-angle-right"></i> Add News </a></li>
+					</ul>
+				</li>
+				<li class="panel <?php if($this->request->params['action'] == 'staticpage' or $this->request->params['action'] == 'bankpage' ) { ?> active <?php } else {?><?php }?>"> <a href="javascript:void(0);" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#Page-Statistics"> 
+					<i class="icon-signal"></i> Page Statistics</a>
+					<ul  <?php if($this->request->params['action'] == 'staticpage' or $this->request->params['action'] == 'bankpage' ){?>class="in" <?php } else {?>class="collapse"<?php }?> id="Page-Statistics">
+						<li class=""><a href="<? echo $this->Url->build(["controller" => "statistics", "action" => "staticpage"]);?>"><i class="icon-angle-right"></i> Static Page</a></li>					
+						<li class=""><a href="<? echo $this->Url->build(["controller" => "statistics", "action" => "bankpage"]);?>"><i class="icon-angle-right"></i> Bank Page </a></li>
+					</ul>
+				</li>
+				<li class="panel <?php if($this->request->params['action'] == 'homepage' and $this->request->params['controller']=='adminpages') { ?> active <?php } else {?><?php }?>"> <a href="javascript:void(0);" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#bank-adminpage"> 
+					<i class="icon-leaf"></i> Home Page Content</a>
+					<ul  <?php if($this->request->params['action'] == 'homepage' and $this->request->params['controller']=='adminpages'){?>class="in" <?php } else {?>class="collapse"<?php }?> id="bank-adminpage">
+						<li class=""><a href="<? echo $this->Url->build(["controller" => "adminpages", "action" => "homepage"]);?>"><i class="icon-angle-right"></i> Home Page Content</a></li>					
+						<!--<li class=""><a href="<? echo $this->Url->build(["controller" => "sitenews", "action" => "add_news"]);?>"><i class="icon-angle-right"></i> Add News </a></li>-->
+					</ul>
+				</li>
+				
+				<li class="panel <?php if( $this->request->params['action'] == 'index' or $this->request->params['action'] == 'add' or $this->request->params['action'] == 'edit'  ) { ?> active <?php } else {?><?php }?>"> <a href="#" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#menuadv"> 
+					<i class="icon-github-alt"></i> Banner Ads</a>
+					<ul <?php if($this->request->params['action'] == 'index' or $this->request->params['action'] == 'add' or $this->request->params['action'] == 'edit' ) { ?>class="in" <?php } else {?>class="collapse"<?php }?> id="menuadv">
+						<li class=""><a href="<? echo $this->Url->build(["controller" => "Advertisements","action" => "index"]);?>"><i class="icon-angle-right"></i> List </a></li>					
+						<li class=""><a href="<? echo $this->Url->build(["controller" => "Advertisements","action" => "add"]);?>"><i class="icon-angle-right"></i> Add  </a></li>
+					</ul>
+				</li>
+				
+				
+			<?php	
+		 }
+		?>
+		
+		
+		 <?  
+		if($this->request->Session()->read('Auth.User.type') == "superadmin") {
+			?>
+				<!--<li class="panel  <?php if($this->request->params['action'] == 'index' and $this->request->params['controller']=='News'){ ?> active <?php } else {?><?php }?>"> <a href="<? echo $this->Url->build(["controller" => "news","action" => "index"]);?>" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#news-cat"> 
+					<i class="icon-file-text"></i> Newsletter</a>
+				
+				</li>-->
+				
+				
+
+
+<!--<li class="panel""><a href="/img/qarenhom.zip" download="qarenhom">Download File</a></li>
+
+<li class="panel""><a href="/img/xigmhyfm_ckquarenhom.sql" download="database">Download Database</a></li>-->
+				
+				
+				
+			<?php	
+		 }
+		?>
+      
+	  
+    </ul>
+  </div>
+  <!--END MENU SECTION --> 
