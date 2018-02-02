@@ -38,7 +38,7 @@
 								<p><?php echo $items['foodname']?></p></a>
 								<p><?php echo $items['description']?></p>
                                 <span class="addtokrt"></span>
-								<span class="food-time"><i class="icon-inr" style="colour:rgb(231, 76, 60);"><?php echo $items['price']?></span>
+								<span class="food-time">Rs.<?php echo $items['price']?></span>
                                 <span class="price hidden"><?php echo $items['price']?></span>
                                 <span class="item_<?php echo $items['id']?> hidden"></span>
                                 <span class="name hidden"><?php echo $items['foodname']?></span>
