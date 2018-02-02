@@ -74,10 +74,12 @@
 		<!--End Get in Touch-->
 		
 		
-		<!--Start Map-->
+        <!--Start Map-->
+        <!--
 			<div id='map'>
 				<div id='find-us'></div>
-			</div>
+            </div>
+-->
 		<!--End Map-->
 					
 		
