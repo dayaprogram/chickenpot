@@ -1,9 +1,10 @@
 <!-- for-mobile-apps -->
 <!DOCTYPE html>
 <html><head>
-        <title>Welcome to Pearl</title>
-        <meta name="keywords" content="">
-        <meta name="description" content="">
+        <title>Chickenpot</title>
+        <meta name="keywords" content="chickenpot,chicken,pot,Amritsaria Kulcha,Plan Paratha,Sabji,Aloo Paratha ,Curd,Egg Bhurji ,slice Bread,Boil Egg,Puri,Stuff Bread Role">
+        <meta name="description" content="Order on 9888529294,9888429294. Order from Chickenpot online in Jalandhar | Home delivery Chickenpot menu.|
+        you will be amazed to test the magic of chicken in the clay pot.">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		
@@ -19,16 +20,16 @@
         <link href="<?php echo $this->request->webroot; ?>chickenpot/css/owl.carousel.css" rel="stylesheet">
         <link href="<?php echo $this->request->webroot; ?>chickenpot/css/date-pick.css" rel="stylesheet">
         <link href="<?php echo $this->request->webroot; ?>chickenpot/css/jquery.mmenu.all.css" rel="stylesheet">
-		 <link href="<?php echo $this->request->webroot; ?>chickenpot/css/cubeportfolio.css" rel="stylesheet" type="text/css"> 
+		<link href="<?php echo $this->request->webroot; ?>chickenpot/css/cubeportfolio.css" rel="stylesheet" type="text/css"> 
         <link href="<?php echo $this->request->webroot; ?>chickenpot/css/Tabs.css" rel="stylesheet" type="text/css"> 
-         <link href="<?php echo $this->request->webroot; ?>css/bootstrap.css" rel="stylesheet" type="text/css"> 
-		 <link href="<?php echo $this->request->webroot; ?>chickenpot/css/selectbar.css" rel="stylesheet" type="text/css">
+        <link href="<?php echo $this->request->webroot; ?>css/bootstrap.css" rel="stylesheet" type="text/css"> 
+		<link href="<?php echo $this->request->webroot; ?>chickenpot/css/selectbar.css" rel="stylesheet" type="text/css">
         
  
 
-        <!---js-->
+        <!--js-->
         <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/jquery.min.js"></script>
-		 <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/form-dropdown.js"></script>
+		<script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/form-dropdown.js"></script>
 
 
         <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/jquery.js"></script>
@@ -54,10 +55,6 @@
 
         <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/cart-detail.js"></script>
 
-
-
-
-
         <!-- START REVOLUTION SLIDER -->
 
         <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/jquery.themepunch.revolution.min.js"></script>
@@ -65,11 +62,9 @@
         <!-- Mobile Menu -->
         <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/jquery.mmenu.min.all.js"></script>
 
-
         <!-- Gallery Portfolio -->	
         <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/jquery.cubeportfolio.min.js"></script>
         <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/main.js"></script>
-
 
         <!-- All Scripts -->
         <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/custom.js"></script> 
@@ -92,13 +87,8 @@
                  background: rgba( 255, 255, 255, .8 ) url(../../assets/images/loader1.gif) 50% 50% no-repeat;
             }
         </style>
-
-
     </head>
     <body>
-
-
-
         <div id="wrap">
 
             <!--Start PreLoader-->
@@ -124,39 +114,13 @@
 
                         <nav class="menu-5 nav">
                             <ul class="wtf-menu">
-                                <li><a href="<?php echo $this->Url->build(["controller" => "Users",   "action" => "index"]);?>">Home</a>
-                                  <!--  <ul class="submenu">
-                                        <li> <a href="#" class="select">Home 1</a> </li>
-                                        <li> <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "home2"]); ?>">Home 2</a> </li>
-                                    </ul>
--->
-                                </li>
-
+                                <li><a href="<?php echo $this->Url->build(["controller" => "Users",   "action" => "index"]);?>">Home</a></li>
                                 <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "ourstory"]); ?>">our story</a></li>
-
-
-                                <li class="parent"><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "blog"]); ?>">Blog</a>
-
-                                    <!--ul class="submenu">
-                    <li><a href="blog.html">blog 1</a></li>
-                                            <li><a href="blog2.html">blog 2</a></li>
-                                    </ul-->
-
-                                </li>
-
-
-                                <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "contactus"]); ?>">contact us</a>
-
-                                    <!--ul class="submenu">
-                                            <li><a href="contact-us.html">contact-us 1</a></li>
-                                            <li><a href="contact-us2.html">contact-us 2</a></li>
-                                    </ul-->
-
-                                </li>
-
+                                <li class="parent"><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "blog"]); ?>">Blog</a></li>
+                                <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "contactus"]); ?>">contact us</a></li>
                                 <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "shop"]); ?>">online order</a></li>
                                 <?php if(!empty($user_details)){?>
-								 <li><a href="<?php echo $this->Url->build(["resturent" => "Users",   "action" => "logout"]);?>"  type="button" >Log Out</a></li>
+								    <li><a href="<?php echo $this->Url->build(["resturent" => "Users",   "action" => "logout"]);?>"  type="button" >Log Out</a></li>
 								<?php } else{?>
 								 <li><a href="<?php echo $this->Url->build(["controller" => "users", "action" => "signin"]); ?>">Log In</a></li>
 								  <?php } ?>
@@ -195,11 +159,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                
                                     <?php }
                                 } else {
                                     ?>
-                                    <h7>No food added to your cart.</h7>
+                                    <h7>No food added in your cart.</h7>
                                 <?php }
                                 ?>
                                 <div class="sub-total">
@@ -211,13 +174,12 @@
                                         <a href="#." class="check-out">Check Out</a>
                                     </div>
                                 </div>
-
-
                             </li>
                         </ul>
 
                         <ul class="get-touch">
-                            <li class="contact-no"><a><i class="icon-telephone-receiver"></i> <span>+123 55 33 444</span></a></li>
+                            <li class="contact-no"><a><i class="icon-telephone-receiver"></i>
+                            <span>+91-9888529294</span></a></li>
                         </ul>
                     </div>
                 </div>
@@ -229,49 +191,26 @@
                     <header class="header">
                         <a href="#menu"></a>
                     </header>
-
                     <nav id="menu">
                         <ul>
-                            <li class="select"><a href="#.">Home</a>
-                                <ul>
-                                    <li class="select"> <a href="index.html">Home Page 1</a> </li>
-                                    <li> <a href="index2.html">Home Page 2</a> </li>
-                                </ul>
-                            </li>
-                            <li><a href="#.">Fresh Menu</a>
-                                <ul>
-                                    <li> <a href="menu.html">Menu 1</a> </li>
-                                    <li> <a href="menu2.html">Menu 2</a> </li>
-                                    <li> <a href="menu3.html">Menu 3</a> </li>
-                                </ul>
-                            </li>
-
-                            <li><a href="our-story.html">Our Story</a></li>
-
-
-                            <li><a href="#.">Blog</a>
-                                <ul>
-                                    <li> <a href="blog.html">Blog 1</a> </li>
-                                    <li> <a href="blog2.html">Blog 2</a> </li>
-                                </ul>
-                            </li>
-
-                            <li><a href="#.">Contact Us</a>
-                                <ul>
-                                    <li> <a href="contact-us.html">Contact-us 1</a> </li>
-                                    <li> <a href="contact-us2.html">Contact-us 2</a> </li>
-                                </ul>
-                            </li>
-
-                            <li><a href="shop.html">Order Online</a></li>
-                            <li><a href="#book-table">Book a Table</a></li>
+                        <li><a href="<?php echo $this->Url->build(["controller" => "Users",   "action" => "index"]);?>">Home</a></li>
+                        <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "ourstory"]); ?>">our story</a></li>
+                        <li class="parent"><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "blog"]); ?>">Blog</a></li>
+                        <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "contactus"]); ?>">contact us</a></li>
+                        <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "shop"]); ?>">online order</a></li>
+                        <?php if(!empty($user_details)){?>
+							<li><a href="<?php echo $this->Url->build(["resturent" => "Users",   "action" => "logout"]);?>"  type="button" >Log Out</a></li>
+						<?php } else{?>
+						    <li><a href="<?php echo $this->Url->build(["controller" => "users", "action" => "signin"]); ?>">Log In</a></li>
+						<?php } ?>
+                            <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "signup"]); ?>" >SIGNUP</a></li>
                         </ul>
                     </nav>
                 </div>
             </div>
-            <!-- Mobile Menu End -->
+<!-- Mobile Menu End -->
             
-             <!-- Modal -->
+<!-- Modal -->
 <div class="modal fade loginModal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
@@ -303,7 +242,7 @@
   </div>
 </div>
             
-            <!---Register---->
+<!--Register-->
 <div class="modal fade loginModal" id="register" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
@@ -336,7 +275,7 @@
   </div>
 </div>
 
-<!-----End Register----->
+<!--End Register-->
 
 
             <script>

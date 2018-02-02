@@ -328,7 +328,7 @@ class resturentController extends AppController {
 //                            $this->request->session('cart_item')[$k]["quantity"] += $_POST["quantity"];
 //                        }
 //                    }
-                    $krt = $this->cartview();
+                   // $krt = $this->cartview();
                     echo '{"code":"0","msg":"You have already added in your cart!","cartvalue":'.$krt.'}';
                 } else {
                     $arr = array_merge($this->Session->read('cart_item'), $itemArray);

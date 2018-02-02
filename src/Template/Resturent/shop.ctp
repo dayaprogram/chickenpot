@@ -34,15 +34,19 @@
 						<div class="food-sec">
 							<img src="<?php echo $this->Url->build('/food_image/'.$items->image); ?>" alt="">
 							<div class="detail">
-                                                                  <span class="addtokrt"></span>
-								<span class="food-time">Rs.<?php echo $items['price']?></span>
-                                                                <span class="price hidden"><?php echo $items['price']?></span>
-                                                                <span class="item_<?php echo $items['id']?> hidden"></span>
-                                                                <span class="name hidden"><?php echo $items['foodname']?></span><br/>
-                                                                Quantity : <input type="number" min="1" class="quantity" value="1" style="width:40px;"/>
-								<span class="small-tit"><a href="javascript:;" class="btn btn-success" onclick="addtocart(<?php echo $items['id']?>)">ADD TO CART</a></span>
-								<a href="<?php echo $this->Url->build(["action" => "details", $items->id]); ?>"><h6><?php echo $items['foodname']?></h6></a>
+							<a href="<?php echo $this->Url->build(["action" => "details", $items->id]); ?>">
+								<p><?php echo $items['foodname']?></p></a>
 								<p><?php echo $items['description']?></p>
+                                <span class="addtokrt"></span>
+								<span class="food-time"><i class="icon-inr" style="colour:rgb(231, 76, 60);"><?php echo $items['price']?></span>
+                                <span class="price hidden"><?php echo $items['price']?></span>
+                                <span class="item_<?php echo $items['id']?> hidden"></span>
+                                <span class="name hidden"><?php echo $items['foodname']?></span>
+								<br/>
+                                Quantity : <input type="number" min="1" class="quantity" value="1" style="width:40px;"/>
+								<span class="small-tit"><a href="javascript:;" class="btn btn-success" 
+								onclick="addtocart(<?php echo $items['id']?>)">ADD TO CART</a></span>
+						
 							</div>
 						</div>
 					</div>
