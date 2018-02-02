@@ -92,15 +92,15 @@
         <div id="wrap">
 
             <!--Start PreLoader-->
-            <!--div id="preloader">
-                         <div id="status">&nbsp;</div>
-                         <div class="loader">
-                                 <h1>Loading...</h1>
-                                 <span></span>
-                                 <span></span>
-                                 <span></span>
-                         </div>
-                 </div-->
+          <div id="preloader">
+            <div id="status">&nbsp;</div>
+                <div class="loader">
+                    <h1>Loading...</h1>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
             <!--End PreLoader--> 
 
             <!--Start Header-->
@@ -116,11 +116,13 @@
                             <ul class="wtf-menu">
                                 <li><a href="<?php echo $this->Url->build(["controller" => "Users",   "action" => "index"]);?>">Home</a></li>
                                 <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "ourstory"]); ?>">our story</a></li>
+                                <!--
                                 <li class="parent"><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "blog"]); ?>">Blog</a></li>
+                                -->
                                 <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "contactus"]); ?>">contact us</a></li>
-                                <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "shop"]); ?>">online order</a></li>
+                                <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "shop"]); ?>"><strong style="color: #90EE90;">online order</strong></a></li>
                                 <?php if(!empty($user_details)){?>
-								    <li><a href="<?php echo $this->Url->build(["resturent" => "Users",   "action" => "logout"]);?>"  type="button" >Log Out</a></li>
+								    <li><a href="<?php echo $this->Url->build(["resturent" => "Users",   "action" => "logout"]);?>" type="button" >Log Out</a></li>
 								<?php } else{?>
 								 <li><a href="<?php echo $this->Url->build(["controller" => "users", "action" => "signin"]); ?>">Log In</a></li>
 								  <?php } ?>
@@ -195,9 +197,11 @@
                         <ul>
                         <li><a href="<?php echo $this->Url->build(["controller" => "Users",   "action" => "index"]);?>">Home</a></li>
                         <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "ourstory"]); ?>">our story</a></li>
-                        <li class="parent"><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "blog"]); ?>">Blog</a></li>
+                        <!--
+                            <li class="parent"><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "blog"]); ?>">Blog</a></li>
+                        -->
                         <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "contactus"]); ?>">contact us</a></li>
-                        <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "shop"]); ?>">online order</a></li>
+                        <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "shop"]); ?>"><strong style="color: #90EE90;">online order</strong></a></li>
                         <?php if(!empty($user_details)){?>
 							<li><a href="<?php echo $this->Url->build(["resturent" => "Users",   "action" => "logout"]);?>"  type="button" >Log Out</a></li>
 						<?php } else{?>
