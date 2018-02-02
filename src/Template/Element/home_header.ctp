@@ -92,6 +92,7 @@
         <div id="wrap">
 
             <!--Start PreLoader-->
+            <!--
           <div id="preloader">
             <div id="status">&nbsp;</div>
                 <div class="loader">
@@ -101,6 +102,7 @@
                     <span></span>
                 </div>
             </div>
+        -->
             <!--End PreLoader--> 
 
             <!--Start Header-->
