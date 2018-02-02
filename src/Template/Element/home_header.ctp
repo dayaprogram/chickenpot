@@ -124,21 +124,13 @@
 
                         <nav class="menu-5 nav">
                             <ul class="wtf-menu">
-                                <li class="select-item"><a href="<?php echo $this->Url->build(["resturent" => "Users",   "action" => "index"]);?>">Home</a>
-                                    <ul class="submenu">
+                                <li><a href="<?php echo $this->Url->build(["controller" => "Users",   "action" => "index"]);?>">Home</a>
+                                  <!--  <ul class="submenu">
                                         <li> <a href="#" class="select">Home 1</a> </li>
                                         <li> <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "home2"]); ?>">Home 2</a> </li>
                                     </ul>
+-->
                                 </li>
-
-<!--                                <li><a href="<?php echo $this->request->webroot; ?>resturent/menu">Menu</a>
-
-                                    ul class="submenu">
-                                            <li> <a href="menu.html">menu 1</a> </li>
-                                            <li> <a href="menu2.html">menu 2</a> </li>
-                                            <li> <a href="menu3.html">menu 3</a> </li>
-                                    </ul
-                                </li>-->
 
                                 <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "ourstory"]); ?>">our story</a></li>
 
