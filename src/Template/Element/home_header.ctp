@@ -26,7 +26,7 @@
         
  
 
-        <!---js----->
+        <!---js-->
         <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/jquery.min.js"></script>
 		 <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/form-dropdown.js"></script>
 
@@ -124,7 +124,7 @@
 
                         <nav class="menu-5 nav">
                             <ul class="wtf-menu">
-                                <li class="select-item"><a href="#.">Home</a>
+                                <li class="select-item"><a href="<?php echo $this->Url->build(["resturent" => "Users",   "action" => "index"]);?>">Home</a>
                                     <ul class="submenu">
                                         <li> <a href="#" class="select">Home 1</a> </li>
                                         <li> <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "home2"]); ?>">Home 2</a> </li>
@@ -207,7 +207,7 @@
                                     <?php }
                                 } else {
                                     ?>
-                                    <h7>No Card added to your account.</h7>
+                                    <h7>No food added to your cart.</h7>
                                 <?php }
                                 ?>
                                 <div class="sub-total">
@@ -236,7 +236,6 @@
                 <div id="page">
                     <header class="header">
                         <a href="#menu"></a>
-
                     </header>
 
                     <nav id="menu">
