@@ -109,8 +109,8 @@
 
             <header class="header-two">
                 <div class="container">
-                    <a href="index.html"><img class="logo2" src="images/logo2.png" alt=""></a>
-                    <a href="index.html"><img class="logo-dark" src="images/logo-dark.png" alt=""></a>
+                    <a href="index.html"><img class="logo2" src="<?php echo $this->request->webroot; ?>chickenpot/images/slides/logo2.png" alt="chickenpot logo"></a>
+                    <a href="index.html"><img class="logo-dark" src="<?php echo $this->request->webroot; ?>chickenpot/images/slides/logo-dark.png" alt="chickenpot logo"></a>
 
                     <div class="cont-right">
 
@@ -131,12 +131,17 @@
                                 <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "signup"]); ?>" >SIGNUP</a></li>
                             </ul>	
                         </nav>
+                        <ul class="social-icons">
+                            <li><a href="#."><i class="icon-facebook-1"></i></a></li>
+                        </ul>
 
-<!--                        <ul class="social-icons">
+                    <!--          
+                        <ul class="social-icons">
                             <li><a href="#."><i class="icon-facebook-1"></i></a></li>
                             <li><a href="#."><i class="icon-twitter-1"></i></a></li>
                             <li><a href="#."><i class="icon-google"></i></a></li>
-                        </ul>-->
+                        </ul>
+                    -->
                         <div class="modal-ax"></div>
                         <ul class="shop-bag">
                             <li class="close-bag"><a class="cart-button"><i class="icon-icons163"></i> <span class="num"><?php echo count($this->request->session()->read('cart_item'));?></span></a></li>
@@ -171,11 +176,11 @@
                                 ?>
                                 <div class="sub-total">
                                     
-                                    <span>SUBTOTAL: <strong>$<?= $subtotal ?></strong></span>
+                                    <span>SUBTOTAL: <strong><?= $subtotal ?></strong></span>
                                     <span id="newtotal"></span>
                                     <div class="buttons">
-                                        <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "viewcart"]); ?>" class="view-cart">view cart</a>
-                                        <a href="#." class="check-out">Check Out</a>
+                                        <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "shop"]); ?>" class="view-cart">More Food</a>
+                                        <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "viewcart"]); ?>" class="check-out">Check Out</a>
                                     </div>
                                 </div>
                             </li>

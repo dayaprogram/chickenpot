@@ -59,21 +59,6 @@
    <!--End Content-->
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script>
 function addtocart(id){
 var foodprice = $('span.item_'+id).parent().find('span.price').text();

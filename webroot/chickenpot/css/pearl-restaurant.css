@@ -526,9 +526,9 @@ text-transform: uppercase; font-weight: 800; float: left; border: none; margin: 
 
 
 /*..... SUB BANNER ......*/
-.sub-banner{ height:505px; min-height:505px;}
+.sub-banner{ height:370px; min-height:370px;}
 .sub-banner .banner-img{ background:url(../images/slides/banner6.jpg) no-repeat; width:100%; height:100%; background-size: cover;}
-.sub-banner .detail { position: absolute; top:220px; text-align: center; width: 100%;     display: block;}
+.sub-banner .detail { position: absolute; top:160px; text-align: center; width: 100%;     display: block;}
 .sub-banner .detail h1{ color:#fff; display: block;}
 .sub-banner .detail span{color:#fff; font-size: 20px; display: block;}
 .sub-banner .detail ul{ float:right; margin:110px 0 0 0;}
