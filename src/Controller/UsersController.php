@@ -66,6 +66,7 @@ class UsersController extends AppController {
         $select_location = $this->Area_master->find()->toArray();
          if ($this->request->is(['patch', 'post', 'put'])) {
              echo 'hello'; die;
+             
          }
         $this->set(compact('select_location'));
        // pr($select_location); die;
