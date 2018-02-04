@@ -46,11 +46,8 @@
                                                                     <form class="form-signup login-form" method="post" >
 									<div class="form">
 										 <input type="text" name="phone" id="phone" class="form-control"  maxlength="15" placeholder="Enter your mobile no" required>
-                                                                                   <input type="text" name="password" id="password" class="form-control" placeholder="Enter your password" required>
-                                                                                 <button type="submit" class="btn btn-primary btn-md btn-block">Log In</button>
-                                        
-										<a href="shipping-method.html" class="next-step">Continue to shipping method</a>
-
+                                                                                 <input type="text" name="password" id="password" class="form-control" placeholder="Enter your password" required>
+                                                                                 <button type="submit" class="btn btn-primary btn-md btn-block next-step">Log In</button>
 									</div>
                                                                            </form>
 									

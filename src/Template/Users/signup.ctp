@@ -53,15 +53,12 @@
                                                                                   <p>Fill your address</p>
 										<textarea name="address" id="address" class="form-control" placeholder="Enter your address" required>
                                                                                      </textarea>									
-                                                                                  <button type="submit" class="btn btn-primary btn-md btn-block">Sign Up</button>
-                                        
-										<a href="shipping-method.html" class="next-step">Continue to shipping method</a>
-
+                                                                                  <button type="submit" class="btn btn-primary btn-md btn-block next-step">Sign Up</button>
 									</div>]
                                                                            </form>
 									
 									<div class="already-account">
-										<span>Already have an account with us? <a href="#.">Login</a></span>
+										<span>Already have an account with us? <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "signup"]); ?>">Login</a></span>
 									</div>
 									
 								</div>

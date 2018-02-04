@@ -2395,7 +2395,7 @@ zoom: 1;
  
   border: 1px solid rgba(black,.15);
   border-radius: 2px;
-  color: rgba(black,.5); // let the background color shine through
+  color: rgba(black,.5); 
   
   &.notify--pinned{
     position: absolute;
@@ -2408,16 +2408,16 @@ zoom: 1;
   }
   
   &.notify--danger{
-    background: $red;
+    background: red;
   }
   &.notify--warning{
-    background: $orange;
+    background: orange;
   }
   &.notify--success{
-    background: $green;
+    background: green;
   }
   &.notify--info{
-    background: $blue;
+    background: blue;
   }
   
   &.notify--dismissible{

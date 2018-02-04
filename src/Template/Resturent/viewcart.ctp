@@ -56,7 +56,7 @@
 							<div class="cart-pro-detail">
 
 								<div class="food-pro">
-									<img src="images/menu/dish-img1.jpg" alt="">
+									<img src="<?php echo $data['image']; ?>" alt="">
 									<span>
 										<?php echo $data['foodname']; ?>
 									</span>
@@ -94,7 +94,7 @@
 									 value="Enter Coupon Code">
 									<a href="#.">apply coupon</a>
 								</div>
-								<a href="<?php echo $this->Url->build([" controller " => "resturent ", "action " => "shop "]); ?>" class="update-cart">update cart</a>
+								<a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "shop"]); ?>" class="update-cart">update cart</a>
 							</div>
 					</div>
 				</div>
@@ -135,15 +135,15 @@
 								</div>
 								<div class="order-total">
 									<span class="left">Order Total</span>
-									<span class="right">
+									<span class="right"><i class="icon-inr"></i>
 										<?= $subtotal ?>
 									</span>
 								</div>
 								<?php if(!empty($user_details)){?>
 
-								<a href="<?php echo $this->Url->build([" controller " => "resturent ", "action " => "checkout "]); ?>" onclick="checkout();">proceed to checkout</a>
+								<a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "checkout"]); ?>" onclick="checkout();">proceed to checkout</a>
 								<?php } else{?>
-								<a href="<?php echo $this->Url->build([" controller " => "users ", "action " => "signin "]); ?>">proceed to checkout</a>
+								<a href="<?php echo $this->Url->build(["controller" => "users", "action" => "signin"]); ?>">proceed to checkout</a>
 								<?php }?>
 
 							</div>

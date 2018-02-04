@@ -1,5 +1,5 @@
 
-<!-- Mobile Menu -->				
+// Mobile Menu -->				
 $(document).ready(function() {
 "use strict";
 $("#menu").mmenu({
@@ -23,9 +23,9 @@ $("#menu").mmenu({
 
 
 
-<!-- Sticky Header -->
+// Sticky Header -->
 
-<!-- Header One -->
+// Header One -->
 $(window).scroll(function() {
     if ($(this).scrollTop() > 1){  
         $('header').addClass("sticky");
@@ -36,7 +36,7 @@ $(window).scroll(function() {
 });
 
 
-<!-- Header Two -->
+// Header Two -->
 $(window).scroll(function() {
     if ($(this).scrollTop() > 1){  
         $('.header-two').addClass("sticky");
@@ -51,7 +51,7 @@ $(window).scroll(function() {
 
 
 
-<!-- Smooth Scrol -->	 
+// Smooth Scrol -->	 
 $(function(){
 
 var $window = $(window);		//Window object
@@ -82,8 +82,8 @@ overwrite: 5
 
 
 
-<!-- All Carousel -->
-<!-- Home News-Posts Carousel -->
+// All Carousel -->
+// Home News-Posts Carousel -->
 $("#owl-demo").owlCarousel({
 items :3,
 lazyLoad : true,
@@ -92,7 +92,7 @@ navigation : true
 
 
 
-<!-- Pearl Tour -->
+// Pearl Tour -->
 $(document).ready(function() {
  
   $("#tour").owlCarousel({
@@ -117,7 +117,7 @@ $(document).ready(function() {
 
 
 
-<!-- About Hotel -->
+//- About Hotel -->
 $(document).ready(function() {
  
   $("#hotel-view").owlCarousel({
@@ -144,7 +144,7 @@ $(document).ready(function() {
 
 
 
-<!-- Welcome Text -->
+//<!-- Welcome Text -->
 
 $("#special-services").owlCarousel({
 items :2,
@@ -171,7 +171,7 @@ jQuery('body').delay(350).css({'overflow':'visible'});
 
 
 
-<!-- Back to Top -->
+//<!-- Back to Top -->
 jQuery(document).ready(function($){
 // browser window scroll (in pixels) after which the "back to top" link is shown
 var offset = 300,
@@ -229,7 +229,7 @@ $('a[href^="#"]').on('click', function(event) {
 
 
 
-<!-- Shop Cart Bag -->
+//<!-- Shop Cart Bag -->
 //Accordian Action
 var action = 'click';
 var speed = "500";
@@ -264,7 +264,7 @@ var img = $(this).children('img');
 
 
 
-<!-- Upcoming Event Coundown -->
+//<!-- Upcoming Event Coundown -->
 $('#example').countdown({
 			date: '5/29/2019 23:59:59',
 			offset: -8,
@@ -281,7 +281,7 @@ $('#example').countdown({
 
 
 
-<!-- Home News-Posts Carousel -->
+//<!-- Home News-Posts Carousel -->
 $("#owl-demo").owlCarousel({
 items :3,
 lazyLoad : true,
@@ -290,7 +290,7 @@ navigation : true
 
 
 
-<!-- Testimonials Carousel -->
+//<!-- Testimonials Carousel -->
 $("#owl-demo2").owlCarousel({
 autoPlay : 111110,
 stopOnHover : true,
@@ -303,7 +303,7 @@ autoHeight : true,
 });
 
 
-<!-- Blog images slide Carousel -->
+//<!-- Blog images slide Carousel -->
 $("#blog-slide").owlCarousel({
 
 navigation : true,
@@ -341,7 +341,7 @@ singleItem : true
 
 
 
-<!-- Form Validator -->
+//<!-- Form Validator -->
 
 
 // JavaScript Document
@@ -365,20 +365,20 @@ function checkcontact(input)
 	var email_address = document.getElementById("email_address");
 	var msg = document.getElementById("msg");
 	
-	 if(name.value == "" || name.value == "Your Name"){
+	 if(name.value === "" || name.value === "Your Name"){
 				name.className = "error";
 				return false; 
 		}
-	 else if(email_address.value == "" || email_address.value == "E-mail Address"){
+	 else if(email_address.value === "" || email_address.value === "E-mail Address"){
 				email_address.className = "last error";
 				return false; 
 		}
 		
-	else if(checkcontact(email_address.value) == false){
+	else if(checkcontact(email_address.value) === false){
 				email_address.className = "last error";
 				return false; 
 	   }
-	else if(msg.value == "" || msg.value == "Message"){
+	else if(msg.value === "" || msg.value === "Message"){
 				msg.className = "error";
 				return false; 
 	   }
@@ -425,28 +425,28 @@ function checkcontact(input)
 	var reserv_email   = document.getElementById("reserv_email");
 	var reserv_phone   = document.getElementById("reserv_phone");
 
-	 if(reserv_name.value == "" || reserv_name.value == "Your Name"){
+	 if(reserv_name.value === "" || reserv_name.value === "Your Name"){
 		errors+= 'Please provide your name.<br />';
 		}
-	 else if(datepicker.value == "" || datepicker.value == "Choose A Date"){
+	 else if(datepicker.value === "" || datepicker.value === "Choose A Date"){
 		errors+= 'Please select a booking date.<br />';
 		}
 
-	 else if(reserv_time.value == "" || reserv_time.value == "Choose A Time"){
+	 else if(reserv_time.value === "" || reserv_time.value === "Choose A Time"){
 		errors+= 'Please select booking time.<br />';
 		}
-	 else if(reserv_persons.value == "" || reserv_persons.value == "Persons"){
+	 else if(reserv_persons.value === "" || reserv_persons.value === "Persons"){
 		errors+= 'Please select number of persons.<br />';
 		}
-	 else if(reserv_email.value == "" || reserv_email.value == "Email Address"){
+	 else if(reserv_email.value === "" || reserv_email.value === "Email Address"){
 		errors+= 'Please provide an email address.<br />';
 		}
 
 		
-	else if(checkcontact(reserv_email.value) == false){
+	else if(checkcontact(reserv_email.value) === false){
 		errors+= 'Please provide a valid email address.<br />';
 	   }
-	else if(reserv_phone.value == "" || reserv_phone.value == "Phone No"){
+	else if(reserv_phone.value === "" || reserv_phone.value === "Phone No"){
 	   errors+= 'Please provide your phone no.<br />';
 	   }
 	
@@ -493,17 +493,17 @@ function checkcontact(input)
 	var name = document.getElementById("name");
 	var email_address = document.getElementById("email_address");
 	var msg = document.getElementById("msg");
-			 if(name.value!="" && name.value!="Your Name")
+			 if(name.value!=="" && name.value!=="Your Name")
 			 {
 				name.className = "";
 				
-			 }   if(email_address.value != "" && email_address.value != "E-mail Address"){
+			 }   if(email_address.value !== "" && email_address.value !== "E-mail Address"){
 				email_address.className = "";
 				
-			} if(checkcontact(email_address.value) != true){
+			} if(checkcontact(email_address.value) !== true){
 				email_address.className = "";
 					
-			} if(msg.value != "" && msg.value != "Message"){
+			} if(msg.value !== "" && msg.value !== "Message"){
 					msg.className = "";
 					
 			} 
@@ -513,12 +513,12 @@ function checkcontact(input)
 	var errors= "";
 	var nws_email_address = document.getElementById("nws_email_address");
 	
-	 if(nws_email_address.value == "" || nws_email_address.value == "Enter your e-mail address"){
+	 if(nws_email_address.value === "" || nws_email_address.value === "Enter your e-mail address"){
 				nws_email_address.className = "error";
 				return false; 
 		}
 		
-	else if(checkcontact(nws_email_address.value) == false){
+	else if(checkcontact(nws_email_address.value) === false){
 				nws_email_address.className = "error";
 				return false; 
 	   }
@@ -552,10 +552,10 @@ function checkcontact(input)
 		function remove_newsletter_errors()
 	{
 	var nws_email_address= document.getElementById("nws_email_address");
-			  if(nws_email_address.value != "" && nws_email_address.value != "Enter your e-mail address"){
+			  if(nws_email_address.value !== "" && nws_email_address.value !== "Enter your e-mail address"){
 				nws_email_address.className = "";
 				
-			} if(checkcontact(nws_email_address.value) != true){
+			} if(checkcontact(nws_email_address.value) !== true){
 				nws_email_address.className = "";
 			}
 					

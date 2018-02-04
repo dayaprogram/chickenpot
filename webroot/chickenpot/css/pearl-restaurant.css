@@ -258,7 +258,7 @@ img:hover {transition: background-color 0.5s ease; }
 .arrow-scroll {}
 .arrow-scroll img{ width:43px; height:36px;}
 .scroll-down{ position: absolute; left: 49.2%; bottom:110px; z-index: 5555;}
-.scroll-down.bounce { //bounce animation position:relative; //top:1em; Transform: translateY(4em); animation-name: bounce; animation-timing-function: ease-in;		animation-duration:2.5s; animation-iteration-count: infinite; animation-direction: alternate;}
+.scroll-down.bounce { position:relative; top:1em; transform: translateY(4em); animation-name: bounce; animation-timing-function: ease-in;		animation-duration:2.5s; animation-iteration-count: infinite; animation-direction: alternate;}
 
 
 /*..... MAIN TITLE ......*/
@@ -285,7 +285,7 @@ img:hover {transition: background-color 0.5s ease; }
  box-shadow:0 0 4px 0 rgba(0, 0, 0, 0.3);}
 .today-special-detail .main-sec .detail span.title{ font-family: 'Tangerine', cursive; font-size:70px; padding: 0 0 70px 0;
  background: url(../images/heading-dark.png) no-repeat center 90px;}
- .today-special-detail .main-sec .detail p { margin:60px 0 0 0; font-size:300;}
+ .today-special-detail .main-sec .detail p { margin:60px 0 0 0; font-size:300px;}
 .today-special-detail .main-sec .image{float: right; margin:-64px 0 0 0;}
 .today-special-detail .main-sec .image img{ width:auto; width:460px;}
 
@@ -725,7 +725,7 @@ padding:0 10px; font-size:18px; color:#464646;}
 font-size:18px; color:#464646; padding:10px;}
 .contact-page .get-in-touch .get-touch-form input[type=submit]{ float:left; border:none; border-radius:5px; padding:18px 40px; font-size:15px; color:#fff; font-family: 'Raleway', sans-serif; font-weight:400; text-transform:uppercase; margin:15px 0 0 0;}
 .contact-page .get-in-touch .get-touch-form input[type=submit]:hover{background:#0a1d3b; }
-#find-us { height:680px; width:100%px; }
+#find-us { height:680px; width:100%; }
 #map{ margin:0 0 -4px 0; 	}
 .gm-style-iw * { display: block; width: 270px !important; overflow: hidden;}
 .gm-style-iw h4{ margin: 0; padding: 0; font-size:26px; margin:0 0 6px 0;}

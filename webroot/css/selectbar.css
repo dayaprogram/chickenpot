@@ -127,7 +127,7 @@ position:relative;
 display:block;
 
 }
-{    height: 255px; overflow: auto;}
+.c{    height: 255px; overflow: auto;}
 .heapBox .heap .heapOptions .heapOption a{
 width:100%;
 display:block;

@@ -1,5 +1,5 @@
 
-<!-- Mobile Menu -->				
+//<!-- Mobile Menu -->				
 $(document).ready(function() {
 "use strict";
 $("#menu").menu({
@@ -23,9 +23,9 @@ $("#menu").menu({
 
 
 
-<!-- Sticky Header -->
+//<!-- Sticky Header -->
 
-<!-- Header One -->
+//<!-- Header One -->
 $(window).scroll(function() {
     if ($(this).scrollTop() > 1){  
         $('header').addClass("sticky");
@@ -36,7 +36,7 @@ $(window).scroll(function() {
 });
 
 
-<!-- Header Two -->
+//<!-- Header Two -->
 $(window).scroll(function() {
     if ($(this).scrollTop() > 1){  
         $('.header-two').addClass("sticky");
@@ -51,7 +51,7 @@ $(window).scroll(function() {
 
 
 
-<!-- Smooth Scrol -->	 
+//<!-- Smooth Scrol -->	 
 $(function(){
 
 var $window = $(window);		//Window object
@@ -82,8 +82,8 @@ overwrite: 5
 
 
 
-<!-- All Carousel -->
-<!-- Home News-Posts Carousel -->
+//<!-- All Carousel -->
+////<!-- Home News-Posts Carousel -->
 $("#owl-demo").owlCarousel({
 items :3,
 lazyLoad : true,
@@ -92,7 +92,7 @@ navigation : true
 
 
 
-<!-- Pearl Tour -->
+//<!-- Pearl Tour -->
 $(document).ready(function() {
  
   $("#tour").owlCarousel({
@@ -117,7 +117,7 @@ $(document).ready(function() {
 
 
 
-<!-- About Hotel -->
+//<!-- About Hotel -->
 $(document).ready(function() {
  
   $("#hotel-view").owlCarousel({
@@ -144,7 +144,7 @@ $(document).ready(function() {
 
 
 
-<!-- Welcome Text -->
+//<!-- Welcome Text -->
 
 $("#special-services").owlCarousel({
 items :2,
@@ -171,7 +171,7 @@ jQuery('body').delay(350).css({'overflow':'visible'});
 
 
 
-<!-- Back to Top -->
+//<!-- Back to Top -->
 jQuery(document).ready(function($){
 // browser window scroll (in pixels) after which the "back to top" link is shown
 var offset = 300,
@@ -229,7 +229,7 @@ $('a[href^="#"]').on('click', function(event) {
 
 
 
-<!-- Shop Cart Bag -->
+//<!-- Shop Cart Bag -->
 //Accordian Action
 var action = 'click';
 var speed = "500";
@@ -264,7 +264,7 @@ var img = $(this).children('img');
 
 
 
-<!-- Upcoming Event Coundown -->
+//<!-- Upcoming Event Coundown -->
 $('#example').countdown({
 			date: '5/29/2019 23:59:59',
 			offset: -8,
@@ -281,7 +281,7 @@ $('#example').countdown({
 
 
 
-<!-- Home News-Posts Carousel -->
+//<!-- Home News-Posts Carousel -->
 $("#owl-demo").owlCarousel({
 items :3,
 lazyLoad : true,
@@ -290,7 +290,7 @@ navigation : true
 
 
 
-<!-- Testimonials Carousel -->
+//<!-- Testimonials Carousel -->
 $("#owl-demo2").owlCarousel({
 autoPlay : 111110,
 stopOnHover : true,
@@ -303,7 +303,7 @@ autoHeight : true,
 });
 
 
-<!-- Blog images slide Carousel -->
+//<!-- Blog images slide Carousel -->
 $("#blog-slide").owlCarousel({
 
 navigation : true,
@@ -341,7 +341,7 @@ singleItem : true
 
 
 
-<!-- Form Validator -->
+//<!-- Form Validator -->
 
 
 // JavaScript Document

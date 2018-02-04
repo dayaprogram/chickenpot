@@ -127,7 +127,6 @@ position:relative;
 display:block;
 
 }
-{    height: 255px; overflow: auto;}
 .heapBox .heap .heapOptions .heapOption a{
 width:100%;
 display:block;
@@ -153,16 +152,9 @@ color:#fff;
 	background:url(../gfx/heapbox_heapitem_bg.jpg) repeat-x;
 }
 
-
-
-
-
 /**
  * Check Box
  -----------------------------*/
-
-
-
 
 input[type=checkbox].css-checkbox {
 position:absolute; z-index:-1000; left:-1000px; overflow: hidden; clip: rect(0 0 0 0); height:1px; width:1px; margin:-1px; padding:0; border:0;

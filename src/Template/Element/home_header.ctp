@@ -144,7 +144,8 @@
                     -->
                         <div class="modal-ax"></div>
                         <ul class="shop-bag">
-                            <li class="close-bag"><a class="cart-button"><i class="icon-icons163"></i> <span class="num"><?php echo count($this->request->session()->read('cart_item'));?></span></a></li>
+                            <li class="close-bag"><a class="cart-button"><i class="icon-icons163"></i> <span class="num">
+                                <?php echo count($this->request->session()->read('cart_item'));?></span></a></li>
                             <li class="open-bag" style="display: none;border-radius: 10px;">
                                 <?php
                                 $subtotal = "0.00";
@@ -156,7 +157,8 @@
 
                                         <div class="cart-food" id="<?php echo $data['id']; ?>">
                                             <div class="detail">
-                                                <a href="javascript:;" class="btn btn-danger pull-right" onclick="return deleteItem(<?php echo $data['id']; ?>);"><i class="icon-icons163"></i></a>
+                                                <a href="javascript:;" class="btn btn-danger pull-right" onclick="return deleteItem(<?php echo $data['id']; ?>);">
+                                                    <i class="icon-icons163"></i></a>
                                                 <img src="<?php echo $data['image']; ?>" alt="">
                                                 <div class="text">
                                                     <?php $subtotal = $subtotal + ($data['foodprice'] * $data['quantity']); ?>
@@ -176,7 +178,7 @@
                                 ?>
                                 <div class="sub-total">
                                     
-                                    <span>SUBTOTAL: <strong><?= $subtotal ?></strong></span>
+                                    <span>SUBTOTAL: <i class="icon-inr"></i><strong><?= $subtotal ?></strong></span>
                                     <span id="newtotal"></span>
                                     <div class="buttons">
                                         <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "shop"]); ?>" class="view-cart">More Food</a>
