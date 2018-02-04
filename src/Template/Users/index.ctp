@@ -107,155 +107,163 @@
                 </div>
             </div>
 
-            <div class="col-md-12">
-                <div class="field basic-example2">
-                    <select class="basic-example holder" onchange="selectloc();">
+
+            <div class="col-md-2"></div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">Jalandhar</span>
+                    <select class="form-control" id="sel1" onchange="selectloc();">
                         <option value="">Choose A location</option>
-						<?php foreach($select_location as $location){
-														pr($location['name'])?>
-                        <option value="<?php echo $location['id']?>" id="location">
-							<?php echo $location['area_name']?>
-                        </option>
-						<?php }?>
+                        <?php
+                        foreach ($select_location as $location) {
+                            pr($location['name'])
+                            ?>
+                            <option value="<?php echo $location['id'] ?>" id="location">
+                            <?php echo $location['area_name'] ?>
+                            </option>
+<?php } ?>
                     </select>
                 </div>
-                <div>
-                    <input type="submit" value="Go">
-                </div>
             </div>
+            <div class="col-md-2"><button type="button" class="btn btn-success">Go</button></div>
+            <div class="col-md-2"></div>
+
+
+
         </div>
     </div>
-    <!--End Services-->
+</div>
+<!--End Services-->
 
-    <!--Start Master of Town-->
-    <div class="master-town">
+<!--Start Master of Town-->
+<div class="master-town">
 
-        <div class="parallax">
-            <div class="detail">
-                <h1>
-                    <span>&ldquo;</span>Fresh and healthy master of town
-                    <span>&rdquo;</span>
-                </h1>
-                <a href="#." class="white-btn">Buy Now</a>
-            </div>
+    <div class="parallax">
+        <div class="detail">
+            <h1>
+                <span>&ldquo;</span>Fresh and healthy master of town
+                <span>&rdquo;</span>
+            </h1>
+            <a href="#." class="white-btn">Buy Now</a>
         </div>
     </div>
-    <!--End Master of Town-->
+</div>
+<!--End Master of Town-->
 
-    <!--Start Our Stiry-->
-    <div class="our-story">
-        <div class="container">
-            <div class="row">
+<!--Start Our Stiry-->
+<div class="our-story">
+    <div class="container">
+        <div class="row">
 
-                <div class="col-md-6">
-                    <div class="story-detail">
-                        <div class="main-title">
-                            <span>Discover</span>
-                            <h1>our story</h1>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tortor at tellus feugiat congue quis ut nunc. Semper
-                            ac dolor vitae accumsan. interdum hendrerit lacinia.</p>
-                        <a href="our-story.html" class="full-story">view full story</a>
+            <div class="col-md-6">
+                <div class="story-detail">
+                    <div class="main-title">
+                        <span>Discover</span>
+                        <h1>our story</h1>
                     </div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tortor at tellus feugiat congue quis ut nunc. Semper
+                        ac dolor vitae accumsan. interdum hendrerit lacinia.</p>
+                    <a href="our-story.html" class="full-story">view full story</a>
                 </div>
-
-                <div class="col-md-6">
-                    <img src="<?php echo $this->request->webroot; ?>chickenpot/images/slides/pot.jpg" alt="">
-                </div>
-
             </div>
+
+            <div class="col-md-6">
+                <img src="<?php echo $this->request->webroot; ?>chickenpot/images/slides/pot.jpg" alt="">
+            </div>
+
         </div>
     </div>
-    <!--End Our Stiry-->
+</div>
+<!--End Our Stiry-->
 
-    <!--Start Customer Words-->
-    <div class="customer-words">
+<!--Start Customer Words-->
+<div class="customer-words">
 
-        <div class="parallax parallax-customer-words">
-            <div class="detail">
+    <div class="parallax parallax-customer-words">
+        <div class="detail">
 
-                <div class="main-title-white">
-                    <span>Some Words</span>
-                    <h1>FROM CUSTOMERS</h1>
-                </div>
+            <div class="main-title-white">
+                <span>Some Words</span>
+                <h1>FROM CUSTOMERS</h1>
+            </div>
 
-                <div id="testimonials">
-                    <div class="container">
-                        <div class="row">
+            <div id="testimonials">
+                <div class="container">
+                    <div class="row">
 
-                            <div class="col-md-12">
-                                <div class="span12">
+                        <div class="col-md-12">
+                            <div class="span12">
 
-                                    <div id="owl-demo2" class="owl-carousel">
+                                <div id="owl-demo2" class="owl-carousel">
 
-                                        <div class="testi-sec">
-                                            <img src="images/testimonial-img1.jpg" alt="">
-                                            <div class="height35"></div>
-                                            <span class="name">Christian Stewart</span>
-                                            <span class="work">Fashion Designer</span>
-                                            <div class="height20"></div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tortor at tellus feugiat congue quis ut nunc.
-                                                Semper ac dolor vitae accumsan. interdum hendrerit lacinia.</p>
-                                            <div class="height20"></div>
-                                            <div class="rating">
-                                                <i class="icon-star3"></i>
-                                                <i class="icon-star3"></i>
-                                                <i class="icon-star3"></i>
-                                                <i class="icon-star3"></i>
-                                                <i class="icon-star3"></i>
-                                            </div>
-                                        </div>
-
-                                        <div class="testi-sec">
-                                            <img src="images/testimonial-img2.jpg" alt="">
-                                            <div class="height35"></div>
-                                            <span class="name">johny Bravo</span>
-                                            <span class="work">TV Actor</span>
-                                            <div class="height20"></div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tortor at tellus feugiat congue quis ut nunc.
-                                                Semper ac dolor vitae accumsan. interdum hendrerit lacinia Aenean ac tortor at tellus feugiat congue quis ut
-                                                nunc. Semper ac dolor vitae accumsan. </p>
-                                            <div class="height20"></div>
-                                            <div class="rating">
-                                                <i class="icon-star3"></i>
-                                                <i class="icon-star3"></i>
-                                                <i class="icon-star3"></i>
-                                                <i class="icon-star3"></i>
-                                                <i class="icon-star3"></i>
-                                            </div>
-                                        </div>
-
-                                        <div class="testi-sec">
-                                            <img src="images/testimonial-img3.jpg" alt="">
-                                            <div class="height35"></div>
-                                            <span class="name">Rubica noi</span>
-                                            <span class="work">Founder Photography</span>
-                                            <div class="height20"></div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tortor at tellus feugiat congue quis ut nunc.
-                                                Semper ac dolor vitae accumsan.</p>
-                                            <div class="height20"></div>
-                                            <div class="rating">
-                                                <i class="icon-star3"></i>
-                                                <i class="icon-star3"></i>
-                                                <i class="icon-star3"></i>
-                                                <i class="icon-star3"></i>
-                                                <i class="icon-star3"></i>
-                                            </div>
+                                    <div class="testi-sec">
+                                        <img src="images/testimonial-img1.jpg" alt="">
+                                        <div class="height35"></div>
+                                        <span class="name">Christian Stewart</span>
+                                        <span class="work">Fashion Designer</span>
+                                        <div class="height20"></div>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tortor at tellus feugiat congue quis ut nunc.
+                                            Semper ac dolor vitae accumsan. interdum hendrerit lacinia.</p>
+                                        <div class="height20"></div>
+                                        <div class="rating">
+                                            <i class="icon-star3"></i>
+                                            <i class="icon-star3"></i>
+                                            <i class="icon-star3"></i>
+                                            <i class="icon-star3"></i>
+                                            <i class="icon-star3"></i>
                                         </div>
                                     </div>
 
-                                </div>
-                            </div>
+                                    <div class="testi-sec">
+                                        <img src="images/testimonial-img2.jpg" alt="">
+                                        <div class="height35"></div>
+                                        <span class="name">johny Bravo</span>
+                                        <span class="work">TV Actor</span>
+                                        <div class="height20"></div>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tortor at tellus feugiat congue quis ut nunc.
+                                            Semper ac dolor vitae accumsan. interdum hendrerit lacinia Aenean ac tortor at tellus feugiat congue quis ut
+                                            nunc. Semper ac dolor vitae accumsan. </p>
+                                        <div class="height20"></div>
+                                        <div class="rating">
+                                            <i class="icon-star3"></i>
+                                            <i class="icon-star3"></i>
+                                            <i class="icon-star3"></i>
+                                            <i class="icon-star3"></i>
+                                            <i class="icon-star3"></i>
+                                        </div>
+                                    </div>
 
+                                    <div class="testi-sec">
+                                        <img src="images/testimonial-img3.jpg" alt="">
+                                        <div class="height35"></div>
+                                        <span class="name">Rubica noi</span>
+                                        <span class="work">Founder Photography</span>
+                                        <div class="height20"></div>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tortor at tellus feugiat congue quis ut nunc.
+                                            Semper ac dolor vitae accumsan.</p>
+                                        <div class="height20"></div>
+                                        <div class="rating">
+                                            <i class="icon-star3"></i>
+                                            <i class="icon-star3"></i>
+                                            <i class="icon-star3"></i>
+                                            <i class="icon-star3"></i>
+                                            <i class="icon-star3"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
+
                     </div>
                 </div>
-
             </div>
-        </div>
 
+        </div>
     </div>
-    <!--End Customer Words-->
+
+</div>
+<!--End Customer Words-->
 
 
 

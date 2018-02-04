@@ -1,13 +1,13 @@
 <!-- for-mobile-apps -->
 <!DOCTYPE html>
 <html><head>
-        <title>Chickenpot</title>
+        <title>Chicken Pot</title>
         <meta name="keywords" content="chickenpot,chicken,pot,Amritsaria Kulcha,Plan Paratha,Sabji,Aloo Paratha ,Curd,Egg Bhurji ,slice Bread,Boil Egg,Puri,Stuff Bread Role">
         <meta name="description" content="Order on 9888529294,9888429294. Order from Chickenpot online in Jalandhar | Home delivery Chickenpot menu.|
-        you will be amazed to test the magic of chicken in the clay pot.">
+              you will be amazed to test the magic of chicken in the clay pot.">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		
+
         <link href="<?php echo $this->request->webroot; ?>chickenpot/css/bootstrap.css" rel="stylesheet">
         <link href="<?php echo $this->request->webroot; ?>chickenpot/css/pearl-restaurant.css" rel="stylesheet">
         <link href="<?php echo $this->request->webroot; ?>chickenpot/fonts/pearl-icons.css" rel="stylesheet">
@@ -20,16 +20,16 @@
         <link href="<?php echo $this->request->webroot; ?>chickenpot/css/owl.carousel.css" rel="stylesheet">
         <link href="<?php echo $this->request->webroot; ?>chickenpot/css/date-pick.css" rel="stylesheet">
         <link href="<?php echo $this->request->webroot; ?>chickenpot/css/jquery.mmenu.all.css" rel="stylesheet">
-		<link href="<?php echo $this->request->webroot; ?>chickenpot/css/cubeportfolio.css" rel="stylesheet" type="text/css"> 
+        <link href="<?php echo $this->request->webroot; ?>chickenpot/css/cubeportfolio.css" rel="stylesheet" type="text/css"> 
         <link href="<?php echo $this->request->webroot; ?>chickenpot/css/Tabs.css" rel="stylesheet" type="text/css"> 
         <link href="<?php echo $this->request->webroot; ?>css/bootstrap.css" rel="stylesheet" type="text/css"> 
-		<link href="<?php echo $this->request->webroot; ?>chickenpot/css/selectbar.css" rel="stylesheet" type="text/css">
-        
- 
+        <link href="<?php echo $this->request->webroot; ?>chickenpot/css/selectbar.css" rel="stylesheet" type="text/css">
+
+
 
         <!--js-->
         <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/jquery.min.js"></script>
-		<script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/form-dropdown.js"></script>
+        <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/form-dropdown.js"></script>
 
 
         <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/jquery.js"></script>
@@ -72,19 +72,23 @@
         <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/jquery.mmenu.min.all.js"></script> 
         <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/tabs.js"></script> 
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+        
+        	<!--PreLoader-->
+	<link href="<?php echo $this->request->webroot; ?>chickenpot/css/loader.css" rel="stylesheet" type="text/css">   
         <style>
             .text{
-               margin: 0 0 0 13px;
+                margin: 0 0 0 13px;
             }
             .modal-ax {
                 display: none;
-                 position: fixed;
-                 z-index: 1000;
-                 top: 0;
-                 left: 0;
-                 height: 100%;
-                 width: 100%;
-                 background: rgba( 255, 255, 255, .8 ) url(../../assets/images/loader1.gif) 50% 50% no-repeat;
+                position: fixed;
+                z-index: 1000;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                background: rgba( 255, 255, 255, .8 ) url(../../assets/images/loader1.gif) 50% 50% no-repeat;
             }
         </style>
     </head>
@@ -92,7 +96,7 @@
         <div id="wrap">
 
             <!--Start PreLoader-->
-            <!--
+         
           <div id="preloader">
             <div id="status">&nbsp;</div>
                 <div class="loader">
@@ -102,7 +106,7 @@
                     <span></span>
                 </div>
             </div>
-        -->
+            
             <!--End PreLoader--> 
 
             <!--Start Header-->
@@ -116,18 +120,18 @@
 
                         <nav class="menu-5 nav">
                             <ul class="wtf-menu">
-                                <li><a href="<?php echo $this->Url->build(["controller" => "Users",   "action" => "index"]);?>">Home</a></li>
+                                <li><a href="<?php echo $this->Url->build(["controller" => "Users", "action" => "index"]); ?>">Home</a></li>
                                 <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "ourstory"]); ?>">our story</a></li>
                                 <!--
                                 <li class="parent"><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "blog"]); ?>">Blog</a></li>
                                 -->
                                 <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "contactus"]); ?>">contact us</a></li>
                                 <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "shop"]); ?>"><strong style="color: #90EE90;">online order</strong></a></li>
-                                <?php if(!empty($user_details)){?>
-								    <li><a href="<?php echo $this->Url->build(["resturent" => "Users",   "action" => "logout"]);?>" type="button" >Log Out</a></li>
-								<?php } else{?>
-								 <li><a href="<?php echo $this->Url->build(["controller" => "users", "action" => "signin"]); ?>">Log In</a></li>
-								  <?php } ?>
+                                <?php if (!empty($user_details)) { ?>
+                                    <li><a href="<?php echo $this->Url->build(["resturent" => "Users", "action" => "logout"]); ?>" type="button" >Log Out</a></li>
+                                <?php } else { ?>
+                                    <li><a href="<?php echo $this->Url->build(["controller" => "users", "action" => "signin"]); ?>">Log In</a></li>
+                                <?php } ?>
                                 <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "signup"]); ?>" >SIGNUP</a></li>
                             </ul>	
                         </nav>
@@ -135,17 +139,17 @@
                             <li><a href="#."><i class="icon-facebook-1"></i></a></li>
                         </ul>
 
-                    <!--          
-                        <ul class="social-icons">
-                            <li><a href="#."><i class="icon-facebook-1"></i></a></li>
-                            <li><a href="#."><i class="icon-twitter-1"></i></a></li>
-                            <li><a href="#."><i class="icon-google"></i></a></li>
-                        </ul>
-                    -->
+                        <!--          
+                            <ul class="social-icons">
+                                <li><a href="#."><i class="icon-facebook-1"></i></a></li>
+                                <li><a href="#."><i class="icon-twitter-1"></i></a></li>
+                                <li><a href="#."><i class="icon-google"></i></a></li>
+                            </ul>
+                        -->
                         <div class="modal-ax"></div>
                         <ul class="shop-bag">
                             <li class="close-bag"><a class="cart-button"><i class="icon-icons163"></i> <span class="num">
-                                <?php echo count($this->request->session()->read('cart_item'));?></span></a></li>
+                                        <?php echo count($this->request->session()->read('cart_item')); ?></span></a></li>
                             <li class="open-bag" style="display: none;border-radius: 10px;">
                                 <?php
                                 $subtotal = "0.00";
@@ -163,34 +167,35 @@
                                                 <div class="text">
                                                     <?php $subtotal = $subtotal + ($data['foodprice'] * $data['quantity']); ?>
                                                     <a href="#."><?php echo $data['foodname']; ?></a>
-                                                    <p><span class="priceMoney hidden"><?php echo $data['foodprice'];?></span>
+                                                    <p><span class="priceMoney hidden"><?php echo $data['foodprice']; ?></span>
                                                         <?php echo $data['foodprice'] . ' x '; ?>
                                                         <input type="number" style="width:40px;" value="<?php echo $data['quantity']; ?>" id="changeValuePrice">
                                                         = <span id="calculatePrice"><?php echo ($data['foodprice'] * $data['quantity']); ?></span></p>
                                                 </div>
                                             </div>
                                         </div>
-                                    <?php }
+                                    <?php
+                                    }
                                 } else {
                                     ?>
-                                    <h7>No food added in your cart.</h7>
-                                <?php }
-                                ?>
-                                <div class="sub-total">
-                                    
-                                    <span>SUBTOTAL: <i class="icon-inr"></i><strong><?= $subtotal ?></strong></span>
-                                    <span id="newtotal"></span>
-                                    <div class="buttons">
-                                        <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "shop"]); ?>" class="view-cart">More Food</a>
-                                        <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "viewcart"]); ?>" class="check-out">Check Out</a>
-                                    </div>
+                                <h7>No food added in your cart.</h7>
+                            <?php }
+                            ?>
+                            <div class="sub-total">
+
+                                <span>SUBTOTAL: <i class="icon-inr"></i><strong><?= $subtotal ?></strong></span>
+                                <span id="newtotal"></span>
+                                <div class="buttons">
+                                    <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "shop"]); ?>" class="view-cart">More Food</a>
+                                    <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "viewcart"]); ?>" class="check-out">Check Out</a>
                                 </div>
+                            </div>
                             </li>
                         </ul>
 
                         <ul class="get-touch">
                             <li class="contact-no"><a><i class="icon-telephone-receiver"></i>
-                            <span>+91-9888529294</span></a></li>
+                                    <span>+91-9888529294</span></a></li>
                         </ul>
                     </div>
                 </div>
@@ -204,143 +209,143 @@
                     </header>
                     <nav id="menu">
                         <ul>
-                        <li><a href="<?php echo $this->Url->build(["controller" => "Users",   "action" => "index"]);?>">Home</a></li>
-                        <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "ourstory"]); ?>">our story</a></li>
-                        <!--
-                            <li class="parent"><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "blog"]); ?>">Blog</a></li>
-                        -->
-                        <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "contactus"]); ?>">contact us</a></li>
-                        <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "shop"]); ?>"><strong style="color: #90EE90;">online order</strong></a></li>
-                        <?php if(!empty($user_details)){?>
-							<li><a href="<?php echo $this->Url->build(["resturent" => "Users",   "action" => "logout"]);?>"  type="button" >Log Out</a></li>
-						<?php } else{?>
-						    <li><a href="<?php echo $this->Url->build(["controller" => "users", "action" => "signin"]); ?>">Log In</a></li>
-						<?php } ?>
+                            <li><a href="<?php echo $this->Url->build(["controller" => "Users", "action" => "index"]); ?>">Home</a></li>
+                            <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "ourstory"]); ?>">our story</a></li>
+                            <!--
+                                <li class="parent"><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "blog"]); ?>">Blog</a></li>
+                            -->
+                            <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "contactus"]); ?>">contact us</a></li>
+                            <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "shop"]); ?>"><strong style="color: #90EE90;">online order</strong></a></li>
+                            <?php if (!empty($user_details)) { ?>
+                                <li><a href="<?php echo $this->Url->build(["resturent" => "Users", "action" => "logout"]); ?>"  type="button" >Log Out</a></li>
+                            <?php } else { ?>
+                                <li><a href="<?php echo $this->Url->build(["controller" => "users", "action" => "signin"]); ?>">Log In</a></li>
+<?php } ?>
                             <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "signup"]); ?>" >SIGNUP</a></li>
                         </ul>
                     </nav>
                 </div>
             </div>
-<!-- Mobile Menu End -->
-            
-<!-- Modal -->
-<div class="modal fade loginModal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      </div>
-      <div class="modal-body">
-        <h3 class="text-center text-white MB15">Sign In</h3>
-        <form method='post' onsubmit='return login();'>
-          <div class="input-group MB15">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-            <input id="email" type="email" class="form-control" required name="email" placeholder="Enter your email">
-          </div>
-          <div class="input-group MB15">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-            <input id="password" type="password" required class="form-control" name="Password" placeholder="Password">
-          </div>
-          <div class="MB15 clearfix">
-            <a href="javascript:void(0)" class="pull-left text-theme"  data-toggle="modal"  type="button" data-target="#forgotpass" data-dismiss="modal">Forget Password</a>
-            <a href="javascript:void(0)" class="pull-right text-theme"  data-toggle="modal"  type="button" data-target="#register" data-dismiss="modal">Create an account</a>
-          </div>
-          <div class="text-center">
-            <button type="submit" name="button" class="btn btn-theme" >Log In</button> 
-           
-          </div>
-        </form>
-      </div>
-     </div>
-  </div>
-</div>
-            
-<!--Register-->
-<div class="modal fade loginModal" id="register" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      </div>
-      <div class="modal-body">
-        <h3 class="text-center text-white MB15">Create New Account</h3>
-       <div class="msg" style="color:white;"></div>
-        <form method='post' onsubmit='return register();'>
-         <div class="input-group MB15">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-            <input id="name" type="text" class="form-control" required name="name" placeholder="Enter your name">
-          </div>
-          <div class="input-group MB15">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-            <input id="regemail" type="email" class="form-control" required name="email" placeholder="Enter your email">
-          </div>
-          <div class="input-group MB15">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-            <input id="regpassword" type="password" required class="form-control" name="Password" placeholder="Password">
-          </div>
-          <div class="text-center">
-            <button type="submit" name="button" class="btn btn-theme" >Signup</button> 
-           
-          </div>
-        </form>
-      </div>
-     </div>
-  </div>
-</div>
+            <!-- Mobile Menu End -->
 
-<!--End Register-->
+            <!-- Modal -->
+            <div class="modal fade loginModal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <h3 class="text-center text-white MB15">Sign In</h3>
+                            <form method='post' onsubmit='return login();'>
+                                <div class="input-group MB15">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                    <input id="email" type="email" class="form-control" required name="email" placeholder="Enter your email">
+                                </div>
+                                <div class="input-group MB15">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                    <input id="password" type="password" required class="form-control" name="Password" placeholder="Password">
+                                </div>
+                                <div class="MB15 clearfix">
+                                    <a href="javascript:void(0)" class="pull-left text-theme"  data-toggle="modal"  type="button" data-target="#forgotpass" data-dismiss="modal">Forget Password</a>
+                                    <a href="javascript:void(0)" class="pull-right text-theme"  data-toggle="modal"  type="button" data-target="#register" data-dismiss="modal">Create an account</a>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" name="button" class="btn btn-theme" >Log In</button> 
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Register-->
+            <div class="modal fade loginModal" id="register" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <h3 class="text-center text-white MB15">Create New Account</h3>
+                            <div class="msg" style="color:white;"></div>
+                            <form method='post' onsubmit='return register();'>
+                                <div class="input-group MB15">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                    <input id="name" type="text" class="form-control" required name="name" placeholder="Enter your name">
+                                </div>
+                                <div class="input-group MB15">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                    <input id="regemail" type="email" class="form-control" required name="email" placeholder="Enter your email">
+                                </div>
+                                <div class="input-group MB15">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                    <input id="regpassword" type="password" required class="form-control" name="Password" placeholder="Password">
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" name="button" class="btn btn-theme" >Signup</button> 
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--End Register-->
 
 
             <script>
                 $('.notify--dismissible').append('<button type="button" class="notify-close">&times;</button>');
 
-                $('.notify-close').on('click',function(){
+                $('.notify-close').on('click', function () {
                     $(this).closest('.notify').hide();
                 });
-                function deleteItem(id){
-                    if(confirm("Are you sure you want to delete this Item ?")){
+                function deleteItem(id) {
+                    if (confirm("Are you sure you want to delete this Item ?")) {
                         $.ajax({
                             type: "POST",
-                            data: {id:id},
-                            dataType:"html",
-                            url: "<?php echo $this->request->webroot . 'resturent/deletecart' ?>", 
-                            success: function(data){
-                                if(data=='1'){
-                                    $('ul li.close-bag').find('span.num').text(parseInt($('ul li.close-bag').find('span.num').text())-1);
-                                    var new_price=parseInt($('div.sub-total').find('strong').text().substring('1'))-(parseInt($('div#'+id).find('span#calculatePrice').text()));
-                                    $('div.sub-total').find('strong').text('$'+new_price);
-                                    $('ul.shop-bag li.open-bag div#'+id).remove();
+                            data: {id: id},
+                            dataType: "html",
+                            url: "<?php echo $this->request->webroot . 'resturent/deletecart' ?>",
+                            success: function (data) {
+                                if (data == '1') {
+                                    $('ul li.close-bag').find('span.num').text(parseInt($('ul li.close-bag').find('span.num').text()) - 1);
+                                    var new_price = parseInt($('div.sub-total').find('strong').text().substring('1')) - (parseInt($('div#' + id).find('span#calculatePrice').text()));
+                                    $('div.sub-total').find('strong').text('$' + new_price);
+                                    $('ul.shop-bag li.open-bag div#' + id).remove();
                                 }
                             }
                         });
                     }
                 }
-                
-                $(document).on('change','#changeValuePrice',function(){
+
+                $(document).on('change', '#changeValuePrice', function () {
 //                    var new_price=parseInt($(this).parent().find('span.priceMoney').text()) * parseInt($(this).val());
 //                    console.log(new_price);
 //                    $(this).parent().find('span#calculatePrice').text(new_price);
-                    var id=parseInt($('#changeValuePrice').parents('.cart-food').attr('id'));
-                    var value=parseInt($('#changeValuePrice').val());
+                    var id = parseInt($('#changeValuePrice').parents('.cart-food').attr('id'));
+                    var value = parseInt($('#changeValuePrice').val());
                     $.ajax({
-                            type: "POST",
-                            data: {id:id,value:value},
-                            dataType:"html",
-                            url: "<?php echo $this->request->webroot . 'resturent/updateQcart' ?>", 
-                            success: function(data){
-                                data=$.parseJSON(data);
-                                if(data.code=='1'){
-                                      $('ul li.open-bag').html(data.cartvalue);
+                        type: "POST",
+                        data: {id: id, value: value},
+                        dataType: "html",
+                        url: "<?php echo $this->request->webroot . 'resturent/updateQcart' ?>",
+                        success: function (data) {
+                            data = $.parseJSON(data);
+                            if (data.code == '1') {
+                                $('ul li.open-bag').html(data.cartvalue);
 //                                    $('ul li.close-bag').find('span.num').text(parseInt($('ul li.close-bag').find('span.num').text())-1);
 //                                    var new_price=parseInt($('div.sub-total').find('strong').text().substring('1'))-(parseInt($('div#'+id).find('span#calculatePrice').text()));
 //                                    $('div.sub-total').find('strong').text('$'+new_price);
 //                                    $('ul.shop-bag li.open-bag div#'+id).remove();
-                                }
                             }
-                        });
+                        }
+                    });
                 });
             </script>
-            
+
     </body>
 </html>
 
@@ -360,66 +365,64 @@ $.ajax({url:"/Users/signin",type:"POST", data:$('#formLogin').serialize(), dataT
 </script> -->
 <!----scriptt----->
 <script>
-    function register(){
-	//alert('hello')
+    function register() {
+        //alert('hello')
 
-      var name = $('#name').val();
-      var email = $('#regemail').val();
-      var password = $('#regpassword').val();
-      //alert
-      //alert(name);
-      $.ajax({
-       type: "POST",
-       data: {name:name, email:email, password:password},
-       dataType:"json",
-       url: "<?php echo $this->request->webroot . 'resturent/signup'; ?>",
+        var name = $('#name').val();
+        var email = $('#regemail').val();
+        var password = $('#regpassword').val();
+        //alert
+        //alert(name);
+        $.ajax({
+            type: "POST",
+            data: {name: name, email: email, password: password},
+            dataType: "json",
+            url: "<?php echo $this->request->webroot . 'resturent/signup'; ?>",
 
-       success: function(data){
-          if(data){
-		 // alert('something went wrong');
-		 alert('you are successfully registered');
-		 $.notify(data.msg, "success");
-       }
-       else{
-	    alert('something went wrong');
-      // $.notify(data.msg, "success");
-       }
-    }
- });
-      window.opener.location.reload();
-      return(false);
-    }
-
-  </script>
-  <!---------------->
-  
-  <script>
-    function login(){
-      var email = $('#email').val();
-      var pass = $('#password').val();
-      $.ajax({
-       type: "POST",
-       data: {email:email, password:pass},
-       dataType:"json",
-       url: "<?php echo $this->request->webroot . 'resturent/signin'; ?>",
-       success: function(data){
-        if(data.Ack =='1'){
-          //alert('kk');
-          //  window.location.href = "<?php echo $this->request->webroot . 'Users/dashboard'; ?>";
-             window.location.href = "";
-        }
-        else{
-            alert('Incorrect Password or Email');
-         //  $.notify('Incorrect Password or Email', "success");
-        }
-       //console.log(data);
-   }
-});
-      return(false);
+            success: function (data) {
+                if (data) {
+                    // alert('something went wrong');
+                    alert('you are successfully registered');
+                    $.notify(data.msg, "success");
+                } else {
+                    alert('something went wrong');
+                    // $.notify(data.msg, "success");
+                }
+            }
+        });
+        window.opener.location.reload();
+        return(false);
     }
 
-  </script>
-  
+</script>
+<!---------------->
+
+<script>
+    function login() {
+        var email = $('#email').val();
+        var pass = $('#password').val();
+        $.ajax({
+            type: "POST",
+            data: {email: email, password: pass},
+            dataType: "json",
+            url: "<?php echo $this->request->webroot . 'resturent/signin'; ?>",
+            success: function (data) {
+                if (data.Ack == '1') {
+                    //alert('kk');
+                    //  window.location.href = "<?php echo $this->request->webroot . 'Users/dashboard'; ?>";
+                    window.location.href = "";
+                } else {
+                    alert('Incorrect Password or Email');
+                    //  $.notify('Incorrect Password or Email', "success");
+                }
+                //console.log(data);
+            }
+        });
+        return(false);
+    }
+
+</script>
+
 
 
 
