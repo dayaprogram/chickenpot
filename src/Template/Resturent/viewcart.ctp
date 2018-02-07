@@ -141,7 +141,7 @@
 								</div>
 								<?php if(!empty($user_details)){?>
 
-								<a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "checkout"]); ?>" onclick="checkout();">proceed to checkout</a>
+								<a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "customerdetails"]); ?>">proceed to checkout</a>
 								<?php } else{?>
 								<a href="<?php echo $this->Url->build(["controller" => "users", "action" => "signin"]); ?>">proceed to checkout</a>
 								<?php }?>
@@ -197,8 +197,5 @@
 </script>
 
 <script>
-	function checkout() {
-		alert('hello');
-	}
-
+	
 </script>

@@ -33,7 +33,7 @@ class resturentController extends AppController {
      */
     public function initialize() {
         parent::initialize();
-        $this->Auth->allow(['index', 'menu', 'shop', 'orderlist', 'home2', 'ourstory', 'blog', 'contactus', 'details', 'addorder', 'viewcart', 'addtokrt', 'deletecart','cartview','updateQcart','signup']);
+        $this->Auth->allow(['index','customerdetails', 'menu', 'shop', 'orderlist', 'home2', 'ourstory', 'blog', 'contactus', 'details', 'addorder', 'viewcart', 'addtokrt', 'deletecart','cartview','updateQcart','signup']);
     }
 
     public function index() {
@@ -59,6 +59,50 @@ class resturentController extends AppController {
 
     public function contactus() {
         
+    }
+    
+    public function customerdetails(){
+        $this->loadModel('Users');
+         $this->loadModel('Area_master');
+         $this->loadModel('Shipping_add');
+        $select_location = $this->Area_master->find()->toArray();
+          $uid = $this->Auth->user('id');
+        $userdetails = $this->Users->find('all')->where(['id' => $uid])->first();
+        $shipping =  $this->Shipping_add->newEntity();
+          if ($this->request->is('post')) 
+       {
+              $flag = true;
+           if($this->request->data('first_name') == ""){
+                $this->Flash->error(__('Please Enter Your  First Name')); $flag = false;
+           } 
+           if($this->request->data('last_name') == ""){
+                $this->Flash->error(__('Please Enter Your Last Name')); $flag = false;
+           } 
+            if($this->request->data('email') == ""){
+                $this->Flash->error(__('Please Enter Your Email')); $flag = false;
+           }
+            if($this->request->data('contact_no') == ""){
+                $this->Flash->error(__('Please Enter Your Mobile Number')); $flag = false;
+           }
+            if($this->request->data('address') == ""){
+                $this->Flash->error(__('Please Enter Your Address')); $flag = false;
+           }
+           if($flag){
+               $uniqid = uniqid();
+             $rand_start = rand(1,5);
+           $rand_8_char = substr($uniqid,$rand_start,8);
+           $this->request->data['shipping_code'] = $rand_8_char;
+           $this->request->data['user_id']= $uid;
+            $this->request->data['address1']= $this->request->data['address'];
+            $this->request->data['area_code']= $this->request->data['location'];
+               $shipping =  $this->Shipping_add->patchEntity($shipping, $this->request->data); 
+                $shp_id = $this->Shipping_add->save($shipping);
+               // pr($shp_id); die;
+                $this->Flash->success(__('Shipping Details is Saved'));
+                return $this->redirect(["controller" => "resturent", "action" => "shipping", $shp_id->shipping_id]);
+              }
+       }
+        $this->set(compact('userdetails','select_location'));
     }
 
     public function shop() {
@@ -148,7 +192,29 @@ class resturentController extends AppController {
         }       
 				
     }
-   			
+   	
+    
+    public function shipping($id){
+        $this->loadModel('Shipping_add');
+        $this->loadModel('Users');
+        $this->loadModel('Area_master');
+        $select_location = $this->Area_master->find()->toArray();
+        $details = $this->Shipping_add->find('all')->where(['shipping_id' => $id])->first();
+      //  pr($details); die;
+          $uid = $this->Auth->user('id');
+           if ($this->request->is(['patch', 'post', 'put'])) {
+           $tableRegObj = TableRegistry::get('Shipping_add');
+                    $query = $tableRegObj->query();
+                    $query->update()->set(['first_name' => $this->request->data['first_name'], 'last_name' => $this->request->data['last_name'],'email' => $this->request->data['email'],'address1' => $this->request->data['address'],'area_code'=> $this->request->data['location']])->where(['shipping_id' => $id])->execute();
+                    if($query){
+                        $this->checkout();
+                    }
+           }
+                    $userdetails = $this->Users->find('all')->where(['id' => $uid])->first();
+        $this->set(compact('details','select_location'));
+        
+    
+    }
         
     
 //    public function signin($val = null) {
@@ -227,7 +293,7 @@ class resturentController extends AppController {
    $setsession = $this->Session->read('cart_item');
     $uid = $this->Auth->user('id');
       $userdetails = $this->Users->find('all')->where(['id' => $uid])->first();
-    //pr($userdetails);die;
+  //  pr($setsession);die;
    foreach($setsession as $orders){
        for($i=0; $i<=count($orders["id"]); $i++){
             $cart =  $this->orderlist->newEntity(); 
@@ -239,11 +305,12 @@ class resturentController extends AppController {
                         'address'=> $userdetails["address"],
                         'phone'=> $userdetails["phone"],
                     ); 
-           var_dump($val);
+           //var_dump($val);
            $cart = $this->orderlist->patchEntity($cart, $val);
+           if(!empty($cart->item_id)){
                $orderkrt= $this->orderlist->save($cart);
            
-       }die;
+      } }die;
    }die;
     
      }
@@ -328,7 +395,7 @@ class resturentController extends AppController {
 //                            $this->request->session('cart_item')[$k]["quantity"] += $_POST["quantity"];
 //                        }
 //                    }
-                   // $krt = $this->cartview();
+                    $krt = $this->cartview();
                     echo '{"code":"0","msg":"You have already added in your cart!","cartvalue":'.$krt.'}';
                 } else {
                     $arr = array_merge($this->Session->read('cart_item'), $itemArray);

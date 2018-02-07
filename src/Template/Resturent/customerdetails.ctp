@@ -49,22 +49,29 @@
                                                                         <div class="form">
                                                                            
 									 <?php echo $this->Form->create('',['enctype'=>"multipart/form-data",'class' => 'form-horizontal', 'id' => 'user-validate']);?>
-                                                                          
-                                                                            <input  type="text" name="lmane" value="<?php echo $userdetails['first_name']?>">
-										 <input class="right"  type="text" placeholder="email" name="email" value="<?php echo $userdetails['email']?>">
-                                                                                  <input class="right"  type="text" name="phone" value="<?php echo $userdetails['phone']?>">
-                                                                                   <input type="text" name="address" placeholder="Address" value="<?php echo $userdetails['address']?>">
-                                                                                   <input  type="text" name="city" value="<?php echo $userdetails['city']?>">
-										</div>
-                                                                            <input type="submit" class="next-step" value="Continue to shipping method">
-										
-                                                                         </form>
+                                                                           <div class="form">
+                                    <input type="text" name="first_name" id="first_name" class="form-control" placeholder="Enter your first name" required>
+                                    <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Enter your last name" required>
+                                    <input type="text" name="email" id="email" class="form-control" placeholder="Enter your email id" required>
+                                    <input type="text" name="contact_no" id="contact_no" class="form-control"  maxlength="15" placeholder="Enter your mobile no" required>
+                                   <span class="input-group-addon">Jalandhar</span>
+                                    <select class="form-control" id="location" name="location" onchange="selectloc();">
+                                     <option value="">Choose A location</option>
+                                  <?php
+                                  foreach ($select_location as $location){
+                                         ?>
+                                      <option value="<?php echo $location['area_id']?>">
+                            <?php echo $location['area_name']?>
+                            </option>
+                            <?php } ?>
+                    </select>
+               
+                                    <p>Fill your address</p>
+                                    <textarea name="address" id="address" class="form-control" placeholder="Enter your address" required>
+                                    </textarea>									
+                                    <button type="submit" class="btn btn-primary btn-md btn-block next-step">Continue Payment Method</button>
+                                </div>
 									</div>
-									
-									<div class="already-account">
-										<span>Already have an account with us? <a href="#.">Login</a></span>
-									</div>
-									
 								</div>
 							</div>
 						</div>
@@ -78,5 +85,16 @@
    
    </div>
    <!--End Content-->
+
+
+<!--script>
+function selectloc(){
+var x = $('#location').val();
+$('#loc').value = x;
+ 
+}
+
+
+</script-->
 	
 	
