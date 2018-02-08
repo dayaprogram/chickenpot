@@ -859,7 +859,7 @@ padding: 11px 10px; font-size: 20px; float: left; text-align: center;}
 .shop-cart .cart-pro-detail .cancel i:hover{color: #000;}
 .shop-cart .cart-update-sec{ margin:25px 0 0 0;}
 .shop-cart .cart-update-sec .apply-coupon{ float:left;}
-.shop-cart .cart-update-sec .apply-coupon input[type=text]{ border:solid 1px #bebebe; height:51px; width:415px; color:#797979; font-size:16px; border-radius:5px;
+.shop-cart .cart-update-sec .apply-coupon input[type=text]{ border:solid 1px #bebebe; height:51px; color:#797979; font-size:16px; border-radius:5px;
 padding:0 10px; float:left;}
 .shop-cart .cart-update-sec .apply-coupon a{ background: #222222; color: #fff; text-transform: uppercase; border-radius: 5px; padding:13px 34px; font-size: 18px;
 display: inline-block; margin:0 0 0 10px;}
@@ -976,15 +976,6 @@ border-radius: 100%;}
 .cash-delivery.thanks-message i{ font-size:52px; float: left; position: absolute; margin:0px 0 0 -112px; color: #6C9AE2;}
 .cash-delivery.thanks-message {margin: 0;}
 
-
-
-
-
-
-
-
-
-
 /*..... FORM ERROR and SUCCESS MESSAGES ......*/
 p#reserv_error { border: solid 3px #FFA3A3; background: #FBF0F0; padding: 12px 0; margin: -28px 0 15px 16px; width: 96%;}
 form#newsletter_form .error { border: solid 2px #F77070 !important;}
@@ -995,27 +986,3 @@ form#newsletter_form .error { border: solid 2px #F77070 !important;}
 .newsletter .success_msg{font-family: 'Raleway', sans-serif; font-size:22px; margin:12px 0 0 0; color: #E9B947;  position: absolute; left:0; text-align:center; width:100%; }
 
 .get-touch-form .success_msg{font-family: 'Raleway', sans-serif; font-size:22px; margin:12px 0 0 0; color: #E9B947;  position: absolute; left:0; text-align:center; width:100%; }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

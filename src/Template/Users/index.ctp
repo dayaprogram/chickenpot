@@ -111,25 +111,22 @@
             <div class="col-md-2"></div>
             <div class="col-md-6">
                 <div class="input-group">
-                    <span class="input-group-addon">Jalandhar</span>
-                    <select class="form-control" id="sel1" onchange="selectloc();">
+                    <span class="input-group-addon" style="font-size:15px">Jalandhar</span>
+                    <select class="form-control" id="sel1" onchange="selectloc();" style="font-size:15px">
                         <option value="">Choose A location</option>
                         <?php
                         foreach ($select_location as $location) {
                             pr($location['name'])
                             ?>
                             <option value="<?php echo $location['id'] ?>" id="location">
-                            <?php echo $location['area_name'] ?>
+                                <?php echo $location['area_name'] ?>
                             </option>
-<?php } ?>
+                        <?php } ?>
                     </select>
                 </div>
             </div>
             <div class="col-md-2"><button type="button" class="btn btn-success">Go</button></div>
             <div class="col-md-2"></div>
-
-
-
         </div>
     </div>
 </div>
@@ -144,7 +141,7 @@
                 <span>&ldquo;</span>Fresh and healthy master of town
                 <span>&rdquo;</span>
             </h1>
-            <a href="#." class="white-btn">Buy Now</a>
+            <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "shop"]); ?>" class="white-btn">Buy Now</a>
         </div>
     </div>
 </div>
@@ -163,7 +160,7 @@
                     </div>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tortor at tellus feugiat congue quis ut nunc. Semper
                         ac dolor vitae accumsan. interdum hendrerit lacinia.</p>
-                    <a href="our-story.html" class="full-story">view full story</a>
+                    <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "ourstory"]); ?>" class="full-story">view full story</a>
                 </div>
             </div>
 

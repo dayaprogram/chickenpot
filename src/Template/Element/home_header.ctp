@@ -72,10 +72,10 @@
         <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/jquery.mmenu.min.all.js"></script> 
         <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/tabs.js"></script> 
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    
-        
-        	<!--PreLoader-->
-	<link href="<?php echo $this->request->webroot; ?>chickenpot/css/loader.css" rel="stylesheet" type="text/css">   
+
+
+        <!--PreLoader-->
+        <link href="<?php echo $this->request->webroot; ?>chickenpot/css/loader.css" rel="stylesheet" type="text/css">   
         <style>
             .text{
                 margin: 0 0 0 13px;
@@ -96,9 +96,9 @@
         <div id="wrap">
 
             <!--Start PreLoader-->
-         
-          <div id="preloader">
-            <div id="status">&nbsp;</div>
+
+            <div id="preloader">
+                <div id="status">&nbsp;</div>
                 <div class="loader">
                     <h1>Loading...</h1>
                     <span></span>
@@ -106,7 +106,7 @@
                     <span></span>
                 </div>
             </div>
-            
+
             <!--End PreLoader--> 
 
             <!--Start Header-->
@@ -150,7 +150,7 @@
                         <ul class="shop-bag">
                             <li class="close-bag"><a class="cart-button"><i class="icon-icons163"></i> <span class="num">
                                         <?php echo count($this->request->session()->read('cart_item')); ?></span></a></li>
-                            <li class="open-bag" style="display: none;border-radius: 10px;">
+                            <li class="open-bag" style="display: none;border-radius: 10px;height:400px;overflow-y:scroll">
                                 <?php
                                 $subtotal = "0.00";
 //                                echo '<pre>'; print_r($this->request->session()->read('cart_item'));   die;
@@ -174,7 +174,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    <?php
+                                        <?php
                                     }
                                 } else {
                                     ?>
@@ -220,7 +220,7 @@
                                 <li><a href="<?php echo $this->Url->build(["resturent" => "Users", "action" => "logout"]); ?>"  type="button" >Log Out</a></li>
                             <?php } else { ?>
                                 <li><a href="<?php echo $this->Url->build(["controller" => "users", "action" => "signin"]); ?>">Log In</a></li>
-<?php } ?>
+                            <?php } ?>
                             <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "signup"]); ?>" >SIGNUP</a></li>
                         </ul>
                     </nav>
@@ -228,123 +228,126 @@
             </div>
             <!-- Mobile Menu End -->
 
-            <!-- Modal -->
-            <div class="modal fade loginModal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog modal-sm" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        </div>
-                        <div class="modal-body">
-                            <h3 class="text-center text-white MB15">Sign In</h3>
-                            <form method='post' onsubmit='return login();'>
-                                <div class="input-group MB15">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                    <input id="email" type="email" class="form-control" required name="email" placeholder="Enter your email">
-                                </div>
-                                <div class="input-group MB15">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                    <input id="password" type="password" required class="form-control" name="Password" placeholder="Password">
-                                </div>
-                                <div class="MB15 clearfix">
-                                    <a href="javascript:void(0)" class="pull-left text-theme"  data-toggle="modal"  type="button" data-target="#forgotpass" data-dismiss="modal">Forget Password</a>
-                                    <a href="javascript:void(0)" class="pull-right text-theme"  data-toggle="modal"  type="button" data-target="#register" data-dismiss="modal">Create an account</a>
-                                </div>
-                                <div class="text-center">
-                                    <button type="submit" name="button" class="btn btn-theme" >Log In</button> 
+            <a href="#0" class="cd-top"></a>
+        </div>
 
-                                </div>
-                            </form>
-                        </div>
+        <!-- Modal -->
+        <div class="modal fade loginModal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <h3 class="text-center text-white MB15">Sign In</h3>
+                        <form method='post' onsubmit='return login();'>
+                            <div class="input-group MB15">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input id="email" type="email" class="form-control" required name="email" placeholder="Enter your email">
+                            </div>
+                            <div class="input-group MB15">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input id="password" type="password" required class="form-control" name="Password" placeholder="Password">
+                            </div>
+                            <div class="MB15 clearfix">
+                                <a href="javascript:void(0)" class="pull-left text-theme"  data-toggle="modal"  type="button" data-target="#forgotpass" data-dismiss="modal">Forget Password</a>
+                                <a href="javascript:void(0)" class="pull-right text-theme"  data-toggle="modal"  type="button" data-target="#register" data-dismiss="modal">Create an account</a>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" name="button" class="btn btn-theme" >Log In</button> 
+
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!--Register-->
-            <div class="modal fade loginModal" id="register" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog modal-sm" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        </div>
-                        <div class="modal-body">
-                            <h3 class="text-center text-white MB15">Create New Account</h3>
-                            <div class="msg" style="color:white;"></div>
-                            <form method='post' onsubmit='return register();'>
-                                <div class="input-group MB15">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                    <input id="name" type="text" class="form-control" required name="name" placeholder="Enter your name">
-                                </div>
-                                <div class="input-group MB15">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                    <input id="regemail" type="email" class="form-control" required name="email" placeholder="Enter your email">
-                                </div>
-                                <div class="input-group MB15">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                    <input id="regpassword" type="password" required class="form-control" name="Password" placeholder="Password">
-                                </div>
-                                <div class="text-center">
-                                    <button type="submit" name="button" class="btn btn-theme" >Signup</button> 
+        <!--Register-->
+        <div class="modal fade loginModal" id="register" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <h3 class="text-center text-white MB15">Create New Account</h3>
+                        <div class="msg" style="color:white;"></div>
+                        <form method='post' onsubmit='return register();'>
+                            <div class="input-group MB15">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input id="name" type="text" class="form-control" required name="name" placeholder="Enter your name">
+                            </div>
+                            <div class="input-group MB15">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input id="regemail" type="email" class="form-control" required name="email" placeholder="Enter your email">
+                            </div>
+                            <div class="input-group MB15">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input id="regpassword" type="password" required class="form-control" name="Password" placeholder="Password">
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" name="button" class="btn btn-theme" >Signup</button> 
 
-                                </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!--End Register-->
+        <!--End Register-->
 
 
-            <script>
-                $('.notify--dismissible').append('<button type="button" class="notify-close">&times;</button>');
+        <script>
+            $('.notify--dismissible').append('<button type="button" class="notify-close">&times;</button>');
 
-                $('.notify-close').on('click', function () {
-                    $(this).closest('.notify').hide();
-                });
-                function deleteItem(id) {
-                    if (confirm("Are you sure you want to delete this Item ?")) {
-                        $.ajax({
-                            type: "POST",
-                            data: {id: id},
-                            dataType: "html",
-                            url: "<?php echo $this->request->webroot . 'resturent/deletecart' ?>",
-                            success: function (data) {
-                                if (data == '1') {
-                                    $('ul li.close-bag').find('span.num').text(parseInt($('ul li.close-bag').find('span.num').text()) - 1);
-                                    var new_price = parseInt($('div.sub-total').find('strong').text().substring('1')) - (parseInt($('div#' + id).find('span#calculatePrice').text()));
-                                    $('div.sub-total').find('strong').text('$' + new_price);
-                                    $('ul.shop-bag li.open-bag div#' + id).remove();
-                                }
+            $('.notify-close').on('click', function () {
+                $(this).closest('.notify').hide();
+            });
+            function deleteItem(id) {
+                if (confirm("Are you sure you want to delete this Item ?")) {
+                    $.ajax({
+                        type: "POST",
+                        data: {id: id},
+                        dataType: "html",
+                        url: "<?php echo $this->request->webroot . 'resturent/deletecart' ?>",
+                        success: function (data) {
+                            if (data == '1') {
+                                $('ul li.close-bag').find('span.num').text(parseInt($('ul li.close-bag').find('span.num').text()) - 1);
+                                var new_price = parseInt($('div.sub-total').find('strong').text().substring('1')) - (parseInt($('div#' + id).find('span#calculatePrice').text()));
+                                $('div.sub-total').find('strong').text('$' + new_price);
+                                $('ul.shop-bag li.open-bag div#' + id).remove();
                             }
-                        });
-                    }
+                        }
+                    });
                 }
+            }
 
-                $(document).on('change', '#changeValuePrice', function () {
+            $(document).on('change', '#changeValuePrice', function () {
 //                    var new_price=parseInt($(this).parent().find('span.priceMoney').text()) * parseInt($(this).val());
 //                    console.log(new_price);
 //                    $(this).parent().find('span#calculatePrice').text(new_price);
-                    var id = parseInt($('#changeValuePrice').parents('.cart-food').attr('id'));
-                    var value = parseInt($('#changeValuePrice').val());
-                    $.ajax({
-                        type: "POST",
-                        data: {id: id, value: value},
-                        dataType: "html",
-                        url: "<?php echo $this->request->webroot . 'resturent/updateQcart' ?>",
-                        success: function (data) {
-                            data = $.parseJSON(data);
-                            if (data.code == '1') {
-                                $('ul li.open-bag').html(data.cartvalue);
+                var id = parseInt($('#changeValuePrice').parents('.cart-food').attr('id'));
+                var value = parseInt($('#changeValuePrice').val());
+                $.ajax({
+                    type: "POST",
+                    data: {id: id, value: value},
+                    dataType: "html",
+                    url: "<?php echo $this->request->webroot . 'resturent/updateQcart' ?>",
+                    success: function (data) {
+                        data = $.parseJSON(data);
+                        if (data.code == '1') {
+                            $('ul li.open-bag').html(data.cartvalue);
 //                                    $('ul li.close-bag').find('span.num').text(parseInt($('ul li.close-bag').find('span.num').text())-1);
 //                                    var new_price=parseInt($('div.sub-total').find('strong').text().substring('1'))-(parseInt($('div#'+id).find('span#calculatePrice').text()));
 //                                    $('div.sub-total').find('strong').text('$'+new_price);
 //                                    $('ul.shop-bag li.open-bag div#'+id).remove();
-                            }
                         }
-                    });
+                    }
                 });
-            </script>
+            });
+        </script>
 
     </body>
 </html>
@@ -422,15 +425,3 @@ $.ajax({url:"/Users/signin",type:"POST", data:$('#formLogin').serialize(), dataT
     }
 
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
