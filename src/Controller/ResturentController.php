@@ -366,13 +366,13 @@ class resturentController extends AppController {
             $view .= '<h7>No Card added to your account.</h7>';
         }
         $view .= '<div class="sub-total"><span>SUBTOTAL:<i class="icon-inr"></i><strong>' . $subtotal . '</strong></span><div class="buttons">
-           ' . $html->link('VIEW CART', ['controller' => 'resturent', 'action' => 'viewcart'], ['class' => 'view-cart']) . '<a href="javascript:;" class="check-out">Check Out</a></div></div>';
+           ' . $html->link('MORE FOOD', ['controller' => 'resturent', 'action' => 'shop'], ['class' => 'view-cart']) . $html->link('CHECK OUT', ['controller' => 'resturent', 'action' => 'viewcart'], ['class' => 'check-out']) ;
 
         return json_encode($view);
     }
 
     public function updateQcart() {
-        if (!empty($this->request->data("id"))) {
+        if ((!empty($this->request->data("id"))) && ($this->request->data("value") > 0)) {
             $sessionArr = $this->request->session()->read('cart_item');
 //            $key=0;
 //            pr($this->request->session()->read('cart_item.'.$key.'.quantity')); die;

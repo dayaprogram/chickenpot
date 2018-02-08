@@ -49,19 +49,21 @@
                                 <span class="item_<?php echo $items['id'] ?> hidden"></span>
                                 <span class="name hidden"><?php echo $items['foodname'] ?></span>
                                 <div class="row">
-                                    <div class="col-sm-2"></div>
                                     <div class="col-sm-4">
                                         <span class="small-tit" style="color: #dc4e20;"><strong> <i class="icon-inr"></i>&nbsp;&nbsp;<?php echo $items['price'] ?></strong></span>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <span class="small-tit" style="color: #dc4e20;">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><strong>Qnt</strong></span>
+                                                <input id="quantity_<?php echo $items['id'] ?>" type="number" class="form-control" name="quantity" class="quantity" value="1" min="1">
+                                            </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <span class="small-tit"><a href="javascript:;" class="btn btn-success" 
                                                                    onclick="addtocart(<?php echo $items['id'] ?>)">ADD TO CART</a></span>
                                     </div>
-                                    <div class="col-sm-2"></div>
                                 </div>
-
-        <!-- Quantity : <input type="text" class="form-control" min="1" class="quantity" value="1" style="width:40px;"/>-->
-
                             </div>
                         </div>
                     </div>
@@ -87,26 +89,22 @@
     function addtocart(id) {
         var foodprice = $('span.item_' + id).parent().find('span.price').text();
         var foodname = $('span.item_' + id).parent().find('span.name').text();
-        //var quantity = $('span.item_' + id).parent().find('input.quantity').val();
-        var quantity = 1;
+        var quantity = $('#quantity_' + id).val();
         var image = $('span.item_' + id).parent().parent().find('img').attr('src');
         $.ajax({
             type: "POST",
             data: {id: id, foodprice: foodprice, foodname: foodname, quantity: quantity, img: image},
             dataType: "html",
             url: "<?php echo $this->request->webroot . 'resturent/addtokrt' ?>",
-            beforeSend: function () {
-                $('.modal-ax').css('display', 'block');
-            },
             success: function (data) {
                 data = $.parseJSON(data);
                 if (data.code === '1') {
                     $('ul li.open-bag').html(data.cartvalue);
                     $('ul li.close-bag').find('span.num').text(parseInt($('ul li.close-bag').find('span.num').text()) + 1);
-                   // alert(data.msg);
+                    // alert(data.msg);
                     snackMessage(data.msg);
                 } else {
-                   // alert(data.msg);
+                    // alert(data.msg);
                     snackMessage(data.msg);
                 }
             }

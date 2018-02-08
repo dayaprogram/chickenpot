@@ -196,7 +196,7 @@
                                                     <a href="#."><?php echo $data['foodname']; ?></a>
                                                     <p><span class="priceMoney hidden"><?php echo $data['foodprice']; ?></span>
                                                         <?php echo $data['foodprice'] . ' x '; ?>
-                                                        <input type="number" style="width:40px;" value="<?php echo $data['quantity']; ?>" id="changeValuePrice">
+                                                        <input type="number" style="width:40px;" value="<?php echo $data['quantity']; ?>" id="changeValuePrice" min="1">
                                                         = <span id="calculatePrice"><?php echo ($data['foodprice'] * $data['quantity']); ?></span></p>
                                                 </div>
                                             </div>

@@ -1,28 +1,3 @@
-<!--Start Sub Banner-->
-<div class="sub-banner">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="detail">
-                    <h1>order now</h1>
-                    <span>Ridiculus sociosqu cursus neque cursus curae ante scelerisque vehicula.</span>
-                    <ul>
-                        <li>
-                            <a href="index.html">Home</a>
-                        </li>
-                        <li>
-                            <a class="select">Order Now</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="banner-img"></div>
-</div>
-<div class="wave"></div>
-
-<!--End Sub Banner-->
 <!--Start Content-->
 <div class="content">
 
@@ -42,6 +17,9 @@
                             </div>
                             <div class="quantity">
                                 <span>Quantity</span>
+                            </div>
+                            <div class="total">
+                                <span>Pot Pack</span>
                             </div>
                             <div class="total">
                                 <span>Total</span>
@@ -76,16 +54,23 @@
                                                     <span class="glyphicon glyphicon-minus"></span>
                                                 </button>
                                             </span>
-                                            <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
+                                            <input type="number" id="quantity_<?php echo $data['id']; ?>" name="quantity" class="form-control input-number"
+                                                   value="<?php echo $data['quantity']; ?>" min="1" max="100" readonly="true" style="text-align: center;">
                                             <span class="input-group-btn">
-                                                <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+                                                <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field=""
+                                                        onclick="var qnt = document.getElementById('quantity_<?php echo $data['id']; ?>').value; qnt = parseInt(qnt.value) + 1;">
                                                     <span class="glyphicon glyphicon-plus"></span>
                                                 </button>
                                             </span>
                                         </div>
                                     </div>
 
-
+                                    <div class="total">
+                                        <span id="calculatePrice">
+                                            <?php echo ($data['foodprice'] * $data['quantity']); ?>
+                                        </span>
+                                    </div>
+                                    
                                     <div class="total">
                                         <span id="calculatePrice">
                                             <?php echo ($data['foodprice'] * $data['quantity']); ?>
