@@ -210,7 +210,7 @@ img:hover {transition: background-color 0.5s ease; }
 .header-two .logo-dark{ display:none;}
 .header-two .nav{ float:left;}
 .header-two .nav ul li{ float:left;}
-.header-two .nav ul li a{ color: #fff; text-transform: uppercase; font-weight: 400; font-size: 14px; font-family: 'Raleway', sans-serif; padding: 0px 0;
+.header-two .nav ul li a{ color: #337ab7;; text-transform: uppercase; font-weight: 600; font-size: 14px; font-family: Raleway, sans-serif; padding: 0px 0;
  margin: 0 14px; line-height: 102px;}
 .header-two .nav ul li.select-item a{ color: #FFFFFF; border-bottom: solid 1px #fff;}
 .header-two .get-touch{ float:right; margin:38px 0 0 0;}
@@ -528,7 +528,7 @@ text-transform: uppercase; font-weight: 800; float: left; border: none; margin: 
 /*..... SUB BANNER ......*/
 .sub-banner{ height:370px; min-height:370px;}
 .sub-banner .banner-img{ background:url(../images/slides/banner6.jpg) no-repeat; width:100%; height:100%; background-size: cover;}
-.sub-banner .detail { position: absolute; top:160px; text-align: center; width: 100%;     display: block;}
+.sub-banner .detail { position: absolute;top: 130px; text-align: center; width: 100%;display: block;}
 .sub-banner .detail h1{ color:#fff; display: block;}
 .sub-banner .detail span{color:#fff; font-size: 20px; display: block;}
 .sub-banner .detail ul{ float:right; margin:110px 0 0 0;}
@@ -808,7 +808,7 @@ font-size:18px; color:#464646; padding:10px;}
 .shop-detail .product-detail span.price{ font-size: 32px; display: block; margin:20px 0 0 0;}
 .shop-detail .product-detail p{ display: block; margin:25px 0 0 0;}
 .shop-detail .product-detail .pro-cart{ margin:30px 0 0 0; display: flex;}
-.shop-detail .product-detail .pro-cart input[type=text]{ text-align:center; width:72px; height:48px; border-radius:5px; border:solid 1px #e0e0e0; font-size: 18px; float: left;}
+.shop-detail .product-detail .pro-cart input[type=text]{ text-align:center; height:48px; border-radius:5px; border:solid 1px #e0e0e0; font-size: 18px; float: left;}
 .shop-detail .product-detail .pro-cart a{color:#fff; padding: 13px 34px; border-radius: 5px; text-transform: uppercase; float: left;
  margin: 0 0 0 12px;}
 .shop-detail .product-detail .pro-cart a:hover{color:#fff; background:#0a1d3b;}
@@ -909,7 +909,7 @@ font-size: 30px; font-weight: 700; padding: 4px 0 0 0; box-shadow: 0 0 0 6px #F4
 .cash-payment .cash-delivery .cash-delivery-detail{ width:755px; border: solid 1px #bfbfbf; border-radius: 6px; display: inline-block; padding:32px;}
 .cash-payment .cash-delivery .cash-delivery-detail h5{ text-align:left; text-transform:uppercase;}
 .cash-payment .cash-delivery .cash-delivery-detail .form{ text-align:left; margin:42px 0 0 0;}
-.cash-payment .cash-delivery .cash-delivery-detail .form input[type=text]{ border: solid 1px #bfbfbf; font-size: 18px; color: #464646; width: 48.8%; height: 55px;
+.cash-payment .cash-delivery .cash-delivery-detail .form input{ border: solid 1px #bfbfbf; font-size: 18px; color: #464646; width: 48.8%; height: 55px;
  border-radius: 5px; padding: 0 12px; float: left; margin: 0 0 16px 0;}
 .cash-payment .cash-delivery .cash-delivery-detail .form input[type=text].right{ float:right;}
 .cash-payment .cash-delivery .cash-delivery-detail .form input[type=text].full-input{ width:100%;}

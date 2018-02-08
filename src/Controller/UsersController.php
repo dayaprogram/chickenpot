@@ -36,7 +36,6 @@ Type::build('date')->setLocaleFormat('yyyy-MM-dd');
  *
  * @link http://book.cakephp.org/3.0/en/controllers/pages-controller.html
  */
-
 /*
  * Users Controller
  * Frontend User Management
@@ -55,7 +54,7 @@ class UsersController extends AppController {
      */
     public function initialize() {
         parent::initialize();
-        $this->Auth->allow(['signup', 'signin', 'forgotpassword', 'setpassword', 'activeaccount', 'paynow', 'logout','index','dashboard','userOrder']);
+        $this->Auth->allow(['signup', 'signin', 'forgotpassword', 'setpassword', 'activeaccount', 'paynow', 'logout', 'index', 'dashboard', 'userOrder']);
         $this->loadComponent('Paginator');
     }
 
@@ -64,40 +63,35 @@ class UsersController extends AppController {
     public function index() {
         $this->loadModel('Area_master');
         $select_location = $this->Area_master->find()->toArray();
-         if ($this->request->is(['patch', 'post', 'put'])) {
-             echo 'hello'; die;
-             
-         }
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            echo 'hello';
+            die;
+        }
         $this->set(compact('select_location'));
-       // pr($select_location); die;
-      //  phpinfo();
-       
-        //echo "kk"; die;
-        //$this->redirect(['controller' => 'Users', 'action' => 'index']);
     }
 
     /*
      * Users Login Section
      */
-   
+
     // User Logout
     public function signout() {
         $session->destroy();
         return $this->redirect($this->Auth->logout());
     }
-	
-	public function userOrder(){
-	 $uid = $this->Auth->user('id');
-		//pr($uid);die;
-		$this->loadModel('Postcards');
-		 $this->loadModel('Orders');
-		$details = $this->Postcards->find()->where(['user_id'=>$uid])->toArray(); 
-		//pr($details);die;
-		$order_details = $this->Orders->find()->where(['user_id'=>$uid])->toArray();
-		 $this->set(compact('order_details','details'));
-         $this->set('_serialize', ['order_details','details']);
-		//pr($order_details);
-	}
+
+    public function userOrder() {
+        $uid = $this->Auth->user('id');
+        //pr($uid);die;
+        $this->loadModel('Postcards');
+        $this->loadModel('Orders');
+        $details = $this->Postcards->find()->where(['user_id' => $uid])->toArray();
+        //pr($details);die;
+        $order_details = $this->Orders->find()->where(['user_id' => $uid])->toArray();
+        $this->set(compact('order_details', 'details'));
+        $this->set('_serialize', ['order_details', 'details']);
+        //pr($order_details);
+    }
 
     //Doctors Logout
     public function logout() {
@@ -107,41 +101,39 @@ class UsersController extends AppController {
         return $this->redirect('/');
     }
 
-   public function signup(){
+    public function signup() {
         $this->loadModel('Users');
         $user = $this->Users->newEntity();
-        if($this->request->is('post')){
+        if ($this->request->is('post')) {
             $this->request->data['ptxt'] = $this->request->data['password'];
             $phone = $this->request->data('contact_no');
             $existsUser = $this->Users->find('all')->where(['phone' => $phone])->toArray();
             $flag = true;
-            if(!empty($existsUser)){
+            if (!empty($existsUser)) {
                 $this->Flash->error(__('Mobile number is already registered!'));
                 $flag = false;
-            }else{
-                $user= $this->Users->patchEntity($user,$this->request->data);
+            } else {
+                $user = $this->Users->patchEntity($user, $this->request->data);
                 $this->Users->save($user);
                 $this->Flash->success(__('Registered'));
                 return $this->redirect(["controller" => "users", "action" => "signin"]);
-               
-              }
-            
-        }       
-				
+            }
+        }
     }
-    public function signin(){
+
+    public function signin() {
         if ($this->request->is('post')) {
-           // pr($this->request->data);die;
-			$user = $this->Auth->identify();
-                      //  pr($user);die;
-			if ($user) {
-                            $this->Auth->setUser($user);
-				return $this->redirect($this->Auth->redirectUrl());
-			}
-			$this->Flash->error(__('Invalid username or password, try again'));
-		}
+            // pr($this->request->data);die;
+            $user = $this->Auth->identify();
+            //  pr($user);die;
+            if ($user) {
+                $this->Auth->setUser($user);
+                return $this->redirect($this->Auth->redirectUrl());
+            }
+            $this->Flash->error(__('Invalid username or password, try again'));
+        }
     }
-   		
+
     // Reset password for users
     public function forgotpassword() {
 
@@ -152,13 +144,11 @@ class UsersController extends AppController {
 //        if ($this->request->session()->check('Auth.Doctor') == true) {
 //            $this->redirect(['controller' => 'Doctors', 'action' => 'dashboard']);
 //        }
-
         //$this->viewBuilder()->layout('default');
         $responce = array();
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
-         // echo 'lllll'; die;
-
+            // echo 'lllll'; die;
             // Checking if User is valid or not.
             $tableRegObj = TableRegistry::get('Users');
             $userExist = $tableRegObj->find()->where(['email' => $this->request->data['email']])->first();
@@ -169,25 +159,24 @@ class UsersController extends AppController {
             $siteSettings = $this->site_setting();
             //pr($siteSettings); pr($emailTemp); pr($userExist); pr($this->request->data); exit;
             if (!empty($userExist)) {
-              $length = 5;
-               $str = "";
-		$chkPost = "";
-          $characters = array_merge(range('A','Z'), range('a','z'), range('0','9'));
-          $max = count($characters) - 1;
-         for ($i = 0; $i < $length; $i++) {
-             $rand = mt_rand(0, $max);
-              $chkPost .= $characters[$rand];
-              
-    }
+                $length = 5;
+                $str = "";
+                $chkPost = "";
+                $characters = array_merge(range('A', 'Z'), range('a', 'z'), range('0', '9'));
+                $max = count($characters) - 1;
+                for ($i = 0; $i < $length; $i++) {
+                    $rand = mt_rand(0, $max);
+                    $chkPost .= $characters[$rand];
+                }
                 //$chkPost = $this->generateRandomString(); //Generating new Password
-     $user = $this->Users->find()->where(['id' => $userExist['id']])->first();
+                $user = $this->Users->find()->where(['id' => $userExist['id']])->first();
                 $user = $this->Users->patchEntity($user, ['password' => $chkPost]);
 
-                
+
                 $user->password = $chkPost;
                 $this->Users->save($user);
 
-               
+
 
                 $mail_To = $userExist['email'];
                 $mail_CC = '';
@@ -195,29 +184,26 @@ class UsersController extends AppController {
                 $name = $userExist['first_name'] . " " . $userExist['last_name'];
                 $url = Router::url('/', true);
                 $link = $url . 'users/setpassword/' . $chkPost;
-         $mail_body = 'Login With this Password:'.'  '. $chkPost;
+                $mail_body = 'Login With this Password:' . '  ' . $chkPost;
                 // $mail_body = str_replace(array('[NAME]', '[LINK]'), array($name, $link), $emailTemp['content']);
                 //echo $mail_body; //exit;
-
                 // Sending user the reset password link.
                 $email = new Email('default');
                 if ($email->emailFormat('html')
                                 ->to($userExist['email'])
                                 ->subject($mail_subject)
                                 ->send($mail_body)) {
-                     $responce = array('Ack' => '1', 'msg' => 'Please check your email for new password.');
+                    $responce = array('Ack' => '1', 'msg' => 'Please check your email for new password.');
                     //return $this->redirect(array('action' => 'forgotpassword'));
                 } else {
-                   $responce = array('Ack' => '0', 'msg' => 'Internal server error. Please try again later.');
+                    $responce = array('Ack' => '0', 'msg' => 'Internal server error. Please try again later.');
                 }
             } else {
                 $responce = array('Ack' => '0', 'msg' => 'Email is not registered.');
             }
         }
         echo json_encode($responce);
-         exit;
-
-        
+        exit;
     }
 
     // Reset password from the generated mail.
@@ -246,7 +232,7 @@ class UsersController extends AppController {
                 $user = $this->Users->find()->where(['id' => $this->request->data['id']])->first();
                 $user = $this->Users->patchEntity($user, ['password' => $this->request->data['password']]);
 
-                
+
                 $user->password = $this->request->data['password'];
                 $this->Users->save($user);
                 $new = $user->password;
@@ -341,12 +327,8 @@ class UsersController extends AppController {
 //                
 //
 //            }
-       
-        
-    
-
     // Users account activation
-    
+
 
     /*
       public function editprofile($id = null) {
@@ -395,18 +377,15 @@ class UsersController extends AppController {
 
     // Patients Dashboard after login
     public function dashboard() {
-         $title="Dashboard";
-         //$this->layout="inner_layout";
+        $title = "Dashboard";
+        //$this->layout="inner_layout";
 //        $this->loadModel('Orders');
         $this->loadModel('Users');
         $uid = $this->Auth->user('id');
-         $query = $this->Users->find("all")->where(['id'=>$uid])->toArray();
-      
-       // $query = $this->Users->find()->where(['id' => $user])->toArray();
-       // print_r($query);die;
-        
+        $query = $this->Users->find("all")->where(['id' => $uid])->toArray();
 
-
+        // $query = $this->Users->find()->where(['id' => $user])->toArray();
+        // print_r($query);die;
 //        $this->loadModel('Orders');
 //        $query = $this->Orders->find()->where(['Orders.user_id' => $uid, 'Orders.is_complete' => 1, 'isverified' => 0, 'is_reject' => 0])->order(['id' => 'DESC'])->all()->toArray();
 //
@@ -424,7 +403,7 @@ class UsersController extends AppController {
 //        }
 //        $this->set('orders', $this->Paginator->paginate($this->Orders, [ 'limit' => 10, 'order' => [ 'id' => 'DESC'], 'conditions' => [ 'id IN' => $dtArr]]));
 //
-      $this->set(compact('title','query'));
+        $this->set(compact('title', 'query'));
     }
 
     // Patients approved orders
@@ -451,7 +430,7 @@ class UsersController extends AppController {
         if (empty($dtArr)) {
             $dtArr[0] = 0;
         }
-        $this->set('orders', $this->Paginator->paginate($this->Orders, [ 'limit' => 10, 'order' => [ 'id' => 'DESC'], 'conditions' => [ 'id IN' => $dtArr]]));
+        $this->set('orders', $this->Paginator->paginate($this->Orders, ['limit' => 10, 'order' => ['id' => 'DESC'], 'conditions' => ['id IN' => $dtArr]]));
         $this->set(compact('dtArr'));
     }
 
@@ -479,7 +458,7 @@ class UsersController extends AppController {
         if (empty($dtArr)) {
             $dtArr[0] = 0;
         }
-        $this->set('orders', $this->Paginator->paginate($this->Orders, [ 'limit' => 10, 'order' => [ 'id' => 'DESC'], 'conditions' => [ 'id IN' => $dtArr]]));
+        $this->set('orders', $this->Paginator->paginate($this->Orders, ['limit' => 10, 'order' => ['id' => 'DESC'], 'conditions' => ['id IN' => $dtArr]]));
         $this->set(compact('orders'));
         $this->set(compact('dtArr'));
     }
@@ -508,7 +487,7 @@ class UsersController extends AppController {
         if (empty($dtArr)) {
             $dtArr[0] = 0;
         }
-        $this->set('orders', $this->Paginator->paginate($this->Orders, [ 'limit' => 10, 'order' => [ 'id' => 'DESC'], 'conditions' => [ 'id IN' => $dtArr]]));
+        $this->set('orders', $this->Paginator->paginate($this->Orders, ['limit' => 10, 'order' => ['id' => 'DESC'], 'conditions' => ['id IN' => $dtArr]]));
         $this->set(compact('dtArr'));
     }
 
@@ -581,20 +560,20 @@ class UsersController extends AppController {
         $presc = $this->Prescriptions->find()->where(['Prescriptions.txnid' => $txn])->all()->toArray();
 
         $medArr = array();
-        foreach($orderExist as $ordExist){
-            foreach($ordExist['orderdetails'] as $ordDet){
+        foreach ($orderExist as $ordExist) {
+            foreach ($ordExist['orderdetails'] as $ordDet) {
                 $medArr[] = $ordDet->medicine->id;
             }
         }
         $medArr = array_unique($medArr);
 
-        if(!empty($medArr)){
-            if(count($medArr) == 1){
+        if (!empty($medArr)) {
+            if (count($medArr) == 1) {
                 $revMedicine = $medArr[0];
             } else {
                 $revMedicineDt = "";
-                foreach($medArr as $k=>$v){
-                    $revMedicineDt = $revMedicineDt.",".$v;
+                foreach ($medArr as $k => $v) {
+                    $revMedicineDt = $revMedicineDt . "," . $v;
                 }
                 $revMedicine = ltrim($revMedicineDt, ",");
             }
@@ -611,7 +590,7 @@ class UsersController extends AppController {
         if ($this->request->is('post')) {
 
             //pr($this->request->data);
-            if($this->request->data['ftype'] == 'msg'){
+            if ($this->request->data['ftype'] == 'msg') {
                 $this->loadModel('Ordermsgs');
                 $ordermsgsTable = TableRegistry::get('Ordermsgs');
                 $ordermsg = $ordermsgsTable->newEntity();
@@ -630,10 +609,9 @@ class UsersController extends AppController {
                 $this->Flash->success(__('Message Sent To Customer Care Successfully.'));
             }
 
-            if($this->request->data['ftype'] == 'review'){
+            if ($this->request->data['ftype'] == 'review') {
                 //pr($this->request->data); exit;
-                if(!empty($this->request->data['rate']))
-                {
+                if (!empty($this->request->data['rate'])) {
                     $orde = $this->Orders->find()->where(['Orders.transaction_id' => $txn])->all()->toArray();
 
                     $reviewsTable = TableRegistry::get('Reviews');
@@ -658,24 +636,25 @@ class UsersController extends AppController {
                     $query1->update()->set(['is_review' => 1])->where(['transaction_id' => $txn])->execute();
 
                     $this->Flash->success(__('Review Saved Successfully.'));
-                }
-                else
-                {
+                } else {
                     $this->Flash->error(__('Please enter your rating.'));
                 }
             }
-
         }
 
         //$this->request->session()->read('Auth.User.id');
 
         $reviews = $this->Reviews->find()->where(['Reviews.txn_id' => $txn])->first();
-        if(!empty($reviews)){ $review = $reviews->toArray(); } else { $review = array(); }
+        if (!empty($reviews)) {
+            $review = $reviews->toArray();
+        } else {
+            $review = array();
+        }
         //pr($review);
         //pr($orderExist); exit;
 
 
-        $this->set(compact('orderExist', 'user', 'presc','transaction','review','revMedicine'));
+        $this->set(compact('orderExist', 'user', 'presc', 'transaction', 'review', 'revMedicine'));
         $this->set('_serialize', ['user']);
     }
 
@@ -764,7 +743,6 @@ class UsersController extends AppController {
 
         if ($this->request->is(['post', 'put'])) {
             //echo "hello"; die;
-
             //pr($this->request->data);
             $flag = true;
 
@@ -857,7 +835,7 @@ class UsersController extends AppController {
 
 
         if (empty($cartData)) {
-            $this->Flash->error('Your Cart is empty.');//Checking cart is empty or not
+            $this->Flash->error('Your Cart is empty.'); //Checking cart is empty or not
             return $this->redirect('/');
         } else {
             $cData = array();
@@ -1010,107 +988,100 @@ class UsersController extends AppController {
         $user = $this->Users->get($this->request->session()->read('Auth.User.id'))->toArray();
 
 
-        $this->set(compact('orderExist', 'cartData', 'is_login','user'));
+        $this->set(compact('orderExist', 'cartData', 'is_login', 'user'));
         $this->set('_serialize', ['cartData']);
     }
-    public function changepass(){
-       $user = $this->Users->get($this->Auth->user('id'));
-          
-       
-         if ($this->request->is(['post', 'put'])) {
-          
-         // $new_pass = $this->request->data['password'];
-          $confirm_pass = $this->request->data['confirm_password'];
-          $user = $this->Users->patchEntity($user, $this->request->data);
-          $this->Users->save($user);
-          $this->Flash->success(__('Password has been Changed successfully.'));
-          return $this->redirect(['action' => 'index']);
- }
- $this->set(compact('user'));
-   $this->set('_serialize', ['user']);
-      
-}
-public function exportUsers()
-        {
 
-            
-            //$events = $this->User->find('all',array('conditions' => array('User.is_paid' => 1)));
-            $this->loadModel('Landlords');
-             $this->loadModel('Properties');
-            $events = $this->Landlords->find()->all();
+    public function changepass() {
+        $user = $this->Users->get($this->Auth->user('id'));
 
-            //print_r($events);
-            //$this->layout = false;
-            $output='';
-            $output .='Id,Property,Company, Email,FirstName,LastName,Phone,Address, BankDetails';
-            $output .="\n";
 
-            if(!empty($events))
-            {
-                //print_r($events);die;
-                foreach($events as $event)
-                {   
-                    $id = $event->id;
-                    $property_id = $event->property_id;
-                    //echo$id; die;
-                    $company_name = $event->company_name;
-                     $address = $event['address'];
-                     //print_r($address);die;
-                    $bank_details = $event['bank_details'];
-                    $email = $event['email'];
-                    $first_name=$event['first_name'];
-                    $last_name=$event['last_name'];
-                    $phone=$event['phone'];
-                    $add_date=$event['add_date'];
-                    $props=$this->Properties->find("all")->where(["is_active"=>1,'id'=>$property_id])->toArray();
-        foreach ($props as $prop)
-        {
-           $properties = $prop->title;
+        if ($this->request->is(['post', 'put'])) {
+
+            // $new_pass = $this->request->data['password'];
+            $confirm_pass = $this->request->data['confirm_password'];
+            $user = $this->Users->patchEntity($user, $this->request->data);
+            $this->Users->save($user);
+            $this->Flash->success(__('Password has been Changed successfully.'));
+            return $this->redirect(['action' => 'index']);
         }
-                    
-                    $output .='"'.$id.'","'.$properties.'","'.$company_name.'","'.$email.'","'.$first_name.'","'.$last_name.'","'.$phone.'","'.$address.'","'.$bank_details.'"';
-                    $output .="\n";
+        $this->set(compact('user'));
+        $this->set('_serialize', ['user']);
+    }
+
+    public function exportUsers() {
+
+
+        //$events = $this->User->find('all',array('conditions' => array('User.is_paid' => 1)));
+        $this->loadModel('Landlords');
+        $this->loadModel('Properties');
+        $events = $this->Landlords->find()->all();
+
+        //print_r($events);
+        //$this->layout = false;
+        $output = '';
+        $output .= 'Id,Property,Company, Email,FirstName,LastName,Phone,Address, BankDetails';
+        $output .= "\n";
+
+        if (!empty($events)) {
+            //print_r($events);die;
+            foreach ($events as $event) {
+                $id = $event->id;
+                $property_id = $event->property_id;
+                //echo$id; die;
+                $company_name = $event->company_name;
+                $address = $event['address'];
+                //print_r($address);die;
+                $bank_details = $event['bank_details'];
+                $email = $event['email'];
+                $first_name = $event['first_name'];
+                $last_name = $event['last_name'];
+                $phone = $event['phone'];
+                $add_date = $event['add_date'];
+                $props = $this->Properties->find("all")->where(["is_active" => 1, 'id' => $property_id])->toArray();
+                foreach ($props as $prop) {
+                    $properties = $prop->title;
                 }
+
+                $output .= '"' . $id . '","' . $properties . '","' . $company_name . '","' . $email . '","' . $first_name . '","' . $last_name . '","' . $phone . '","' . $address . '","' . $bank_details . '"';
+                $output .= "\n";
             }
-
-
-            $filename = "myFile".time().".csv";
-            header('Content-type: application/csv');
-            header('Content-Disposition: attachment; filename='.$filename);
-            echo $output;
-            exit;
-
-            
         }
+
+
+        $filename = "myFile" . time() . ".csv";
+        header('Content-type: application/csv');
+        header('Content-Disposition: attachment; filename=' . $filename);
+        echo $output;
+        exit;
+    }
 
 ////add certficate
- public function certificates(){
-   $this->loadModel('Certificate');
- $result =  $this->Certificate->find('all', 
-        array(
-            
+    public function certificates() {
+        $this->loadModel('Certificate');
+        $result = $this->Certificate->find('all', array(
             'order' => 'Certificate.id DESC',
-            
-       )
-   );
-  // $title = 'Certificate';
-  // echo "hello"; die;
+                )
+        );
+        // $title = 'Certificate';
+        // echo "hello"; die;
 // $result = $this->Certificate->find()->all();
- //echo "<pre>"; print_r($result); die; 
-     $this->set(compact('result'));
-   $this->set('_serialize', ['result']); 
- }
- public function addcretificate(){
+        //echo "<pre>"; print_r($result); die; 
+        $this->set(compact('result'));
+        $this->set('_serialize', ['result']);
+    }
 
-    //add certificate to be modify from sidemanegment
-   $this->loadModel("Properties");
-     $this->loadModel('certificate');
-     $uid = $this->Auth->user('id');
-     //echo "<pre>"; print_r($uid);die;
-      $addcertificate = $this->certificate->newEntity();
-      if ($this->request->is('post')) {
-       // echo "test"; die;
-        // Modify from Here surbhi
+    public function addcretificate() {
+
+        //add certificate to be modify from sidemanegment
+        $this->loadModel("Properties");
+        $this->loadModel('certificate');
+        $uid = $this->Auth->user('id');
+        //echo "<pre>"; print_r($uid);die;
+        $addcertificate = $this->certificate->newEntity();
+        if ($this->request->is('post')) {
+            // echo "test"; die;
+            // Modify from Here surbhi
 
             $tableRegObj = TableRegistry::get('certificate');
             $certificateExiist = $tableRegObj->find()->where(['title' => $this->request->data['title']])->toArray();
@@ -1121,54 +1092,52 @@ public function exportUsers()
             if ($this->request->data['title'] == "") {
                 $this->Flash->error(__('Title can not be null. Please, try again.'));
             }
-            
         }
-        $this->request->data["user_id"]=$uid;
-         
-      // if($flag){
-      //           $arr_ext = array('jpg', 'jpeg', 'gif', 'png');
-      //           if (!empty($this->request->data['image']['name'])) {
-      //               $file = $this->request->data['image']; //put the data into a var for easy use
-      //               $ext = substr(strtolower(strrchr($file['name'], '.')), 1); //get the extension
-      //               $fileName = time() . "." . $ext;
-      //               if (in_array($ext, $arr_ext)) {
-      //                   move_uploaded_file($file['tmp_name'], WWW_ROOT . 'certificate_img' . DS . $fileName);
-      //                   $file = $fileName;
-      //               } else {
-      //                   $flag = false;
-      //                   $this->Flash->error(__('Upload image only jpg,jpeg,png files.'));
-      //               }
-      //           } else {
-      //               $flag = false;
-      //               $this->Flash->error(__('Upload Certificate.'));
-      //           }
-      //       }
+        $this->request->data["user_id"] = $uid;
 
-            if($flag){
-                //$this->request->data['image'] = $file;
-               //print_r ($this->request->data);die;
-               $certificate_img = $this->Users->patchEntity($addcertificate, $this->request->data);
-                if ($this->certificate->save($addcertificate)) {
-                    $this->Flash->success(__('certificate has been saved.'));
-                    return $this->redirect(['action' => 'certificates']);
-                } else {
-                    $this->Flash->error(__('certificate could not be saved. Please, try again.'));
-                }
+        // if($flag){
+        //           $arr_ext = array('jpg', 'jpeg', 'gif', 'png');
+        //           if (!empty($this->request->data['image']['name'])) {
+        //               $file = $this->request->data['image']; //put the data into a var for easy use
+        //               $ext = substr(strtolower(strrchr($file['name'], '.')), 1); //get the extension
+        //               $fileName = time() . "." . $ext;
+        //               if (in_array($ext, $arr_ext)) {
+        //                   move_uploaded_file($file['tmp_name'], WWW_ROOT . 'certificate_img' . DS . $fileName);
+        //                   $file = $fileName;
+        //               } else {
+        //                   $flag = false;
+        //                   $this->Flash->error(__('Upload image only jpg,jpeg,png files.'));
+        //               }
+        //           } else {
+        //               $flag = false;
+        //               $this->Flash->error(__('Upload Certificate.'));
+        //           }
+        //       }
+
+        if ($flag) {
+            //$this->request->data['image'] = $file;
+            //print_r ($this->request->data);die;
+            $certificate_img = $this->Users->patchEntity($addcertificate, $this->request->data);
+            if ($this->certificate->save($addcertificate)) {
+                $this->Flash->success(__('certificate has been saved.'));
+                return $this->redirect(['action' => 'certificates']);
+            } else {
+                $this->Flash->error(__('certificate could not be saved. Please, try again.'));
             }
-            $props=$this->Properties->find("all")->where(["is_active"=>1,'user_id'=>$uid])->toArray();
-        foreach ($props as $prop)
-        {
-           $properties[$prop->id]= $prop->address;
         }
-        
-          $this->set(compact('addcertificate','properties'));
-           $this->set('_serialize', ['addcertificate','properties']);      
-            }  
+        $props = $this->Properties->find("all")->where(["is_active" => 1, 'user_id' => $uid])->toArray();
+        foreach ($props as $prop) {
+            $properties[$prop->id] = $prop->address;
+        }
 
-    public function delete($id){
-                 $this->loadModel('Certificate');
+        $this->set(compact('addcertificate', 'properties'));
+        $this->set('_serialize', ['addcertificate', 'properties']);
+    }
+
+    public function delete($id) {
+        $this->loadModel('Certificate');
         $result = $this->Certificate->get($id);
-       // print_r($result);die;
+        // print_r($result);die;
         if ($this->Certificate->delete($result)) {
             $this->Flash->success(__('Certificate has been deleted.'));
         } else {
@@ -1176,95 +1145,91 @@ public function exportUsers()
         }
         return $this->redirect(['action' => 'certificates']);
     }
+
     public function edit($id) {
 
-       // $this->viewBuilder()->layout('admin');
-         $this->loadModel("Properties");
-      $this->loadModel('Certificate');
-      $uid = $this->Auth->user('id');
-       $result = $this->Certificate->get(base64_decode($id));
-       //print_r($result);die;
+        // $this->viewBuilder()->layout('admin');
+        $this->loadModel("Properties");
+        $this->loadModel('Certificate');
+        $uid = $this->Auth->user('id');
+        $result = $this->Certificate->get(base64_decode($id));
+        //print_r($result);die;
         $result->issue_date = date("Y-m-d", strtotime($result->issue_date));
         $result->expire_date = date("Y-m-d", strtotime($result->expire_date));
 
-       $id= base64_decode($id);
-        $this->request->data["user_id"]=$uid;
-        $props=$this->Properties->find("all")->where(["is_active"=>1,'user_id'=>$uid])->toArray();
-        foreach ($props as $prop)
-        {
-           $properties[$prop->id]= $prop->title;
+        $id = base64_decode($id);
+        $this->request->data["user_id"] = $uid;
+        $props = $this->Properties->find("all")->where(["is_active" => 1, 'user_id' => $uid])->toArray();
+        foreach ($props as $prop) {
+            $properties[$prop->id] = $prop->title;
         }
-            
-      // print_r($id);die;
-     // $flag=false;
+
+        // print_r($id);die;
+        // $flag=false;
         if ($this->request->is(['patch', 'post', 'put'])) {
 
 
 
-           // pr($this->request->data); exit;
+            // pr($this->request->data); exit;
             // $this->loadModel('SideBar');
-             $tableRegObj = TableRegistry::get('Certificate');
-             $slugExist = $tableRegObj
+            $tableRegObj = TableRegistry::get('Certificate');
+            $slugExist = $tableRegObj
                             ->find()
-                            ->where(['title' => $this->request->data['title'],'id !='=> $id])->toArray();
-                           // print_r($slugExist);
-
-          // $this->request->data; die;
-
+                            ->where(['title' => $this->request->data['title'], 'id !=' => $id])->toArray();
+            // print_r($slugExist);
+            // $this->request->data; die;
             //pr($getAllResults); exit;
             //pr($this->request->data); exit;
-                           // $issue_date = date("Y-m-d", strtotime($this->request->data));
-                            
-                            //print_r($issue_date); die;
+            // $issue_date = date("Y-m-d", strtotime($this->request->data));
+            //print_r($issue_date); die;
 
             $flag = true;
 
-            if($this->request->data['title'] == ""){
-                $this->Flash->error(__('Title can not be null. Please, try again.')); $flag = false;
+            if ($this->request->data['title'] == "") {
+                $this->Flash->error(__('Title can not be null. Please, try again.'));
+                $flag = false;
             }
             $this->request->data['issue_date'] = date("Y-m-d", strtotime($this->request->data['issue_date']));
-            $this->request->data['expire_date'] = date("Y-m-d", strtotime($this->request->data['expire_date']));    
-             }
-             
+            $this->request->data['expire_date'] = date("Y-m-d", strtotime($this->request->data['expire_date']));
+        }
 
-             
-           // if($flag){
-                // $arr_ext = array('jpg', 'jpeg', 'gif', 'png');
-                // if (!empty($this->request->data['image'])) {
-                //     $file = $this->request->data['image']; //put the data into a var for easy use
-                //     $ext = substr(strtolower(strrchr($file['name'], '.')), 1); //get the extension
 
-                //     if($result->image != "") { $fileName = $result->image; } else { $fileName = time() . "." . $ext; }
 
-                //     if (in_array($ext, $arr_ext)) {
-                //         move_uploaded_file($file['tmp_name'], WWW_ROOT . 'certificate_img' . DS . $fileName);
-                //         $this->request->data['image'] = $fileName;
-                //     }
-                // } else {
-                //     $this->request->data['image'] = $result->image;
-                // }
-                 
+        // if($flag){
+        // $arr_ext = array('jpg', 'jpeg', 'gif', 'png');
+        // if (!empty($this->request->data['image'])) {
+        //     $file = $this->request->data['image']; //put the data into a var for easy use
+        //     $ext = substr(strtolower(strrchr($file['name'], '.')), 1); //get the extension
+        //     if($result->image != "") { $fileName = $result->image; } else { $fileName = time() . "." . $ext; }
+        //     if (in_array($ext, $arr_ext)) {
+        //         move_uploaded_file($file['tmp_name'], WWW_ROOT . 'certificate_img' . DS . $fileName);
+        //         $this->request->data['image'] = $fileName;
+        //     }
+        // } else {
+        //     $this->request->data['image'] = $result->image;
+        // }
 
- if($flag){
 
-              // print_r($this->request->data); die;
-                $certificate = $this->Certificate->patchEntity($result, $this->request->data);
-               //print_r($certificate); die;
-                if ($this->Certificate->save($certificate)) {
-                    $this->Flash->success(__('Certificate detail has been updated.'));
-                    // return $this->redirect(['action' => 'certificate']);
-                } else {
-                    $this->Flash->error(__('certificate detail could not be update. Please, try again.'));
-                }
+        if ($flag) {
+
+            // print_r($this->request->data); die;
+            $certificate = $this->Certificate->patchEntity($result, $this->request->data);
+            //print_r($certificate); die;
+            if ($this->Certificate->save($certificate)) {
+                $this->Flash->success(__('Certificate detail has been updated.'));
+                // return $this->redirect(['action' => 'certificate']);
+            } else {
+                $this->Flash->error(__('certificate detail could not be update. Please, try again.'));
             }
-      //  }
+        }
+        //  }
 
 
-        $this->set(compact('result','properties'));
-        $this->set('_serialize', ['result','properties']);
+        $this->set(compact('result', 'properties'));
+        $this->set('_serialize', ['result', 'properties']);
     }
 
-          // Adding Prescription for Users
+    // Adding Prescription for Users
     public function addprescription($txn = null) {
         //echo $txn; exit;
         $this->loadModel('Orders');
@@ -1298,8 +1263,6 @@ public function exportUsers()
         $this->set(compact('prescription'));
         $this->set('_serialize', ['prescription']);
     }
-   
-
 
     // Cancel oreder and Refund
     public function refundextra($txn_id = null) {
@@ -1366,9 +1329,9 @@ public function exportUsers()
             $orderExist = $this->Orders->find()->where(['Orders.user_id' => $uid, 'Orders.transaction_id' => $txnId])->all()->toArray();
         }
 
-        if($txnId != ""){
+        if ($txnId != "") {
 
-            $transaction = $this->Transactions->find()->contain(['Orders','Users'])->where(['Transactions.transaction_id' => $txnId])->first()->toArray();
+            $transaction = $this->Transactions->find()->contain(['Orders', 'Users'])->where(['Transactions.transaction_id' => $txnId])->first()->toArray();
 
             $request_params = array(
                 'METHOD' => 'RefundTransaction',
@@ -1397,7 +1360,7 @@ public function exportUsers()
             $result = curl_exec($curl);
             curl_close($curl);
             parse_str($result, $resArray);
-            if($resArray['ACK'] == 'Success' ){
+            if ($resArray['ACK'] == 'Success') {
                 $retTransactionId = $resArray['REFUNDTRANSACTIONID'];
                 $refAmt = $resArray['NETREFUNDAMT'];
                 $record_id = $transaction['id'];
@@ -1413,7 +1376,7 @@ public function exportUsers()
                 $query1 = $transactionTable->query();
                 $query1->update()->set($trans)->where(['id' => $record_id])->execute();
 
-                foreach($transaction['Orders'] as $cancelOrder){
+                foreach ($transaction['Orders'] as $cancelOrder) {
                     $record_ids = $cancelOrder['id'];
                     $order['is_reject'] = 1;
                     $order['reject_by'] = "Patient";
@@ -1427,17 +1390,15 @@ public function exportUsers()
                     $query->update()->set($order)->where(['id' => $record_ids])->execute();
                 }
                 $this->Flash->success(__('You have cancel order Successfully.'));
-                $this->redirect(['controller'=>'Users' ,'action' => 'prescriptiondetail', $txnId]);
+                $this->redirect(['controller' => 'Users', 'action' => 'prescriptiondetail', $txnId]);
             } else {
                 $this->Flash->success(__('Your cancel order Not done Try again.'));
-                $this->redirect(['controller'=>'Users' ,'action' => 'prescriptiondetail', $txnId]);
+                $this->redirect(['controller' => 'Users', 'action' => 'prescriptiondetail', $txnId]);
             }
-
         } else {
             $this->Flash->success(__('Your cancel order Not done Try again.'));
-            $this->redirect(['controller'=>'Users' ,'action' => 'prescriptiondetail', $txnId]);
+            $this->redirect(['controller' => 'Users', 'action' => 'prescriptiondetail', $txnId]);
         }
-
     }
-    
+
 }

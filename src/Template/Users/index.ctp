@@ -108,8 +108,9 @@
             </div>
 
 
-            <div class="col-md-2"></div>
-            <div class="col-md-6">
+            
+            <div class="col-sm-2"></div>
+            <div class="col-sm-6">
                 <div class="input-group">
                     <span class="input-group-addon" style="font-size:15px">Jalandhar</span>
                     <select class="form-control" id="sel1" onchange="selectloc();" style="font-size:15px">
@@ -125,8 +126,8 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-2"><button type="button" class="btn btn-success">Go</button></div>
-            <div class="col-md-2"></div>
+            <div class="col-sm-2"><button type="button" class="btn btn-success">Go</button></div>
+            <div class="col-sm-2"></div>
         </div>
     </div>
 </div>

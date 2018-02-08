@@ -1,6 +1,7 @@
 <!-- for-mobile-apps -->
 <!DOCTYPE html>
-<html><head>
+<html>
+    <head>
         <title>Chicken Pot</title>
         <meta name="keywords" content="chickenpot,chicken,pot,Amritsaria Kulcha,Plan Paratha,Sabji,Aloo Paratha ,Curd,Egg Bhurji ,slice Bread,Boil Egg,Puri,Stuff Bread Role">
         <meta name="description" content="Order on 9888529294,9888429294. Order from Chickenpot online in Jalandhar | Home delivery Chickenpot menu.|
@@ -22,7 +23,7 @@
         <link href="<?php echo $this->request->webroot; ?>chickenpot/css/jquery.mmenu.all.css" rel="stylesheet">
         <link href="<?php echo $this->request->webroot; ?>chickenpot/css/cubeportfolio.css" rel="stylesheet" type="text/css"> 
         <link href="<?php echo $this->request->webroot; ?>chickenpot/css/Tabs.css" rel="stylesheet" type="text/css"> 
-        <link href="<?php echo $this->request->webroot; ?>css/bootstrap.css" rel="stylesheet" type="text/css"> 
+        <link href="<?php echo $this->request->webroot; ?>chickenpot/css/bootstrap.css" rel="stylesheet" type="text/css"> 
         <link href="<?php echo $this->request->webroot; ?>chickenpot/css/selectbar.css" rel="stylesheet" type="text/css">
 
 
@@ -40,7 +41,6 @@
         <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/scroll-desktop-smooth.js"></script>
 
         <!-- START REVOLUTION SLIDER -->
-
         <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/jquery.themepunch.revolution.min.js"></script>
         <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/jquery.themepunch.tools.min.js"></script>
 
@@ -52,11 +52,9 @@
         <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/owl.carousel.js"></script>
 
         <!-- Owl Carousel -->
-
         <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/cart-detail.js"></script>
 
         <!-- START REVOLUTION SLIDER -->
-
         <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/jquery.themepunch.revolution.min.js"></script>
         <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/jquery.themepunch.tools.min.js"></script>
         <!-- Mobile Menu -->
@@ -76,19 +74,49 @@
 
         <!--PreLoader-->
         <link href="<?php echo $this->request->webroot; ?>chickenpot/css/loader.css" rel="stylesheet" type="text/css">   
+
+
         <style>
-            .text{
-                margin: 0 0 0 13px;
-            }
-            .modal-ax {
-                display: none;
+            #snackbar {
+                visibility: hidden;
+                min-width: 80%;
+                background-color: rgba(233, 185, 71,1);
+                color: #222;
+                text-align: center;
+                border-radius: 4px;
+                padding: 16px;
                 position: fixed;
-                z-index: 1000;
-                top: 0;
-                left: 0;
-                height: 100%;
-                width: 100%;
-                background: rgba( 255, 255, 255, .8 ) url(../../assets/images/loader1.gif) 50% 50% no-repeat;
+                z-index:  10001;
+                left: 5%;
+                right: 5%;
+                bottom: 30px;
+                font-size: 17px;
+            }
+
+            #snackbar.show {
+                visibility: visible;
+                -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+                animation: fadein 0.5s, fadeout 0.5s 2.5s;
+            }
+
+            @-webkit-keyframes fadein {
+                from {bottom: 0; opacity: 0;} 
+                to {bottom: 30px; opacity: 1;}
+            }
+
+            @keyframes fadein {
+                from {bottom: 0; opacity: 0;}
+                to {bottom: 30px; opacity: 1;}
+            }
+
+            @-webkit-keyframes fadeout {
+                from {bottom: 30px; opacity: 1;} 
+                to {bottom: 0; opacity: 0;}
+            }
+
+            @keyframes fadeout {
+                from {bottom: 30px; opacity: 1;}
+                to {bottom: 0; opacity: 0;}
             }
         </style>
     </head>
@@ -113,8 +141,8 @@
 
             <header class="header-two">
                 <div class="container">
-                    <a href="index.html"><img class="logo2" src="<?php echo $this->request->webroot; ?>chickenpot/images/slides/logo2.png" alt="chickenpot logo"></a>
-                    <a href="index.html"><img class="logo-dark" src="<?php echo $this->request->webroot; ?>chickenpot/images/slides/logo-dark.png" alt="chickenpot logo"></a>
+                    <a href="<?php echo $this->Url->build(["controller" => "Users", "action" => "index"]); ?>"><img class="logo2" src="<?php echo $this->request->webroot; ?>chickenpot/images/slides/logo2.png" alt="chickenpot logo"></a>
+                    <a href="<?php echo $this->Url->build(["controller" => "Users", "action" => "index"]); ?>"><img class="logo-dark" src="<?php echo $this->request->webroot; ?>chickenpot/images/slides/logo-dark.png" alt="chickenpot logo"></a>
 
                     <div class="cont-right">
 
@@ -146,7 +174,6 @@
                                 <li><a href="#."><i class="icon-google"></i></a></li>
                             </ul>
                         -->
-                        <div class="modal-ax"></div>
                         <ul class="shop-bag">
                             <li class="close-bag"><a class="cart-button"><i class="icon-icons163"></i> <span class="num">
                                         <?php echo count($this->request->session()->read('cart_item')); ?></span></a></li>
@@ -313,10 +340,11 @@
                         dataType: "html",
                         url: "<?php echo $this->request->webroot . 'resturent/deletecart' ?>",
                         success: function (data) {
-                            if (data == '1') {
+                            if (data === '1') {
                                 $('ul li.close-bag').find('span.num').text(parseInt($('ul li.close-bag').find('span.num').text()) - 1);
-                                var new_price = parseInt($('div.sub-total').find('strong').text().substring('1')) - (parseInt($('div#' + id).find('span#calculatePrice').text()));
-                                $('div.sub-total').find('strong').text('$' + new_price);
+                                var new_price = parseInt($('div.sub-total').find('strong').text())
+                                        - (parseInt($('div#' + id).find('span#calculatePrice').text()));
+                                $('div.sub-total').find('strong').text(new_price);
                                 $('ul.shop-bag li.open-bag div#' + id).remove();
                             }
                         }
@@ -325,9 +353,6 @@
             }
 
             $(document).on('change', '#changeValuePrice', function () {
-//                    var new_price=parseInt($(this).parent().find('span.priceMoney').text()) * parseInt($(this).val());
-//                    console.log(new_price);
-//                    $(this).parent().find('span#calculatePrice').text(new_price);
                 var id = parseInt($('#changeValuePrice').parents('.cart-food').attr('id'));
                 var value = parseInt($('#changeValuePrice').val());
                 $.ajax({
@@ -337,20 +362,44 @@
                     url: "<?php echo $this->request->webroot . 'resturent/updateQcart' ?>",
                     success: function (data) {
                         data = $.parseJSON(data);
-                        if (data.code == '1') {
+                        if (data.code === '1') {
                             $('ul li.open-bag').html(data.cartvalue);
-//                                    $('ul li.close-bag').find('span.num').text(parseInt($('ul li.close-bag').find('span.num').text())-1);
-//                                    var new_price=parseInt($('div.sub-total').find('strong').text().substring('1'))-(parseInt($('div#'+id).find('span#calculatePrice').text()));
-//                                    $('div.sub-total').find('strong').text('$'+new_price);
-//                                    $('ul.shop-bag li.open-bag div#'+id).remove();
                         }
                     }
                 });
             });
         </script>
+        <div id="snackbar"></div>
 
     </body>
 </html>
+
+
+<script>
+    function snackMessage(msg) {
+        var x = document.getElementById("snackbar");
+        x.innerHTML = msg;
+        x.className = "show";
+        setTimeout(function () {
+            x.className = x.className.replace("show", "");
+        }, 5000);
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

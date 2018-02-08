@@ -42,17 +42,26 @@
                             <img src="<?php echo $this->Url->build('/food_image/' . $items->image); ?>" alt="">
                             <div class="detail">
                                 <a href="<?php echo $this->Url->build(["action" => "details", $items->id]); ?>">
-                                    <p><?php echo $items['foodname'] ?></p></a>
+                                    <p style="font-weight: 600;font-size: 25px;"><?php echo $items['foodname'] ?></p></a>
                                 <p><?php echo $items['description'] ?></p>
                                 <span class="addtokrt"></span>
-                                <span class="food-time"><strong> <i class="icon-inr"></i><?php echo $items['price'] ?></strong></span>
                                 <span class="price hidden"><?php echo $items['price'] ?></span>
                                 <span class="item_<?php echo $items['id'] ?> hidden"></span>
                                 <span class="name hidden"><?php echo $items['foodname'] ?></span>
-                                <br/>
-                                Quantity : <input type="number" min="1" class="quantity" value="1" style="width:40px;"/>
-                                <span class="small-tit"><a href="javascript:;" class="btn btn-success" 
-                                                           onclick="addtocart(<?php echo $items['id'] ?>)">ADD TO CART</a></span>
+                                <div class="row">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-4">
+                                        <span class="small-tit" style="color: #dc4e20;"><strong> <i class="icon-inr"></i>&nbsp;&nbsp;<?php echo $items['price'] ?></strong></span>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <span class="small-tit"><a href="javascript:;" class="btn btn-success" 
+                                                                   onclick="addtocart(<?php echo $items['id'] ?>)">ADD TO CART</a></span>
+                                    </div>
+                                    <div class="col-sm-2"></div>
+                                </div>
+
+        <!-- Quantity : <input type="text" class="form-control" min="1" class="quantity" value="1" style="width:40px;"/>-->
+
                             </div>
                         </div>
                     </div>
@@ -78,7 +87,8 @@
     function addtocart(id) {
         var foodprice = $('span.item_' + id).parent().find('span.price').text();
         var foodname = $('span.item_' + id).parent().find('span.name').text();
-        var quantity = $('span.item_' + id).parent().find('input.quantity').val();
+        //var quantity = $('span.item_' + id).parent().find('input.quantity').val();
+        var quantity = 1;
         var image = $('span.item_' + id).parent().parent().find('img').attr('src');
         $.ajax({
             type: "POST",
@@ -90,19 +100,15 @@
             },
             success: function (data) {
                 data = $.parseJSON(data);
-                if (data.code == '1') {
-                    //var htmlView='<div class="cart-food" id="'+id+'"><div class="detail"><a href="javascript:;" class="btn btn-danger pull-right" onclick="return deleteItem('+id+');"><i class="icon-icons163"></i></a><img src="'+image+'" alt=""><div class="text"><a href="javascript:;">'+foodname+'</a><p><span class="priceMoney hidden">'+foodprice+'</span>'+foodprice+' x '+ quantity+' = <span id="calculatePrice">'+(foodprice * quantity)+'</span></p></div></div></div>';
-                    //console.log(htmlView);
+                if (data.code === '1') {
                     $('ul li.open-bag').html(data.cartvalue);
                     $('ul li.close-bag').find('span.num').text(parseInt($('ul li.close-bag').find('span.num').text()) + 1);
-                    //var new_price=parseInt($('div.sub-total').find('strong').text().substring('1'))+(foodprice*quantity);
-                    //$('div.sub-total').find('strong').text('$'+new_price);
-                    //$('ul.shop-bag li.open-bag div.sub-total').before(htmlView);
-                    alert(data.msg);
+                   // alert(data.msg);
+                    snackMessage(data.msg);
                 } else {
-                    alert(data.msg);
+                   // alert(data.msg);
+                    snackMessage(data.msg);
                 }
-                $('.modal-ax').css('display', 'none');
             }
         });
     }

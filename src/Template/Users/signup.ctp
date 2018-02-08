@@ -47,7 +47,7 @@
                                 <div class="form">
                                     <input type="text" name="fname" id="fname" class="form-control" placeholder="Enter your first name" required>
                                     <input type="text" name="lname" id="lname" class="form-control" placeholder="Enter your last name" required>
-                                    <input type="text" name="email" id="email" class="form-control" placeholder="Enter your email id" required>
+                                    <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email id" required>
                                     <input type="text" name="contact_no" id="phone" class="form-control"  maxlength="15" placeholder="Enter your mobile no" required>
                                     <input type="text" name="password" id="password" class="form-control" placeholder="Enter your password" required>
                                     <p>Fill your address</p>

@@ -50,7 +50,7 @@ border-bottom:solid 1px #F3F3F3;
 .header-two.sticky .nav ul li.select-item a:hover{color: #222; border-bottom: solid 1px #222;}
 .header-two.sticky .logo2{ display:none;}
 .header-two.sticky .logo-dark{ display:inline-block; width:130px; float:left; margin: 8px 0 0 0;}
-.header-two.sticky .nav ul li a { color: #222; line-height: 58px;}
+.header-two.sticky .nav ul li a { color: #222; line-height: 58px;font-weight:600;}
 .header-two.sticky .nav ul li a:hover{ color: #e9b947;}
 .header-two.sticky .social-icons li a{ color: #444;}
 

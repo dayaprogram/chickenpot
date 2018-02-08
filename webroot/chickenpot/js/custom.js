@@ -9,11 +9,11 @@ $("#menu").mmenu({
 },
 "footer": {
 "add": true,
-"title": "Copyrights 2016 Pearl. all rights reserved."
+"title": "Copyrights 2018 Chickenpot. all rights reserved."
 },
 
 "header": {
-"title": "Pearl Food",
+"title": "Chicken Pot",
 "add": true,
 "update": true
 },

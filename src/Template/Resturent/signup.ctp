@@ -20,10 +20,6 @@
 
 <!--End Sub Banner-->
 
-
-
-
-
 <!--Start Content-->
 <div class="content">
     <!--Start Cash Billing-->
@@ -39,10 +35,10 @@
                                 <div class="form">
                                     <input type="text" name="fname" id="fname" class="form-control" placeholder="Enter your first name" required>
                                     <input type="text" name="lname" id="lname" class="form-control" placeholder="Enter your last name" required>
-                                    <input type="text" name="email" id="email" class="form-control" placeholder="Enter your email id" required>
-                                    <input type="text" name="contact_no" id="contact_no" class="form-control"  maxlength="15" placeholder="Enter your mobile no" required>
-                                    <input type="text" name="password" id="password" class="form-control" placeholder="Enter your password" required>
-                                    <input type="text" name="password" id="password" class="form-control" placeholder="Confirm password" required>
+                                    <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email id" required>
+                                    <input type="tel" name="contact_no" id="contact_no" class="form-control"  maxlength="15" placeholder="Enter your mobile no" required>
+                                    <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password" required>
+                                    <input type="password" name="password" id="password" class="form-control" placeholder="Confirm password" required>
                                     <textarea name="address" id="address" class="form-control" placeholder="Enter your address" required></textarea>									
                                     <button type="submit" class="btn btn-primary btn-md btn-block next-step">Sign Up</button>
                                 </div>

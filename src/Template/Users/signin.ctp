@@ -44,7 +44,7 @@
                             </form>
 
                             <div class="already-account">
-                                <span>Already have an account with us? <a href="#.">Forget password</a></span>
+                                <span>Don't have an account? Please <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "signup"]); ?>">Sign Up</a></span>
                             </div>
                         </div>
                     </div>
