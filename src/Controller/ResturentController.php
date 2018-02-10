@@ -30,7 +30,7 @@ class resturentController extends AppController {
         $this->Auth->allow(['index', 'customerdetails', 'menu', 'shop',
             'orderlist', 'home2', 'ourstory', 'blog', 'contactus', 'details',
             'addorder', 'viewcart', 'addtokrt', 'deletecart', 'cartview',
-            'updateQcart', 'signup', 'updatePotPackFlag']);
+            'updateQcart', 'signup', 'updatePotPackFlag', 'checkCoupanValidation']);
     }
 
     public function index() {
@@ -295,10 +295,6 @@ class resturentController extends AppController {
                 'potpackflg' => $this->request->data('potpackflg'),
                 'foodsize' => $this->request->data('foodsize')
             );
-//            $this->Session->delete('cart_item');
-//            pr($this->Session->read('cart_item'));
-//            pr();
-
             if (!empty($this->Session->read('cart_item'))) {
 //                pr(array_merge($this->Session->read('cart_item'),$itemArray));
 ////                pr($_SESSION);
@@ -415,10 +411,8 @@ class resturentController extends AppController {
     }
 
     public function checkCoupanValidation() {
-        if ((!empty($this->request->data("id"))) && ($this->request->data("value") > 0)) {
+        if ((!empty($this->request->data("id")))) {
             $sessionArr = $this->request->session()->read('cart_item');
-//            $key=0;
-//            pr($this->request->session()->read('cart_item.'.$key.'.quantity')); die;
             foreach ($sessionArr as $key => $value) {
                 if ($value['id'] == $this->request->data("id")) {
                     $this->request->session()->write('cart_item.' . $key . '.quantity', $this->request->data("value"));

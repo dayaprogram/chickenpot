@@ -63,6 +63,9 @@
                                             echo('<div class="col-sm-5">
                                                 <span class="small-tit" style="color: #dc4e20;">
                                             <strong> <i class="icon-inr"></i>&nbsp;&nbsp;');
+                                            echo(' <span class="singleItm_price_' . $items['id'] . ' hidden">' . $first['price'] . '</span>');
+                                            echo(' <span class="singleItm_sizevar_' . $items['id'] . ' hidden">' . $first['size_variant'] . '</span>');
+                                            echo(' <span class="singleItm_potpackchg_' . $items['id'] . ' hidden">' . $first['packing_charge'] . '</span>');
                                             echo $first['price'];
                                             echo('</strong>
                                                 </span>
@@ -73,10 +76,10 @@
                                         echo('<div class="col-sm-5">
                                             <div class="form-group">
                                                 <label for="sel1">Select list:</label>
-                                                <select class="form-control" id="sel1" style="color: #dc4e20;font-size: 15px;font-weight: bold;">');
+                                                <select class="form-control" id="multivarItm_' . $items['id'] . '" style="color: #dc4e20;font-size: 15px;font-weight: bold;">');
                                         foreach ($foodVar as $first) {
-                                            echo('<option>' . $first['size_variant'] . '&nbsp;' . $first['price'] . '</option>');
-                                        };
+                                            echo('<option value="' . $first['size_variant'] . '_' . $first['price'] . '_' . $first['packing_charge'] . '" style="color: #dc4e20;font-size: 15px;font-weight: bold;">' . $first['size_variant'] . '&nbsp;' . $first['price'] . '</option>');
+                                        }
                                         echo('</select>
                                             </div>
                                             </div>');
@@ -94,9 +97,9 @@
                                     <div class="col-sm-3">
                                         <span class="small-tit">
                                             <a href="javascript:;" class="btn btn-success" 
-                                               onclick="addtocart(<?php echo $items['id'] ?>,<?php echo $items['packing_charge'] ?>)">
+                                               onclick="addtocart(<?php echo $items['id'] ?>,<?php echo sizeof($foodVar) ?>)">
                                                 <strong>
-                                                    Add <i class="icon-mail-forward"></i> <i class="icon-cart-plus"></i>
+                                                    Add <i class="icon-mail-forward"></i><i class="icon-cart-plus"></i>
                                                 </strong>
                                             </a>
                                         </span>
@@ -124,20 +127,32 @@
 </script>
 
 <script>
-    function addtocart(id, packCharge) {
-        var foodprice = $('span.item_' + id).parent().find('span.price').text();
+    function addtocart(id, itemvarsize) {
         var foodname = $('span.item_' + id).parent().find('span.name').text();
         var quantity = $('#quantity_' + id).val();
         var image = $('span.item_' + id).parent().parent().find('img').attr('src');
+        var foodprice = 0.00;
+        var potpackcharge = 0.00;
+        var foodsize = '';
+        if (itemvarsize === 1) {
+            foodprice = $('span.singleItm_price_' + id).text();
+            potpackcharge = $('span.singleItm_potpackchg_' + id).text();
+            foodsize = $('span.singleItm_sizevar_' + id).text();
+        } else {
+//               
+            var vardetail = $("#multivarItm_" + id).val();
+            foodsize = vardetail.split("_")[0];
+            foodprice = vardetail.split("_")[1];
+            potpackcharge = vardetail.split("_")[2];
+        }
         $.ajax({
             type: "POST",
             data: {id: id, foodprice: foodprice, foodname: foodname, quantity: quantity, img: image,
-                packCharge: packCharge, potpackflg: "N", foodsize: 'F'},
+                packCharge: potpackcharge, potpackflg: "N", foodsize: foodsize},
             dataType: "html",
             url: "<?php echo $this->request->webroot . 'resturent/addtokrt' ?>",
             success: function (data) {
                 data = $.parseJSON(data);
-                alert(data.code);
                 if (data.code === '1') {
                     $('ul li.open-bag').html(data.cartvalue);
                     $('ul li.close-bag').find('span.num').text(parseInt($('ul li.close-bag').find('span.num').text()) + 1);
