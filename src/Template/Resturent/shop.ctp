@@ -37,7 +37,14 @@
         </div>
         <div class="container">
             <div class="row">
-                <?php foreach ($getitem as $items) { ?>
+                <?php
+                foreach ($getitem as $items) {
+                    // $currfoodid=$items->id;
+                    $foodVar = array_filter($itemveriant, function($v)use(&$items) {
+                        return $v['id'] === $items['id'];
+                    });
+                    // var_dump($foodVar);
+                    ?>
                     <div class="col-md-4">
                         <div class="food-sec <?php echo $items['food_category'] ?>">
                             <img src="<?php echo $this->Url->build('/food_image/' . $items->image); ?>" alt="">
@@ -50,19 +57,49 @@
                                 <span class="item_<?php echo $items['id'] ?> hidden"></span>
                                 <span class="name hidden"><?php echo $items['foodname'] ?></span>
                                 <div class="row">
-                                    <div class="col-sm-4">
-                                        <span class="small-tit" style="color: #dc4e20;"><strong> <i class="icon-inr"></i>&nbsp;&nbsp;<?php echo $items['price'] ?></strong></span>
-                                    </div>
+                                    <?php
+                                    if (sizeof($foodVar) == 1) {
+                                        foreach ($foodVar as $first) {
+                                            echo('<div class="col-sm-5">
+                                                <span class="small-tit" style="color: #dc4e20;">
+                                            <strong> <i class="icon-inr"></i>&nbsp;&nbsp;');
+                                            echo $first['price'];
+                                            echo('</strong>
+                                                </span>
+                                            </div>');
+                                            break;
+                                        }
+                                    } else {
+                                        echo('<div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label for="sel1">Select list:</label>
+                                                <select class="form-control" id="sel1" style="color: #dc4e20;font-size: 15px;font-weight: bold;">');
+                                        foreach ($foodVar as $first) {
+                                            echo('<option>' . $first['size_variant'] . '&nbsp;' . $first['price'] . '</option>');
+                                        };
+                                        echo('</select>
+                                            </div>
+                                            </div>');
+                                    }
+                                    ?>
+
                                     <div class="col-sm-4">
                                         <span class="small-tit" style="color: #dc4e20;">
                                             <div class="input-group">
-                                                <span class="input-group-addon"><strong>Qnt</strong></span>
+                                                <span class="input-group-addon" style="background-color: #e6c16c;"><strong>Qnt</strong></span>
                                                 <input id="quantity_<?php echo $items['id'] ?>" type="number" class="form-control" name="quantity" class="quantity" value="1" min="1">
                                             </div>
+                                        </span>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <span class="small-tit"><a href="javascript:;" class="btn btn-success" 
-                                                                   onclick="addtocart(<?php echo $items['id'] ?>,<?php echo $items['packing_charge'] ?>)">ADD TO CART</a></span>
+                                    <div class="col-sm-3">
+                                        <span class="small-tit">
+                                            <a href="javascript:;" class="btn btn-success" 
+                                               onclick="addtocart(<?php echo $items['id'] ?>,<?php echo $items['packing_charge'] ?>)">
+                                                <strong>
+                                                    Add <i class="icon-mail-forward"></i> <i class="icon-cart-plus"></i>
+                                                </strong>
+                                            </a>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -94,7 +131,8 @@
         var image = $('span.item_' + id).parent().parent().find('img').attr('src');
         $.ajax({
             type: "POST",
-            data: {id: id, foodprice: foodprice, foodname: foodname, quantity: quantity, img: image, packCharge: packCharge, potpackflg: "N"},
+            data: {id: id, foodprice: foodprice, foodname: foodname, quantity: quantity, img: image,
+                packCharge: packCharge, potpackflg: "N", foodsize: 'F'},
             dataType: "html",
             url: "<?php echo $this->request->webroot . 'resturent/addtokrt' ?>",
             success: function (data) {

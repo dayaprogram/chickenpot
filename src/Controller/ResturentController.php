@@ -109,12 +109,22 @@ class resturentController extends AppController {
         //var_dump($catagary);
         session_start();
         $this->loadModel('Item');
+        $this->loadModel('item_variant');
         if ($catagary == 'ALL') {
             $getitem = $this->Item->find('all')->toArray();
         } else {
             $getitem = $this->Item->find('all')->where(['food_category' => $catagary])->toArray();
         }
+        $itemveriant = $this->item_variant->find('all')->toArray();
+        $this->set(compact('itemveriant'));
         $this->set(compact('getitem'));
+
+
+//        $a = array('a' => 1, 'b' => 2, 'c' => false, 'd' => 0);
+//        $b = array_filter($a, function($v) {
+//            return $v !== 0;
+//        });
+//        var_dump($b);
     }
 
     public function details($id = null) {
