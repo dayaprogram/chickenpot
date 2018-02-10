@@ -105,14 +105,23 @@ class UsersController extends AppController {
         $this->loadModel('Users');
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
-            $this->request->data['ptxt'] = $this->request->data['password'];
-            $phone = $this->request->data('contact_no');
+           // pr($this->request->data);die;
+            $this->request->data['created'] = gmdate("Y-m-d h:i:s");
+                $this->request->data['modified'] = gmdate("Y-m-d h:i:s");
+            $phone = $this->request->data('phone');
+           // pr($phone);die;
+            
             $existsUser = $this->Users->find('all')->where(['phone' => $phone])->toArray();
             $flag = true;
             if (!empty($existsUser)) {
                 $this->Flash->error(__('Mobile number is already registered!'));
                 $flag = false;
-            } else {
+            } 
+            if($this->request->data('password')!==$this->request->data('cpassword')){
+                $false=false;
+                  $this->Flash->error(__('Password and Confirm Password does not Match'));
+            }
+                else {
                 $user = $this->Users->patchEntity($user, $this->request->data);
                 $this->Users->save($user);
                 $this->Flash->success(__('Registered'));

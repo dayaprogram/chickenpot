@@ -158,9 +158,9 @@
                                 <?php if (!empty($user_details)) { ?>
                                     <li><a href="<?php echo $this->Url->build(["resturent" => "Users", "action" => "logout"]); ?>" type="button" >Log Out</a></li>
                                 <?php } else { ?>
-                                    <li><a href="<?php echo $this->Url->build(["controller" => "users", "action" => "signin"]); ?>">Log In</a></li>
+                                    <li><a href="<?php echo $this->Url->build(["controller" => "Users", "action" => "signin"]); ?>">Log In</a></li>
                                 <?php } ?>
-                                <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "signup"]); ?>" >SIGNUP</a></li>
+                                <li><a href="<?php echo $this->Url->build(["controller" => "Users", "action" => "signup"]); ?>" >SIGNUP</a></li>
                             </ul>	
                         </nav>
                         <ul class="social-icons">
