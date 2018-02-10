@@ -291,7 +291,9 @@ class resturentController extends AppController {
                 'quantity' => $this->request->data('quantity'),
                 'image' => $this->request->data('img'),
                 'id' => $this->request->data('id'),
-                'packCharge' => $this->request->data('packCharge')
+                'packCharge' => $this->request->data('packCharge'),
+                'potpackflg' => $this->request->data('potpackflg'),
+                'foodsize' => $this->request->data('foodsize')
             );
 //            $this->Session->delete('cart_item');
 //            pr($this->Session->read('cart_item'));

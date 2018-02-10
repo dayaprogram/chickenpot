@@ -134,8 +134,8 @@
         var id = $('#id').val();
         $.ajax({
             type: "POST",
-            data: {id: id, foodprice: foodprice, foodname: foodname, quantity: quantity},
-            dataType: "html",
+            data: {id: id, foodprice: foodprice, foodname: foodname, quantity: quantity, img: image,
+                packCharge: packCharge, potpackflg: "N", foodsize: 'F'}, dataType: "html",
             url: "<?php echo $this->request->webroot . 'resturent/addorder' ?>",
             success: function (data) {
                 //console.log(data.foodname);
