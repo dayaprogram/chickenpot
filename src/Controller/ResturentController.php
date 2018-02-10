@@ -30,7 +30,7 @@ class resturentController extends AppController {
         $this->Auth->allow(['index', 'customerdetails', 'menu', 'shop',
             'orderlist', 'home2', 'ourstory', 'blog', 'contactus', 'details',
             'addorder', 'viewcart', 'addtokrt', 'deletecart', 'cartview',
-            'updateQcart', 'signup']);
+            'updateQcart', 'signup', 'updatePotPackFlag']);
     }
 
     public function index() {
@@ -105,11 +105,15 @@ class resturentController extends AppController {
         $this->set(compact('userdetails', 'select_location'));
     }
 
-    public function shop() {
+    public function shop($catagary = 'ALL') {
+        //var_dump($catagary);
         session_start();
         $this->loadModel('Item');
-        $getitem = $this->Item->find('all')->toArray();
-
+        if ($catagary == 'ALL') {
+            $getitem = $this->Item->find('all')->toArray();
+        } else {
+            $getitem = $this->Item->find('all')->where(['food_category' => $catagary])->toArray();
+        }
         $this->set(compact('getitem'));
     }
 
@@ -180,23 +184,15 @@ class resturentController extends AppController {
 
         $session = $this->request->session();
         if ($this->request->isPost()) {
-
-            // get values here 
-//            echo $this->request->data['id'];
             $var = $this->request->data['id'];
 
             if ($session->read('id') == '') {
                 $session->write('id', $var); //Write
             } else {
-//                echo "hihiihihih";
                 $old_id = $session->read('id');
                 $session->write('id', $old_id . '_' . $var); //Write
             }
         }
-
-        //        pr($session->read('id'));
-        //      pr($this->request->post['id']); 
-        //        echo 'll's;
         die;
     }
 
@@ -273,6 +269,7 @@ class resturentController extends AppController {
 
     public function viewcart() {
         $sessin = $this->set('session', $this->Session);
+        $this->render();
     }
 
     public function addtokrt() {
@@ -283,7 +280,8 @@ class resturentController extends AppController {
                 'foodprice' => $this->request->data('foodprice'),
                 'quantity' => $this->request->data('quantity'),
                 'image' => $this->request->data('img'),
-                'id' => $this->request->data('id')
+                'id' => $this->request->data('id'),
+                'packCharge' => $this->request->data('packCharge')
             );
 //            $this->Session->delete('cart_item');
 //            pr($this->Session->read('cart_item'));
@@ -366,12 +364,45 @@ class resturentController extends AppController {
             $view .= '<h7>No Card added to your account.</h7>';
         }
         $view .= '<div class="sub-total"><span>SUBTOTAL:<i class="icon-inr"></i><strong>' . $subtotal . '</strong></span><div class="buttons">
-           ' . $html->link('MORE FOOD', ['controller' => 'resturent', 'action' => 'shop'], ['class' => 'view-cart']) . $html->link('CHECK OUT', ['controller' => 'resturent', 'action' => 'viewcart'], ['class' => 'check-out']) ;
+           ' . $html->link('MORE FOOD', ['controller' => 'resturent', 'action' => 'shop'], ['class' => 'view-cart']) . $html->link('CHECK OUT', ['controller' => 'resturent', 'action' => 'viewcart'], ['class' => 'check-out']);
 
         return json_encode($view);
     }
 
     public function updateQcart() {
+        if ((!empty($this->request->data("id"))) && ($this->request->data("value") > 0)) {
+            $sessionArr = $this->request->session()->read('cart_item');
+//            $key=0;
+//            pr($this->request->session()->read('cart_item.'.$key.'.quantity')); die;
+            foreach ($sessionArr as $key => $value) {
+                if ($value['id'] == $this->request->data("id")) {
+                    $this->request->session()->write('cart_item.' . $key . '.quantity', $this->request->data("value"));
+                    $krt = $this->cartview();
+                    echo '{"code":"1","msg":"Item Quantity is updated successfully!","cartvalue":' . $krt . '}';
+                }
+            }
+        } else {
+            echo '0';
+        }
+        die;
+    }
+
+    public function updatePotPackFlag() {
+        if ((!empty($this->request->data("id")))) {
+            $sessionArr = $this->request->session()->read('cart_item');
+            foreach ($sessionArr as $key => $value) {
+                if ($value['id'] == $this->request->data("id")) {
+                    $this->request->session()->write('cart_item.' . $key . '.potpackflg', $this->request->data("value"));
+                    echo '{"code":"1","msg":"Pot Packing is updated successfully!"}';
+                }
+            }
+        } else {
+            echo '0';
+        }
+        die;
+    }
+
+    public function checkCoupanValidation() {
         if ((!empty($this->request->data("id"))) && ($this->request->data("value") > 0)) {
             $sessionArr = $this->request->session()->read('cart_item');
 //            $key=0;

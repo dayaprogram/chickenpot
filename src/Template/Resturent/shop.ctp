@@ -28,8 +28,9 @@
     <!--Start The Menu-->
     <div class="our-menu">
         <div id="filters-container" class="cbp-l-filters-list ">
-            <div data-filter="*" class="cbp-filter-item-active cbp-filter-item cbp-l-filters-list-first">ALL PRODUCTS</div>
-            <div data-filter=".starters" class="cbp-filter-item">STARTERS</div>
+            <div data-filter="*" class="cbp-filter-item-active cbp-filter-item cbp-l-filters-list-first">
+                <a href="<?php echo $this->Url->build(["action" => "shop", 'ALL']); ?>">ALL PRODUCTS</a></div>
+            <div data-filter=".starters" class="cbp-filter-item"><a href="<?php echo $this->Url->build(["action" => "shop", 'a']); ?>">Prince</a></div>
             <div data-filter=".mains" class="cbp-filter-item">MAINS</div>
             <div data-filter=".BREAKFAST" class="cbp-filter-item cbp-l-filters-list-last">BREAKFAST</div>
             <div data-filter=".starters" class="cbp-filter-item">STARTERS</div>
@@ -61,7 +62,7 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <span class="small-tit"><a href="javascript:;" class="btn btn-success" 
-                                                                   onclick="addtocart(<?php echo $items['id'] ?>)">ADD TO CART</a></span>
+                                                                   onclick="addtocart(<?php echo $items['id'] ?>,<?php echo $items['packing_charge'] ?>)">ADD TO CART</a></span>
                                     </div>
                                 </div>
                             </div>
@@ -86,25 +87,24 @@
 </script>
 
 <script>
-    function addtocart(id) {
+    function addtocart(id, packCharge) {
         var foodprice = $('span.item_' + id).parent().find('span.price').text();
         var foodname = $('span.item_' + id).parent().find('span.name').text();
         var quantity = $('#quantity_' + id).val();
         var image = $('span.item_' + id).parent().parent().find('img').attr('src');
         $.ajax({
             type: "POST",
-            data: {id: id, foodprice: foodprice, foodname: foodname, quantity: quantity, img: image},
+            data: {id: id, foodprice: foodprice, foodname: foodname, quantity: quantity, img: image, packCharge: packCharge, potpackflg: "N"},
             dataType: "html",
             url: "<?php echo $this->request->webroot . 'resturent/addtokrt' ?>",
             success: function (data) {
                 data = $.parseJSON(data);
+                alert(data.code);
                 if (data.code === '1') {
                     $('ul li.open-bag').html(data.cartvalue);
                     $('ul li.close-bag').find('span.num').text(parseInt($('ul li.close-bag').find('span.num').text()) + 1);
-                    // alert(data.msg);
                     snackMessage(data.msg);
                 } else {
-                    // alert(data.msg);
                     snackMessage(data.msg);
                 }
             }

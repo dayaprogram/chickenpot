@@ -47,7 +47,7 @@
                      data-speed="800" data-start="5900" data-easing="Power3.easeInOut" data-splitin="none" data-splitout="none" data-elementdelay="0.05"
                      data-endelementdelay="0.1" style="z-index: 9; max-width: auto; max-height: auto; white-space: nowrap;">
                     <div style="text-align:center;">
-                        <a href="<?php echo $this->Url->build([" controller " => "resturent ", "action " => "shop "]); ?>" class="read-more" style=" line-height: initial; color: #fff;  border:solid 2px #fff; text-transform: uppercase; font-weight: 500; letter-spacing: 0px; padding: 16px 36px; display: inline-block; font-size: 18px;">Online Order</a>
+                        <a href="<?php echo $this->Url->build([" controller " => "resturent", "action" => "shop"]); ?>" class="read-more" style=" line-height: initial; color: #fff;  border:solid 2px #fff; text-transform: uppercase; font-weight: 500; letter-spacing: 0px; padding: 16px 36px; display: inline-block; font-size: 18px;">Online Order</a>
                     </div>
                 </div>
             </li>
@@ -78,7 +78,7 @@
                      data-speed="800" data-start="4200" data-easing="Power3.easeInOut" data-splitin="none" data-splitout="none" data-elementdelay="0.05"
                      data-endelementdelay="0.1" style="z-index: 9; max-width: auto; max-height: auto; white-space: nowrap;">
                     <div style="text-align:left; ">
-                        <a href="<?php echo $this->Url->build([" controller " => "resturent ", "action " => "shop "]); ?>" class="read-more" style=" line-height: initial; color: #fff; border:solid 2px #fff;
+                        <a href="<?php echo $this->Url->build([" controller " => "resturent", "action" => "shop"]); ?>" class="read-more" style=" line-height: initial; color: #fff; border:solid 2px #fff;
                            text-transform: uppercase; font-weight: 500; letter-spacing: 0px; padding: 16px 36px; display: inline-block;
                            font-size: 18px;">online order</a>
                     </div>

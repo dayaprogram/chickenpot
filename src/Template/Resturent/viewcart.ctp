@@ -12,11 +12,9 @@
                             <div class="pro">
                                 <span>Product</span>
                             </div>
-                            <div class="price">
-                                <span>Price</span>
-                            </div>
+
                             <div class="quantity">
-                                <span>Quantity</span>
+                                <span>Price * Quantity</span>
                             </div>
                             <div class="total">
                                 <span>Pot Pack</span>
@@ -26,10 +24,15 @@
                             </div>
                         </div>
                         <?php
-                        $subtotal = "0.00";
+                        $subtotal = 0.00;
+                        $totalpotpackcharge = 0.00;
                         if (!empty($this->request->session()->read('cart_item'))) {
                             foreach ($this->request->session()->read('cart_item') as $data) {
-                                $subtotal = $subtotal + ($data['foodprice'] * $data['quantity']);
+                                if ($data['potpackflg'] == 'A') {
+                                    $subtotal = $subtotal + ($data['foodprice'] * $data['quantity']) + ($data['packCharge'] * $data['quantity']);
+                                } else {
+                                    $subtotal = $subtotal + ($data['foodprice'] * $data['quantity']);
+                                }
                                 ?>
 
                                 <div class="cart-pro-detail">
@@ -41,13 +44,10 @@
                                         </span>
                                     </div>
 
-                                    <div class="price">
-                                        <span>
-                                            <?php echo $data['foodprice']; ?>
-                                        </span>
-                                    </div>
-
                                     <div class="quantity">
+                                        <p>
+                                            <i class="icon-inr"></i> <?php echo $data['foodprice']; ?> <strong>X</strong>
+                                        </p> 
                                         <div class="input-group">
                                             <span class="input-group-btn">
                                                 <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
@@ -63,17 +63,47 @@
                                                 </button>
                                             </span>
                                         </div>
+                                        <p> =<strong id="foodPriceTotal_<?php echo $data['id']; ?>">
+                                                <?php echo ($data['foodprice'] * $data['quantity']); ?>
+                                            </strong>
+                                        </p>
+                                    </div>
+
+                                    <div class="total">
+                                        <div class="checkout" style="margin: 20px 0 0 0;">
+                                            <input type="checkbox" name="potpackflg" 
+                                                   id="potpackflg_<?php echo $data['id']; ?>" 
+                                                   class="css-checkbox" <?php
+                                                   if ($data['potpackflg'] == 'A') {
+                                                       echo 'checked';
+                                                   } else {
+                                                       echo '';
+                                                   };
+                                                   ?>
+                                                   onchange="potPackFlgHandle(<?php echo $data['id']; ?>)">
+                                            <label for="potpackflg_<?php echo $data['id']; ?>" 
+                                                   class="css-label">
+                                                <i class="icon-inr"></i>
+                                                <strong>
+                                                    <?php
+                                                    echo ($data['packCharge'] * $data['quantity']);
+                                                    $potPackCharge = ($data['packCharge'] * $data['quantity']);
+                                                    ?>
+                                                </strong>
+                                            </label>
+                                        </div>
                                     </div>
 
                                     <div class="total">
                                         <span id="calculatePrice">
-                                            <?php echo ($data['foodprice'] * $data['quantity']); ?>
-                                        </span>
-                                    </div>
-                                    
-                                    <div class="total">
-                                        <span id="calculatePrice">
-                                            <?php echo ($data['foodprice'] * $data['quantity']); ?>
+                                            <i class="icon-inr"></i>
+                                            <?php
+                                            if ($data['potpackflg'] == 'A') {
+                                                echo (($data['foodprice'] * $data['quantity']) + ($potPackCharge));
+                                            } else {
+                                                echo (($data['foodprice'] * $data['quantity']));
+                                            };
+                                            ?>
                                         </span>
                                     </div>
 
@@ -92,15 +122,16 @@
                         <div class="cart-update-sec">
 
                             <div class="apply-coupon">
-                                <input name=" " type="text" onblur="if (this.value == '') {
-                                            this.value = 'Enter Coupon Code'
-                                        }" onfocus="if (this.value == 'Enter Coupon Code') {
-                                                    this.value = ''
+                                <input name=" " type="text" onblur="if (this.value === '') {
+                                            this.value = 'Enter Coupon Code';
+                                        }" onfocus="if (this.value === 'Enter Coupon Code') {
+                                                    this.value = '';
                                                 }"
                                        value="Enter Coupon Code">
                                 <a href="#.">apply coupon</a>
                             </div>
-                            <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "shop"]); ?>" class="update-cart">update cart</a>
+                            <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "shop"]); ?>" 
+                               class="update-cart">update cart</a>
                         </div>
                     </div>
                 </div>
@@ -128,7 +159,7 @@
                                 <div class="sub-total-sec">
                                     <span class="left">Cart Subtotal</span>
                                     <span class="right">
-                                        <span>SUBTOTAL:
+                                        <span>SUBTOTAL:<i class="icon-inr"></i>
                                             <strong>
                                                 <?= $subtotal ?>
                                             </strong>
@@ -138,6 +169,12 @@
                                 <div class="sub-total-sec">
                                     <span class="left">Shipping</span>
                                     <span class="right">Free Shipping</span>
+                                </div>
+                                <div class="sub-total-sec">
+                                    <span class="left">Coupon Discount</span>
+                                    <span class="right"><span class="right"><i class="icon-inr"></i>
+                                            0
+                                        </span></span>
                                 </div>
                                 <div class="order-total">
                                     <span class="left">Order Total</span>
@@ -182,13 +219,12 @@
                 dataType: "html",
                 url: "<?php echo $this->request->webroot . 'resturent/deletecart' ?>",
                 success: function (data) {
-                    if (data == '1') {
+                    if (data === '1') {
                         $('ul li.close-bag').find('span.num').text(parseInt($('ul li.close-bag').find('span.num').text()) - 1);
                         var new_price = parseInt($('div.sub-total').find('strong').text().substring('1')) - (parseInt($('div#' + id).find('span#calculatePrice').text()));
                         $('div.sub-total').find('strong').text('$' + new_price);
                         $('ul.shop-bag li.open-bag div#' + id).remove();
                         window.location.reload(true);
-
                     }
                 }
             });
@@ -200,6 +236,33 @@
         console.log(new_price);
         $(this).parent().find('span#calculatePrice').text(new_price);
     });
+
+    function potPackFlgHandle(id) {
+        // Get the checkbox
+        var potPackFlg = document.getElementById("potpackflg_" + id);
+        // If the checkbox is checked, display the output text
+        var flag = "";
+        if (potPackFlg.checked === true) {
+            flag = "A";
+        } else {
+            flag = "N";
+        }
+        $.ajax({
+            type: "POST",
+            data: {id: id, value: flag},
+            dataType: "html",
+            url: "<?php echo $this->request->webroot . 'resturent/updatePotPackFlag' ?>",
+            success: function (data) {
+                data = $.parseJSON(data);
+                if (data.code === '1') {
+                    snackMessage(data.msg);
+                    window.location.reload(true);
+                }
+            }
+        });
+
+
+    }
 </script>
 
 <style>

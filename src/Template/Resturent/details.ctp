@@ -85,7 +85,7 @@
                                 </div>
                                 <div class="col-md-6 col-sm-12">
                                     <div class="pro-cart">
-                                        <a class="cart" onclick="addtorder(<?php echo $getitem['id'] ?>);">add to cart</a>
+                                        <a class="cart" onclick="addtorder(<?php echo $getitem['id'] ?>,<?php echo $getitem['packing_charge'] ?>);">add to cart</a>
                                     </div>
                                 </div>
                             </div>
@@ -144,14 +144,14 @@
         });
     }
 
-    function addtorder(id) {
+    function addtorder(id, packCharge) {
         var foodprice = $('#price').val();
         var foodname = $('#foodname').val();
         var quantity = $('#quantity').val();
         var image = $('#foodimage').attr('src');
         $.ajax({
             type: "POST",
-            data: {id: id, foodprice: foodprice, foodname: foodname, quantity: quantity, img: image},
+            data: {id: id, foodprice: foodprice, foodname: foodname, quantity: quantity, img: image, packCharge: packCharge, potpackflg: "N"},
             dataType: "html",
             url: "<?php echo $this->request->webroot . 'resturent/addtokrt' ?>",
             success: function (data) {
