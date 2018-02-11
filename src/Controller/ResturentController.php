@@ -30,7 +30,7 @@ class resturentController extends AppController {
         $this->Auth->allow(['index', 'customerdetails', 'menu', 'shop',
             'orderlist', 'home2', 'ourstory', 'blog', 'contactus', 'details',
             'addorder', 'viewcart', 'addtokrt', 'deletecart', 'cartview',
-            'updateQcart', 'signup', 'updatePotPackFlag', 'checkCoupanValidation']);
+            'updateQcart', 'signup','tracklocation', 'updatePotPackFlag', 'checkCoupanValidation']);
     }
 
     public function index() {
@@ -55,6 +55,17 @@ class resturentController extends AppController {
 
     public function contactus() {
         
+    }
+     public function tracklocation(){
+        $this->loadModel('Area_master');
+        $select_location = $this->Area_master->find()->toArray();
+        $date = date('Y-m-d'); //today date
+         if ($this->request->is('post')) {
+            //pr($this->request->data());die;
+           
+           
+        }
+        $this->set(compact('select_location','weekOfdays','times'));
     }
 
     public function customerdetails() {
@@ -295,11 +306,13 @@ class resturentController extends AppController {
                 'potpackflg' => $this->request->data('potpackflg'),
                 'foodsize' => $this->request->data('foodsize')
             );
+//            $this->request->session()->delete('cart_item');die;
             if (!empty($this->Session->read('cart_item'))) {
-//                pr(array_merge($this->Session->read('cart_item'),$itemArray));
+                
+//                pr(array_merge($this->Session->read('cart_item'),$itemArray));die;
 ////                pr($_SESSION);
                 if (in_array($this->request->data('id'), array_column($this->Session->read('cart_item'), 'id'))) {
-                    $krt = $this->cartview();
+//                    $krt = $this->cartview();
 //            pr(array_values($this->Session->read('cart_item')));
 //            die;
 //                if (in_array($this->request->data('id'), current(array_column($this->Session->read('cart_item'),'id')))) {
@@ -313,24 +326,20 @@ class resturentController extends AppController {
 //                        }
 //                    }
                     $krt = $this->cartview();
+//                    pr($krt); die;
+                    if(!empty($krt)){
                     echo '{"code":"0","msg":"You have already added in your cart!","cartvalue":' . $krt . '}';
-                } else {
+                } }else {
                     $arr = array_merge($this->Session->read('cart_item'), $itemArray);
+//                    pr($this->Session->read('cart_item'));die;
                     $this->Session->write('cart_item', $arr);
                     $krt = $this->cartview();
-//                    $view=$this->cartview();
                     echo '{"code":"1","msg":"Cart is added to your account!","cartvalue":' . $krt . '}';
-                    //$this->request->session('cart_item') = array_merge($this->request->session('cart_item'),$itemArray);
                 }
             } else {
-                if ($this->Session->write('cart_item', $itemArray)) {
+                    $this->Session->write('cart_item', $itemArray);
                     $krt = $this->cartview();
                     echo '{"code":"1","msg":"You have already added in your cart!","cartvalue":' . $krt . '}';
-                } else {
-                    $krt = $this->cartview();
-                    echo '{"code":"0","msg":"You have already added in your cart!","cartvalue":' . $krt . '}';
-                }
-//                $this->request->session('cart_item') = $itemArray;
             }
         }
         die;
@@ -371,6 +380,7 @@ class resturentController extends AppController {
         } else {
             $view .= '<h7>No Card added to your account.</h7>';
         }
+//        echo $view; die;+
         $view .= '<div class="sub-total"><span>SUBTOTAL:<i class="icon-inr"></i><strong>' . $subtotal . '</strong></span><div class="buttons">
            ' . $html->link('MORE FOOD', ['controller' => 'resturent', 'action' => 'shop'], ['class' => 'view-cart']) . $html->link('CHECK OUT', ['controller' => 'resturent', 'action' => 'viewcart'], ['class' => 'check-out']);
 

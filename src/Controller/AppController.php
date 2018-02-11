@@ -43,7 +43,7 @@ class AppController extends Controller {
      *
      * @return void
      */
-    public function initialize() {
+  public function initialize() {
         parent::initialize();
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
@@ -102,8 +102,8 @@ class AppController extends Controller {
                     ]
                 ],
                 'loginRedirect' => [
-                    'controller' => 'Resturent',
-                    'action' => 'shop'
+                    'controller' => 'Users',
+                    'action' => 'index'
                 ],
                 'logoutRedirect' => [
                     'controller' => 'Pages',
@@ -121,6 +121,7 @@ class AppController extends Controller {
             $this->Auth->allow(['signup', 'signin']); //['index', 'signup'] 
         }
     }
+
 
     public function isAuthorized($user) {
         if (isset($user['role']) && $user['role'] === 'admin') {

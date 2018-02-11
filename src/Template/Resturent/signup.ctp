@@ -31,7 +31,7 @@
                     <div class="cash-delivery">
                         <div class="cash-delivery-detail">
                             <h5>Sign Up</h5>
-                            <form class="form-signup login-form" method="post" >
+                            <form class="form-signup login-form" method="post" name="user">
                                 <div class="form">
                                     <input type="text" name="first_name" id="fname" class="form-control" placeholder="Enter your first name" required>
                                     <input type="text" name="last_name" id="lname" class="form-control" placeholder="Enter your last name" required>

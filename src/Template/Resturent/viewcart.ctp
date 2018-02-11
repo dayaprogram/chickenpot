@@ -46,11 +46,12 @@
 
                                     <div class="quantity">
                                         <p>
-                                            <i class="icon-inr"></i> <?php echo $data['foodprice']; ?> <strong>X</strong>
+                                            <i class="icon-inr"></i> <span id="basePrice_<?php echo $data['id']; ?>"><?php echo $data['foodprice']; ?> </span><strong>X</strong>
                                         </p> 
                                         <div class="input-group">
                                             <span class="input-group-btn">
-                                                <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="">
+                                                <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field=""
+                                                        onClick="viewCartUpdate(<?php echo $data['id']; ?>)">
                                                     <span class="glyphicon glyphicon-minus"></span>
                                                 </button>
                                             </span>
@@ -58,12 +59,12 @@
                                                    value="<?php echo $data['quantity']; ?>" min="1" max="100" readonly="true" style="text-align: center;">
                                             <span class="input-group-btn">
                                                 <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field=""
-                                                        onclick="var qnt = document.getElementById('quantity_<?php echo $data['id']; ?>').value; qnt = parseInt(qnt.value) + 1;">
+                                                      onClick="viewCartUpdate(<?php echo $data['id']; ?>,true)">
                                                     <span class="glyphicon glyphicon-plus"></span>
                                                 </button>
                                             </span>
                                         </div>
-                                        <p> =<strong id="foodPriceTotal_<?php echo $data['id']; ?>">
+                                        <p> =<strong id="foodPriceTotal_<?php echo $data['id']; ?>" class="foodPriceTotal_<?php echo $data['id']; ?>">
                                                 <?php echo ($data['foodprice'] * $data['quantity']); ?>
                                             </strong>
                                         </p>
@@ -95,8 +96,8 @@
                                     </div>
 
                                     <div class="total">
-                                        <span id="calculatePrice">
-                                            <i class="icon-inr"></i>
+                                        <i class="icon-inr"></i>
+                                        <span id="calculatePrice" class="foodPriceTotal_<?php echo $data['id']; ?>">
                                             <?php
                                             if ($data['potpackflg'] == 'A') {
                                                 echo (($data['foodprice'] * $data['quantity']) + ($potPackCharge));
@@ -260,11 +261,35 @@
                 }
             }
         });
+    }
 
-
+    function viewCartUpdate(id,val){
+        var quantity = parseInt($('#quantity_'+id).val());
+        if(quantity >0){
+            if(val)
+               var newQuantity= quantity+1;
+            else
+               var newQuantity= quantity-1;
+            
+            $.ajax({
+                type: "POST",
+                data: {id: id, value: newQuantity},
+                dataType: "html",
+                url: "<?php echo $this->request->webroot . 'resturent/updateQcart' ?>",
+                success: function (data) {
+                    data = $.parseJSON(data);
+                    if (data.code === '1') {
+                        $('#quantity_'+id).val(newQuantity);
+                        var base_price=parseInt($('span#basePrice_'+id).text());
+                        var newFoodPrice = base_price * newQuantity;
+                        $('.foodPriceTotal_'+id).text(' '+newFoodPrice);
+                    }
+                   window.location="";
+                }
+            });
+        }
     }
 </script>
-
 <style>
     .shop-cart .cart-pro-detail .quantity input[type=text] {
         text-align: center;
