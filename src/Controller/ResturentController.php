@@ -56,17 +56,26 @@ class resturentController extends AppController {
     public function contactus() {
         
     }
-     public function tracklocation(){
-        $this->loadModel('Area_master');
-        $select_location = $this->Area_master->find()->toArray();
-        $date = date('Y-m-d'); //today date
-         if ($this->request->is('post')) {
-            //pr($this->request->data());die;
-           
-           
-        }
-        $this->set(compact('select_location','weekOfdays','times'));
-    }
+//     public function tracklocation(){
+//        $this->loadModel('Area_master');
+//        $select_location = $this->Area_master->find()->toArray();
+//       $date = date('Y-m-d'); //today date
+//         if ($this->request->is('post')) {
+//          $this->Session = $this->request->session();
+//             $tracklocation = array(
+//                 'location'=> $this->request->data['findlocation'],
+//                 'date'=> $this->request->data['selectdate'],
+//                 'time'=> $this->request->data['selecttime'],
+//                 'chooselocation'=> $this->request->data['trackloc'],
+//              );
+//           $session =  $this->Session->read('loc');
+//          return $this->redirect(["controller" => "resturent", "action" => "shop"]);
+//           
+//           
+//           
+//        }
+//        $this->set(compact('select_location','weekOfdays','times','loc'));
+//    }
 
     public function customerdetails() {
         $this->loadModel('Users');
@@ -311,7 +320,11 @@ class resturentController extends AppController {
                 
 //                pr(array_merge($this->Session->read('cart_item'),$itemArray));die;
 ////                pr($_SESSION);
-                if (in_array($this->request->data('id'), array_column($this->Session->read('cart_item'), 'id'))) {
+                $var = array(
+                    'id'=> $this->request->data['id'],
+                    'foodsize'=> $this->request->data['foodsize']
+                );
+                if (in_array($var, array_column($this->Session->read('cart_item'), 'id','foodsize'))) {
 //                    $krt = $this->cartview();
 //            pr(array_values($this->Session->read('cart_item')));
 //            die;

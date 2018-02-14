@@ -53,14 +53,26 @@
  <form name="trackloc"  method="post">
             <div class="col-sm-6">
                 <div class="input-group">
+<input type="radio" name="trackloc" value="rloc" id="plocation" checked>
+ 
                     <span class="input-group-addon" style="font-size:15px">Jalandhar</span>
-                    <?php
+      <select class="form-control" id="sel1" onchange="selectloc();" style="font-size:15px" name="findlocation">
+                        <option value="">Choose A location</option>
+                        <?php
                         foreach ($select_location as $location) {
-                        // pr($location);
-                       
- echo$this->Form->input('selectlocation', array('class'=>'form-control','required'=>true,'label' => false,'empty'=>"Select Type",'options' => $location));
-                 } ?>
-
+                            pr($location['name'])
+                            ?>
+                            <option value="<?php echo $location['area_id'] ?>" id="location">
+                                <?php echo $location['area_name'] ?>
+                            </option>
+                        <?php } ?>
+                    </select>
+              
+                </div>
+<input type="radio" name="trackloc" value="ploc" id="pickshop">
+          <div class="input-group">
+                   <button type="button" class="btn btn-success" id="disablepick" style="display:none;">Pick From Shop</button>
+                   <button type="button" class="btn btn-danger" id="ablepick" >Pick From Shop</button>
                 </div>
                 <div class="input-group">
                     <span class="input-group-addon" id="datespn"   style="font-size:15px">Date</span>
@@ -99,15 +111,7 @@
     $( "#datepicker" ).datepicker();
   } );
   </script>
-   
-    
-    <style>
-/*        #dateformat{
-            width:163px;
-        }*/
-    </style>
-	
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
     <script>
     $(document).ready(function(){
@@ -124,6 +128,35 @@
 });
 });
     </script>
+
+<script>
+
+$("#sel1").change(function () {
+    var selectedValue = $(this).text();
+   // alert(selectedValue);
+    $("#txtBox").val($(this).find("option:selected").attr("value"))
+});
+
+</script>
+
+<script>
+$("#pickshop").click(function () {
+   $("#disablepick").show();
+  $("#ablepick").hide();
+  $('select[name=findlocation]').prop('disabled',true);
+ //$('#shell').attr('disabled',true);
+});
+
+
+$("#plocation").click(function () {
+   $("#ablepick").show();
+  $("#disablepick").hide();
+  $('select[name=findlocation]').prop('disabled',false);
+  
+});
+
+
+</script>
 
 
 
