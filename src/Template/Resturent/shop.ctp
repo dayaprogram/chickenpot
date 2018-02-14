@@ -45,12 +45,16 @@
                     });
                     // var_dump($foodVar);
                     ?>
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-sm-12">
                         <div class="food-sec <?php echo $items['food_category'] ?>">
                             <img src="<?php echo $this->Url->build('/food_image/' . $items->image); ?>" alt="">
                             <div class="detail">
-                                <a href="<?php echo $this->Url->build(["action" => "details", $items->id]); ?>">
-                                    <p style="font-weight: 600;font-size: 25px;"><?php echo $items['foodname'] ?></p></a>
+                                <!--  <a href="<?php echo $this->Url->build(["action" => "details", $items->id]); ?>">
+                                this link goes to active if detail page get modified for item size variants
+                                -->
+                                <a href="#">
+                                    <p style="font-weight: 600;font-size: 25px;"><?php echo $items['foodname'] ?></p>
+                                </a>
                                 <p><?php echo $items['description'] ?></p>
                                 <span class="addtokrt"></span>
                                 <span class="price hidden"><?php echo $items['price'] ?></span>
@@ -86,15 +90,15 @@
                                     }
                                     ?>
 
-                                    <div class="col-sm-4">
+                                    <div class="col-md-4 col-sm-6">
                                         <span class="small-tit" style="color: #dc4e20;">
                                             <div class="input-group">
-                                                <span class="input-group-addon" style="background-color: #e6c16c;"><strong>Qnt</strong></span>
+                                                <span class="input-group-addon" style="background-color: #e6c16c;"><strong>Qn</strong></span>
                                                 <input id="quantity_<?php echo $items['id'] ?>" type="number" class="form-control" name="quantity" class="quantity" value="1" min="1">
                                             </div>
                                         </span>
                                     </div>
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-3 col-sm-6">
                                         <span class="small-tit">
                                             <a href="javascript:;" class="btn btn-success" 
                                                onclick="addtocart(<?php echo $items['id'] ?>,<?php echo sizeof($foodVar) ?>)">
@@ -153,7 +157,7 @@
             url: "<?php echo $this->request->webroot . 'resturent/addtokrt' ?>",
             success: function (data) {
                 data = $.parseJSON(data);
-               console.log(data);
+                console.log(data);
                 if (data.code === '1') {
                     $('ul li.open-bag').html(data.cartvalue);
                     $('ul li.close-bag').find('span.num').text(parseInt($('ul li.close-bag').find('span.num').text()) + 1);

@@ -26,13 +26,16 @@
                         <?php
                         $subtotal = 0.00;
                         $totalpotpackcharge = 0.00;
+                        $foodbillAmt = 0.00;
                         if (!empty($this->request->session()->read('cart_item'))) {
                             foreach ($this->request->session()->read('cart_item') as $data) {
                                 if ($data['potpackflg'] == 'A') {
-                                    $subtotal = $subtotal + ($data['foodprice'] * $data['quantity']) + ($data['packCharge'] * $data['quantity']);
+                                    $subtotal = $subtotal + ($data['foodprice'] * $data['quantity']) +
+                                            ($data['packCharge'] * $data['quantity']);
                                 } else {
                                     $subtotal = $subtotal + ($data['foodprice'] * $data['quantity']);
                                 }
+                                $foodbillAmt = $foodbillAmt + ($data['foodprice'] * $data['quantity']);
                                 ?>
 
                                 <div class="cart-pro-detail">
@@ -59,7 +62,7 @@
                                                    value="<?php echo $data['quantity']; ?>" min="1" max="100" readonly="true" style="text-align: center;">
                                             <span class="input-group-btn">
                                                 <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field=""
-                                                      onClick="viewCartUpdate(<?php echo $data['id']; ?>,true)">
+                                                        onClick="viewCartUpdate(<?php echo $data['id']; ?>, true)">
                                                     <span class="glyphicon glyphicon-plus"></span>
                                                 </button>
                                             </span>
@@ -123,181 +126,192 @@
                         <div class="cart-update-sec">
 
                             <div class="apply-coupon">
-                                <input name=" " type="text" onblur="if (this.value === '') {
+                                <input name="couponcode" id="couponcode" type="text" onblur="if (this.value === '') {
                                             this.value = 'Enter Coupon Code';
                                         }" onfocus="if (this.value === 'Enter Coupon Code') {
                                                     this.value = '';
                                                 }"
                                        value="Enter Coupon Code">
-                                <a href="#.">apply coupon</a>
+                                <a href="#." onclick="validateAndApplyCouponCode(<?= $foodbillAmt ?>)">apply coupon</a>
                             </div>
-                            <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "shop"]); ?>" 
-                               class="update-cart">update cart</a>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="cash-decide">
-                <div class="row">
+                <div class="cash-decide">
+                    <div class="row">
 
-                    <div class="col-md-5">
-                        <div class="on-delivery">
-                            <a href="customer-info.html">cash on delivery</a>
+                        <div class="col-md-5">
+                            <div class="on-delivery">
+                                <a href="customer-info.html">cash on delivery</a>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col-md-2">
-                        <div class="or">
-                            <h5>or</h5>
+                        <div class="col-md-2">
+                            <div class="or">
+                                <h5>or</h5>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col-md-5">
-                        <div class="cart-total">
-                            <h5>Cart Totals</h5>
-                            <div class="total-sec">
-                                <div class="sub-total-sec">
-                                    <span class="left">Cart Subtotal</span>
-                                    <span class="right">
-                                        <span>SUBTOTAL:<i class="icon-inr"></i>
-                                            <strong>
-                                                <?= $subtotal ?>
-                                            </strong>
+                        <div class="col-md-5">
+                            <div class="cart-total">
+                                <h5>Cart Totals</h5>
+                                <div class="total-sec">
+                                    <div class="sub-total-sec">
+                                        <span class="left">Cart Subtotal</span>
+                                        <span class="right">
+                                            <span>SUBTOTAL:<i class="icon-inr"></i>
+                                                <strong>
+                                                    <?= $subtotal ?>
+                                                </strong>
+                                            </span>
                                         </span>
-                                    </span>
-                                </div>
-                                <div class="sub-total-sec">
-                                    <span class="left">Shipping</span>
-                                    <span class="right">Free Shipping</span>
-                                </div>
-                                <div class="sub-total-sec">
-                                    <span class="left">Coupon Discount</span>
-                                    <span class="right"><span class="right"><i class="icon-inr"></i>
-                                            0
-                                        </span></span>
-                                </div>
-                                <div class="order-total">
-                                    <span class="left">Order Total</span>
-                                    <span class="right"><i class="icon-inr"></i>
-                                        <?= $subtotal ?>
-                                    </span>
-                                </div>
-                                <?php if (!empty($user_details)) { ?>
+                                    </div>
+                                    <div class="sub-total-sec">
+                                        <span class="left">Shipping</span>
+                                        <span class="right">Free Shipping</span>
+                                    </div>
+                                    <div class="sub-total-sec">
+                                        <span class="left">Coupon Discount</span>
+                                        <span class="right"><span class="right"><i class="icon-inr"></i>
+                                                0
+                                            </span></span>
+                                    </div>
+                                    <div class="order-total">
+                                        <span class="left">Order Total</span>
+                                        <span class="right"><i class="icon-inr"></i>
+                                            <?= $subtotal ?>
+                                        </span>
+                                    </div>
+                                    <?php if (!empty($user_details)) { ?>
 
-                                    <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "customerdetails"]); ?>">proceed to checkout</a>
-                                <?php } else { ?>
-                                    <a href="<?php echo $this->Url->build(["controller" => "users", "action" => "signin"]); ?>">proceed to checkout</a>
-                                <?php } ?>
+                                        <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "customerdetails"]); ?>">proceed to checkout</a>
+                                    <?php } else { ?>
+                                        <a href="<?php echo $this->Url->build(["controller" => "users", "action" => "signin"]); ?>">proceed to checkout</a>
+                                    <?php } ?>
+
+                                </div>
 
                             </div>
-
                         </div>
+
                     </div>
-
                 </div>
+
+
             </div>
-
-
         </div>
+        <!--End Shop Cart-->
+
     </div>
-    <!--End Shop Cart-->
+    <!--End Content-->
 
-</div>
-<!--End Content-->
+    <script>
+        $('.notify--dismissible').append('<button type="button" class="notify-close">&times;</button>');
 
-<script>
-    $('.notify--dismissible').append('<button type="button" class="notify-close">&times;</button>');
+        $('.notify-close').on('click', function () {
+            $(this).closest('.notify').hide();
+        });
+        function deleteItem(id) {
+            if (confirm("Are you sure you want to delete this Item ?")) {
+                $.ajax({
+                    type: "POST",
+                    data: {id: id},
+                    dataType: "html",
+                    url: "<?php echo $this->request->webroot . 'resturent/deletecart' ?>",
+                    success: function (data) {
+                        if (data === '1') {
+                            $('ul li.close-bag').find('span.num').text(parseInt($('ul li.close-bag').find('span.num').text()) - 1);
+                            var new_price = parseInt($('div.sub-total').find('strong').text().substring('1')) - (parseInt($('div#' + id).find('span#calculatePrice').text()));
+                            $('div.sub-total').find('strong').text('$' + new_price);
+                            $('ul.shop-bag li.open-bag div#' + id).remove();
+                            window.location.reload(true);
+                        }
+                    }
+                });
+            }
+        }
 
-    $('.notify-close').on('click', function () {
-        $(this).closest('.notify').hide();
-    });
-    function deleteItem(id) {
-        if (confirm("Are you sure you want to delete this Item ?")) {
+        $(document).on('change', '#changeValuePrice', function () {
+            var new_price = parseInt($(this).parent().find('span.priceMoney').text()) * parseInt($(this).val());
+            console.log(new_price);
+            $(this).parent().find('span#calculatePrice').text(new_price);
+        });
+
+        function potPackFlgHandle(id) {
+            // Get the checkbox
+            var potPackFlg = document.getElementById("potpackflg_" + id);
+            // If the checkbox is checked, display the output text
+            var flag = "";
+            if (potPackFlg.checked === true) {
+                flag = "A";
+            } else {
+                flag = "N";
+            }
             $.ajax({
                 type: "POST",
-                data: {id: id},
+                data: {id: id, value: flag},
                 dataType: "html",
-                url: "<?php echo $this->request->webroot . 'resturent/deletecart' ?>",
+                url: "<?php echo $this->request->webroot . 'resturent/updatePotPackFlag' ?>",
                 success: function (data) {
-                    if (data === '1') {
-                        $('ul li.close-bag').find('span.num').text(parseInt($('ul li.close-bag').find('span.num').text()) - 1);
-                        var new_price = parseInt($('div.sub-total').find('strong').text().substring('1')) - (parseInt($('div#' + id).find('span#calculatePrice').text()));
-                        $('div.sub-total').find('strong').text('$' + new_price);
-                        $('ul.shop-bag li.open-bag div#' + id).remove();
+                    data = $.parseJSON(data);
+                    if (data.code === '1') {
+                        snackMessage(data.msg);
                         window.location.reload(true);
                     }
                 }
             });
         }
-    }
 
-    $(document).on('change', '#changeValuePrice', function () {
-        var new_price = parseInt($(this).parent().find('span.priceMoney').text()) * parseInt($(this).val());
-        console.log(new_price);
-        $(this).parent().find('span#calculatePrice').text(new_price);
-    });
+        function viewCartUpdate(id, val) {
+            var quantity = parseInt($('#quantity_' + id).val());
+            if (quantity > 0) {
+                if (val)
+                    var newQuantity = quantity + 1;
+                else
+                    var newQuantity = quantity - 1;
 
-    function potPackFlgHandle(id) {
-        // Get the checkbox
-        var potPackFlg = document.getElementById("potpackflg_" + id);
-        // If the checkbox is checked, display the output text
-        var flag = "";
-        if (potPackFlg.checked === true) {
-            flag = "A";
-        } else {
-            flag = "N";
-        }
-        $.ajax({
-            type: "POST",
-            data: {id: id, value: flag},
-            dataType: "html",
-            url: "<?php echo $this->request->webroot . 'resturent/updatePotPackFlag' ?>",
-            success: function (data) {
-                data = $.parseJSON(data);
-                if (data.code === '1') {
-                    snackMessage(data.msg);
-                    window.location.reload(true);
-                }
+                $.ajax({
+                    type: "POST",
+                    data: {id: id, value: newQuantity},
+                    dataType: "html",
+                    url: "<?php echo $this->request->webroot . 'resturent/updateQcart' ?>",
+                    success: function (data) {
+                        data = $.parseJSON(data);
+                        if (data.code === '1') {
+                            $('#quantity_' + id).val(newQuantity);
+                            var base_price = parseInt($('span#basePrice_' + id).text());
+                            var newFoodPrice = base_price * newQuantity;
+                            $('.foodPriceTotal_' + id).text(' ' + newFoodPrice);
+                        }
+                        window.location = "";
+                    }
+                });
             }
-        });
-    }
+        }
 
-    function viewCartUpdate(id,val){
-        var quantity = parseInt($('#quantity_'+id).val());
-        if(quantity >0){
-            if(val)
-               var newQuantity= quantity+1;
-            else
-               var newQuantity= quantity-1;
-            
+
+        function validateAndApplyCouponCode(billamt) {
+            var couponcode = $("#couponcode").val();
             $.ajax({
                 type: "POST",
-                data: {id: id, value: newQuantity},
+                data: {couponcode: couponcode, billamount: billamt},
                 dataType: "html",
-                url: "<?php echo $this->request->webroot . 'resturent/updateQcart' ?>",
+                url: "<?php echo $this->request->webroot . 'resturent/getValidCouponDtl' ?>",
                 success: function (data) {
-                    data = $.parseJSON(data);
-                    if (data.code === '1') {
-                        $('#quantity_'+id).val(newQuantity);
-                        var base_price=parseInt($('span#basePrice_'+id).text());
-                        var newFoodPrice = base_price * newQuantity;
-                        $('.foodPriceTotal_'+id).text(' '+newFoodPrice);
-                    }
-                   window.location="";
+                    alert(data);
                 }
             });
         }
-    }
-</script>
-<style>
-    .shop-cart .cart-pro-detail .quantity input[type=text] {
-        text-align: center;
-        width: 57px;
-        height: 60px;
-        border-radius: 5px;
-        border: solid 1px #e0e0e0;
-        font-size: 18px;
-        margin: 5px 0px 0px 10px;
-    }
-</style>
+    </script>
+    <style>
+        .shop-cart .cart-pro-detail .quantity input[type=text] {
+            text-align: center;
+            width: 57px;
+            height: 60px;
+            border-radius: 5px;
+            border: solid 1px #e0e0e0;
+            font-size: 18px;
+            margin: 5px 0px 0px 10px;
+        }
+    </style>
