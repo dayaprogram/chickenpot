@@ -30,7 +30,8 @@ class resturentController extends AppController {
         $this->Auth->allow(['index', 'customerdetails', 'menu', 'shop',
             'orderlist', 'home2', 'ourstory', 'blog', 'contactus', 'details',
             'addorder', 'viewcart', 'addtokrt', 'deletecart', 'cartview',
-            'updateQcart', 'signup','tracklocation', 'updatePotPackFlag', 'checkCoupanValidation']);
+            'updateQcart', 'signup', 'tracklocation', 'updatePotPackFlag',
+            'getValidCouponDtl', 'validateUserToredeemCoupon']);
     }
 
     public function index() {
@@ -317,14 +318,18 @@ class resturentController extends AppController {
             );
 //            $this->request->session()->delete('cart_item');die;
             if (!empty($this->Session->read('cart_item'))) {
-                
+
 //                pr(array_merge($this->Session->read('cart_item'),$itemArray));die;
 ////                pr($_SESSION);
-                $var = array(
-                    'id'=> $this->request->data['id'],
-                    'foodsize'=> $this->request->data['foodsize']
-                );
-                if (in_array($var, array_column($this->Session->read('cart_item'), 'id','foodsize'))) {
+//                if (in_array($this->request->data('id'), array_column($this->Session->read('cart_item'), 'id'))&&
+//                        in_array($this->request->data('foodsize'), array_column($this->Session->read('cart_item'), 'foodsize'))) {
+                $curritem['foodsize'] = $this->request->data('foodsize');
+                $curritem['id'] = $this->request->data('id');
+                $currcartItem = array_filter($this->Session->read('cart_item'), function($v)use(&$curritem) {
+                    return (($v['id'] === $curritem['id']) && ($v['foodsize'] === $curritem['foodsize']));
+                });
+                if (!empty($currcartItem)) {
+
 //                    $krt = $this->cartview();
 //            pr(array_values($this->Session->read('cart_item')));
 //            die;
@@ -340,19 +345,20 @@ class resturentController extends AppController {
 //                    }
                     $krt = $this->cartview();
 //                    pr($krt); die;
-                    if(!empty($krt)){
-                    echo '{"code":"0","msg":"You have already added in your cart!","cartvalue":' . $krt . '}';
-                } }else {
+                    if (!empty($krt)) {
+                        echo '{"code":"0","msg":"You have already added in your cart!","cartvalue":' . $krt . '}';
+                    }
+                } else {
                     $arr = array_merge($this->Session->read('cart_item'), $itemArray);
 //                    pr($this->Session->read('cart_item'));die;
                     $this->Session->write('cart_item', $arr);
                     $krt = $this->cartview();
-                    echo '{"code":"1","msg":"Cart is added to your account!","cartvalue":' . $krt . '}';
+                    echo '{"code":"1","msg":"Food is added to your account!","cartvalue":' . $krt . '}';
                 }
             } else {
-                    $this->Session->write('cart_item', $itemArray);
-                    $krt = $this->cartview();
-                    echo '{"code":"1","msg":"You have already added in your cart!","cartvalue":' . $krt . '}';
+                $this->Session->write('cart_item', $itemArray);
+                $krt = $this->cartview();
+                echo '{"code":"1","msg":"Food is added to your account!","cartvalue":' . $krt . '}';
             }
         }
         die;
@@ -433,20 +439,69 @@ class resturentController extends AppController {
         die;
     }
 
-    public function checkCoupanValidation() {
-        if ((!empty($this->request->data("id")))) {
-            $sessionArr = $this->request->session()->read('cart_item');
-            foreach ($sessionArr as $key => $value) {
-                if ($value['id'] == $this->request->data("id")) {
-                    $this->request->session()->write('cart_item.' . $key . '.quantity', $this->request->data("value"));
-                    $krt = $this->cartview();
-                    echo '{"code":"1","msg":"Item Quantity is updated successfully!","cartvalue":' . $krt . '}';
+    public function getValidCouponDtl() {
+        $conn = ConnectionManager::get('default');
+        if ((!empty($this->request->data("couponcode")))) {
+            $couponcode = $this->request->data("couponcode");
+            $billamt = $this->request->data("billamount");
+            $today = date("Y-m-d");
+            $validuserflg = $this->validateUserToredeemCoupon($couponcode);
+            // var_dump($validuserflg);
+            if ($validuserflg !== 'valid') {
+                return $validuserflg;
+            }
+
+            $couponDtlRowList = $conn->execute('select coupon_code,discount_type,amt_or_per,max_amt '
+                            . 'from coupon_master where coupon_code=? AND '
+                            . '(? BETWEEN valid_from AND valid_to);', [$couponcode, $today])->fetchAll('assoc');
+
+            $couponDtl = [];
+            $discountAmt = 0;
+            if (!empty($couponDtlRowList)) {
+                foreach ($couponDtlRowList as $couponDtlRow) {
+                    // Do something with the row.
+                    $couponDtl = $couponDtlRow;
+                    break;
+                }
+                if ($couponDtl['discount_type'] == 'P') {
+                    $discountAmt = ($billamt * $couponDtl['amt_or_per']) / 100;
+                    if ($discountAmt > $couponDtl['max_amt']) {
+                        $discountAmt = $couponDtl['max_amt'];
+                    }
+                }
+                if ($couponDtl['discount_type'] == 'A') {
+                    $discountAmt = $couponDtl['amt_or_per'];
                 }
             }
-        } else {
-            echo '0';
+            echo $discountAmt;
         }
         die;
+    }
+
+    public function validateUserToredeemCoupon($couponcode) {
+        $conn = ConnectionManager::get('default');
+        $this->loadModel('coupon_master');
+        $redmfreqType = $this->coupon_master->find()->select(['redm_freq'])->where(['coupon_code' => $couponcode])->first();
+
+        pr($redmfreqType);
+        $result = 'invalid';
+        if (!empty($redmfreqType)) {
+            if ($redmfreqType['redm_freq'] == 'ALL') {
+                $result = 'valid';
+            }
+
+            if ($redmfreqType['redm_freq'] == 'FIRST') {
+                $uid = $this->Auth->user('id');
+
+                $couponUsedTimes = $conn->execute('select count(applied_coupon) from payment_detail'
+                                . ' where applied_coupon=? and customer_id=?;', [$couponcode, $uid])->fetchAll('assoc');
+                //  pr($couponUsedTimes);
+                if ($couponUsedTimes == 0) {
+                    $result = 'valid';
+                }
+            }
+        }
+        return $result;
     }
 
 }
