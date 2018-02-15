@@ -57,16 +57,26 @@ class resturentController extends AppController {
     public function contactus() {
         
     }
-
-    public function tracklocation() {
-        $this->loadModel('Area_master');
-        $select_location = $this->Area_master->find()->toArray();
-        $date = date('Y-m-d'); //today date
-        if ($this->request->is('post')) {
-            //pr($this->request->data());die;
-        }
-        $this->set(compact('select_location', 'weekOfdays', 'times'));
-    }
+//     public function tracklocation(){
+//        $this->loadModel('Area_master');
+//        $select_location = $this->Area_master->find()->toArray();
+//       $date = date('Y-m-d'); //today date
+//         if ($this->request->is('post')) {
+//          $this->Session = $this->request->session();
+//             $tracklocation = array(
+//                 'location'=> $this->request->data['findlocation'],
+//                 'date'=> $this->request->data['selectdate'],
+//                 'time'=> $this->request->data['selecttime'],
+//                 'chooselocation'=> $this->request->data['trackloc'],
+//              );
+//           $session =  $this->Session->read('loc');
+//          return $this->redirect(["controller" => "resturent", "action" => "shop"]);
+//           
+//           
+//           
+//        }
+//        $this->set(compact('select_location','weekOfdays','times','loc'));
+//    }
 
     public function customerdetails() {
         $this->loadModel('Users');
