@@ -49,25 +49,25 @@
 
                                     <div class="quantity">
                                         <p>
-                                            <i class="icon-inr"></i> <span id="basePrice_<?php echo $data['id']; ?>"><?php echo $data['foodprice']; ?> </span><strong>X</strong>
+                                            <?php echo $data['foodsize']; ?>  &rightarrowtail;&nbsp;  <i class="icon-inr"></i> <span id="basePrice_<?php echo $data['id'] . "_" . $data['foodsize']; ?>"><?php echo $data['foodprice']; ?> </span><strong>X</strong>
                                         </p> 
                                         <div class="input-group">
                                             <span class="input-group-btn">
                                                 <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field=""
-                                                        onClick="viewCartUpdate(<?php echo $data['id']; ?>)">
+                                                        onClick="viewCartUpdate(<?php echo $data['id']; ?>,<?php echo "'" . $data['foodsize'] . "'"; ?>)">
                                                     <span class="glyphicon glyphicon-minus"></span>
                                                 </button>
                                             </span>
-                                            <input type="number" id="quantity_<?php echo $data['id']; ?>" name="quantity" class="form-control input-number"
+                                            <input type="number" id="quantity_<?php echo $data['id'] . "_" . $data['foodsize']; ?>" name="quantity" class="form-control input-number"
                                                    value="<?php echo $data['quantity']; ?>" min="1" max="100" readonly="true" style="text-align: center;">
                                             <span class="input-group-btn">
                                                 <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field=""
-                                                        onClick="viewCartUpdate(<?php echo $data['id']; ?>, true)">
+                                                        onClick="viewCartUpdate(<?php echo $data['id']; ?>,<?php echo "'" . $data['foodsize'] . "'"; ?>, true)">
                                                     <span class="glyphicon glyphicon-plus"></span>
                                                 </button>
                                             </span>
                                         </div>
-                                        <p> =<strong id="foodPriceTotal_<?php echo $data['id']; ?>" class="foodPriceTotal_<?php echo $data['id']; ?>">
+                                        <p> =<strong id="foodPriceTotal_<?php echo $data['id'] . "_" . $data['foodsize']; ?>" class="foodPriceTotal_<?php echo $data['id']; ?>">
                                                 <?php echo ($data['foodprice'] * $data['quantity']); ?>
                                             </strong>
                                         </p>
@@ -76,7 +76,7 @@
                                     <div class="total">
                                         <div class="checkout" style="margin: 20px 0 0 0;">
                                             <input type="checkbox" name="potpackflg" 
-                                                   id="potpackflg_<?php echo $data['id']; ?>" 
+                                                   id="potpackflg_<?php echo $data['id'] . "_" . $data['foodsize']; ?>" 
                                                    class="css-checkbox" <?php
                                                    if ($data['potpackflg'] == 'A') {
                                                        echo 'checked';
@@ -84,8 +84,8 @@
                                                        echo '';
                                                    };
                                                    ?>
-                                                   onchange="potPackFlgHandle(<?php echo $data['id']; ?>)">
-                                            <label for="potpackflg_<?php echo $data['id']; ?>" 
+                                                   onchange="potPackFlgHandle(<?php echo $data['id']; ?>,<?php echo "'" . $data['foodsize'] . "'"; ?>)">
+                                            <label for="potpackflg_<?php echo $data['id'] . "_" . $data['foodsize']; ?>" 
                                                    class="css-label">
                                                 <i class="icon-inr"></i>
                                                 <strong>
@@ -112,7 +112,7 @@
                                     </div>
 
                                     <div class="cancel">
-                                        <a href="javascript:;" onclick="return deleteItem(<?php echo $data['id']; ?>);">
+                                        <a href="javascript:;" onclick="return deleteItem(<?php echo $data['id']; ?>,<?php echo"'" . $data['foodsize'] . "'"; ?>);">
                                             <i class="icon-cancel"></i>
                                         </a>
                                     </div>
@@ -212,11 +212,11 @@
         $('.notify-close').on('click', function () {
             $(this).closest('.notify').hide();
         });
-        function deleteItem(id) {
+        function deleteItem(id, foodsize) {
             if (confirm("Are you sure you want to delete this Item ?")) {
                 $.ajax({
                     type: "POST",
-                    data: {id: id},
+                    data: {id: id, foodsize: foodsize},
                     dataType: "html",
                     url: "<?php echo $this->request->webroot . 'resturent/deletecart' ?>",
                     success: function (data) {
@@ -238,9 +238,9 @@
             $(this).parent().find('span#calculatePrice').text(new_price);
         });
 
-        function potPackFlgHandle(id) {
+        function potPackFlgHandle(id, foodsize) {
             // Get the checkbox
-            var potPackFlg = document.getElementById("potpackflg_" + id);
+            var potPackFlg = document.getElementById("potpackflg_" + id + "_" + foodsize);
             // If the checkbox is checked, display the output text
             var flag = "";
             if (potPackFlg.checked === true) {
@@ -250,7 +250,7 @@
             }
             $.ajax({
                 type: "POST",
-                data: {id: id, value: flag},
+                data: {id: id, value: flag, foodsize: foodsize},
                 dataType: "html",
                 url: "<?php echo $this->request->webroot . 'resturent/updatePotPackFlag' ?>",
                 success: function (data) {
@@ -263,8 +263,8 @@
             });
         }
 
-        function viewCartUpdate(id, val) {
-            var quantity = parseInt($('#quantity_' + id).val());
+        function viewCartUpdate(id, foodsize, val) {
+            var quantity = parseInt($('#quantity_' + id + '_' + foodsize).val());
             if (quantity > 0) {
                 if (val)
                     var newQuantity = quantity + 1;
@@ -273,14 +273,14 @@
 
                 $.ajax({
                     type: "POST",
-                    data: {id: id, value: newQuantity},
+                    data: {id: id, value: newQuantity, foodsize: foodsize},
                     dataType: "html",
                     url: "<?php echo $this->request->webroot . 'resturent/updateQcart' ?>",
                     success: function (data) {
                         data = $.parseJSON(data);
                         if (data.code === '1') {
-                            $('#quantity_' + id).val(newQuantity);
-                            var base_price = parseInt($('span#basePrice_' + id).text());
+                            $('#quantity_' + id + '_' + foodsize).val(newQuantity);
+                            var base_price = parseInt($('span#basePrice_' + id + '_' + foodsize).text());
                             var newFoodPrice = base_price * newQuantity;
                             $('.foodPriceTotal_' + id).text(' ' + newFoodPrice);
                         }

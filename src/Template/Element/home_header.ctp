@@ -188,14 +188,15 @@
 
                                         <div class="cart-food" id="<?php echo $data['id']; ?>">
                                             <div class="detail">
-                                                <a href="javascript:;" class="btn btn-danger pull-right" onclick="return deleteItem(<?php echo $data['id']; ?>);">
+                                              <!--  <a href="javascript:;" class="btn btn-danger pull-right" onclick="return deleteItem(<?php echo $data['id']; ?>);">
                                                     <i class="icon-icons163"></i></a>
+                                                -->
                                                 <img src="<?php echo $data['image']; ?>" alt="">
                                                 <div class="text">
                                                     <?php $subtotal = $subtotal + ($data['foodprice'] * $data['quantity']); ?>
                                                     <a href="#."><?php echo $data['foodname']; ?></a>
                                                     <p><span class="priceMoney hidden"><?php echo $data['foodprice']; ?></span>
-                                                        <?php echo $data['foodprice'] . ' x '; ?>
+                                                        <?php echo $data['foodsize']; ?>  &rightarrowtail;&nbsp;<?php echo $data['foodprice'] . ' x '; ?>
                                                         <input type="number" style="width:40px;" value="<?php echo $data['quantity']; ?>" id="changeValuePrice" min="1">
                                                         = <span id="calculatePrice"><?php echo ($data['foodprice'] * $data['quantity']); ?></span></p>
                                                 </div>
@@ -385,6 +386,21 @@
         }, 5000);
     }
 </script>
+<style>
+    .header-two .get-touch li.contact-no a {
+        font-size: 20px;
+        color: #337ab7;
+    }
+    .header-two .cart-button i {
+        color:  #337ab7;
+        font-size: 28px;
+        line-height: 98px;
+    }
+    .header-two .social-icons li a {
+        color: #337ab7;
+        font-size: 20px;
+    }
+</style>
 
 
 

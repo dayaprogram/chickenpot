@@ -362,7 +362,7 @@ class resturentController extends AppController {
             $sessionArr = $_SESSION['cart_item'];
             foreach ($sessionArr as $key => $value) {
 //                print_r($sessionArr); die;
-                if ($value['id'] == $this->request->data("id")) {
+                if (($value['id'] == $this->request->data("id")) && ($value['foodsize'] == $this->request->data("foodsize"))) {
                     $this->request->session()->delete('cart_item.' . $key);
                     echo '1';
                 }
@@ -402,7 +402,7 @@ class resturentController extends AppController {
 //            $key=0;
 //            pr($this->request->session()->read('cart_item.'.$key.'.quantity')); die;
             foreach ($sessionArr as $key => $value) {
-                if ($value['id'] == $this->request->data("id")) {
+                if (($value['id'] == $this->request->data("id")) && ($value['foodsize'] == $this->request->data("foodsize"))) {
                     $this->request->session()->write('cart_item.' . $key . '.quantity', $this->request->data("value"));
                     $krt = $this->cartview();
                     echo '{"code":"1","msg":"Item Quantity is updated successfully!","cartvalue":' . $krt . '}';
@@ -418,7 +418,7 @@ class resturentController extends AppController {
         if ((!empty($this->request->data("id")))) {
             $sessionArr = $this->request->session()->read('cart_item');
             foreach ($sessionArr as $key => $value) {
-                if ($value['id'] == $this->request->data("id")) {
+                if (($value['id'] == $this->request->data("id")) && ($value['foodsize'] == $this->request->data("foodsize"))) {
                     $this->request->session()->write('cart_item.' . $key . '.potpackflg', $this->request->data("value"));
                     echo '{"code":"1","msg":"Pot Packing is updated successfully!"}';
                 }

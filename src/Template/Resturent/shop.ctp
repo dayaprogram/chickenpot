@@ -145,7 +145,7 @@
         } else {
 //               
             var vardetail = $("#multivarItm_" + id).val();
-            foodsize = vardetail.split("_")[0];
+            foodsize = vardetail.split("_")[0].toString();
             foodprice = vardetail.split("_")[1];
             potpackcharge = vardetail.split("_")[2];
         }
