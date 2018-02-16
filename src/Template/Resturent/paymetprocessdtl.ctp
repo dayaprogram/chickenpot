@@ -176,13 +176,13 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
                                     <input type="hidden" name="key" value="<?php echo $MERCHANT_KEY ?>" />
                                     <input type="hidden" name="hash" value="<?php echo $hash ?>"/>
                                     <input type="hidden" name="txnid" value="<?php echo $txnid ?>" />
-                                    <input type="hidden"name="amount" value="<?php echo (empty($posted['amount'])) ? '' : $posted['amount'] ?>" />
-                                    <input type="hidden"name="firstname" id="firstname" value="<?php echo (empty($posted['firstname'])) ? '' : $posted['firstname']; ?>" />
-                                    <input type="hidden"name="email" id="email" value="<?php echo (empty($posted['email'])) ? '' : $posted['email']; ?>" />
+                                    <input type="hidden"name="amount" value="<?php echo (empty($posted['amount'])) ? '200' : $posted['amount'] ?>" />
+                                    <input type="hidden"name="firstname" id="firstname" value="<?php echo (empty($posted['firstname'])) ? 'rajiv' : $posted['firstname']; ?>" />
+                                    <input type="hidden"name="email" id="email" value="<?php echo (empty($posted['email'])) ? 'daya@gmail.com' : $posted['email']; ?>" />
                                     <input type="hidden"name="phone" value="<?php echo (empty($posted['phone'])) ? '' : $posted['phone']; ?>" />
-                                    <textarea hidden="true" name="productinfo"><?php echo (empty($posted['productinfo'])) ? '' : $posted['productinfo'] ?></textarea>
-                                    <input type="hidden" name="surl" value="<?php echo (empty($posted['surl'])) ? '' : $posted['surl'] ?>" size="64" />
-                                    <input type="hidden" name="furl" value="<?php echo (empty($posted['furl'])) ? '' : $posted['furl'] ?>" size="64" />
+                                    <textarea hidden="true" name="productinfo"><?php echo (empty($posted['productinfo'])) ? 'food' : $posted['productinfo'] ?></textarea>
+                                    <input type="hidden" name="surl" value="<?php echo (empty($posted['surl'])) ? 'http://www.chickenpot.in/resturent/paymentsuccessbilldtl' : $posted['surl'] ?>" size="64" />
+                                    <input type="hidden" name="furl" value="<?php echo (empty($posted['furl'])) ? 'http://www.chickenpot.in/resturent/paymentfailuredtl' : $posted['furl'] ?>" size="64" />
                                     <input type="hidden" type="hidden" name="service_provider" value="payu_paisa" size="64" />
                                     <b hidden="true">Optional Parameters</b>
                                     <input type="hidden" name="lastname" id="lastname" value="<?php echo (empty($posted['lastname'])) ? '' : $posted['lastname']; ?>" />
