@@ -49,7 +49,7 @@
 
                                     <div class="quantity">
                                         <p>
-                                            <?php echo $data['foodsize']; ?>  &rightarrowtail;&nbsp;  <i class="icon-inr"></i> <span id="basePrice_<?php echo $data['id'] . "_" . $data['foodsize']; ?>"><?php echo $data['foodprice']; ?> </span><strong>X</strong>
+                                           <?php echo $data['foodsize']; ?>  &rightarrowtail;&nbsp;  <i class="icon-inr"></i> <span id="basePrice_<?php echo $data['id'] . "_" . $data['foodsize']; ?>"><?php echo $data['foodprice']; ?> </span><strong>X</strong>
                                         </p> 
                                         <div class="input-group">
                                             <span class="input-group-btn">
@@ -136,6 +136,7 @@
                             </div>
                         </div>
                     </div>
+                    
                 </div>
 
                 <div class="cash-decide">
@@ -143,7 +144,7 @@
 
                         <div class="col-md-5">
                             <div class="on-delivery">
-                                <a href="customer-info.html">cash on delivery</a>
+                                <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "blog"]); ?>">cash on delivery</a>
                             </div>
                         </div>
 
@@ -184,7 +185,6 @@
                                         </span>
                                     </div>
                                     <?php if (!empty($user_details)) { ?>
-
                                         <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "customerdetails"]); ?>">proceed to checkout</a>
                                     <?php } else { ?>
                                         <a href="<?php echo $this->Url->build(["controller" => "users", "action" => "signin"]); ?>">proceed to checkout</a>

@@ -89,8 +89,8 @@
 							<form name="newsletter_form" id="newsletter_form" method="post" onSubmit="return false">
 							<input name="nws_email_address" id="nws_email_address" type="text" 
 							onKeyPress="remove_newsletter_errors();" 
-							onblur="if(this.value == '') { this.value='Enter your e-mail address'}"
-								onfocus="if (this.value == 'Enter your e-mail address') {this.value=''}"
+							onblur="if(this.value === '') { this.value='Enter your e-mail address'}"
+								onfocus="if (this.value === 'Enter your e-mail address') {this.value=''}"
 								value="Enter your e-mail address">
 							<a href="#." onClick="validateNewsletter();"><i class="icon-icons208"></i></a>
 							</form>
@@ -107,11 +107,11 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
-						<span>Copyright © 2018 Chickenpot. All rights reserved. by <a href="#.">Chickenpot</a></span>
+						<span>Copyright © 2018 Chickenpot. All rights reserved. by <a href="http://www.chickenpot.in/">Chickenpot.in</a></span>
 						<ul>
 						<li><a href="#.">Permissions and Copyrights</a></li>
 							<li><span class="divid">-</span></li>
-						<li><a href="#.">Contact Us</a></li>
+						<li><a href="http://www.chickenpot.in/resturent/contactus">Contact Us</a></li>
 						</ul>
 					</div>
 				</div>

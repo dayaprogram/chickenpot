@@ -31,7 +31,8 @@ class resturentController extends AppController {
             'orderlist', 'home2', 'ourstory', 'blog', 'contactus', 'details',
             'addorder', 'viewcart', 'addtokrt', 'deletecart', 'cartview',
             'updateQcart', 'signup', 'tracklocation', 'updatePotPackFlag',
-            'getValidCouponDtl', 'validateUserToredeemCoupon']);
+            'getValidCouponDtl', 'validateUserToredeemCoupon',
+            'paymentsuccessbilldtl', 'paymetprocessdtl']);
     }
 
     public function index() {
@@ -54,9 +55,22 @@ class resturentController extends AppController {
         
     }
 
+    public function paymentsuccessbilldtl() {
+        
+    }
+
+    public function paymetprocessdtl() {
+        
+    }
+
+    public function paymentfailuredtl() {
+        
+    }
+
     public function contactus() {
         
     }
+
 //     public function tracklocation(){
 //        $this->loadModel('Area_master');
 //        $select_location = $this->Area_master->find()->toArray();
@@ -116,6 +130,7 @@ class resturentController extends AppController {
                 $this->request->data['user_id'] = $uid;
                 $this->request->data['address1'] = $this->request->data['address'];
                 $this->request->data['area_code'] = $this->request->data['location'];
+                $this->request->data['landmark'] = "near hanuman mandir";
                 $shipping = $this->Shipping_add->patchEntity($shipping, $this->request->data);
                 $shp_id = $this->Shipping_add->save($shipping);
                 // pr($shp_id); die;
@@ -188,6 +203,7 @@ class resturentController extends AppController {
             $query->update()->set(['first_name' => $this->request->data['first_name'],
                 'last_name' => $this->request->data['last_name'], 'email' => $this->request->data['email'],
                 'address1' => $this->request->data['address'],
+                //   'landmark' => 'near hanuman mandir',
                 'area_code' => $this->request->data['location']])->where(['shipping_id' => $id])->execute();
             if ($query) {
                 $this->checkout();
