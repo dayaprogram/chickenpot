@@ -19,6 +19,8 @@
 <div class="wave"></div>
 
 <!--End Sub Banner-->
+
+
 <?php
 $MERCHANT_KEY = "GlmxtHX5";
 $SALT = "qKF9WHhimi";
@@ -74,23 +76,9 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
 }
 ?>
 
-<script>
-    var hash = '<?php echo $hash ?>';
-    function submitPayuForm() {
-        if (hash === '') {
-            return;
-        }
-        var payuForm = document.forms.payuForm;
-        payuForm.submit();
-    }
-</script>
-<br/>
-<?php if ($formError) { ?>
 
-    <span style="color:red">Please fill all mandatory fields.</span>
-    <br/>
-    <br/>
-<?php } ?>
+
+
 
 
 <!--Start Content-->
@@ -172,39 +160,108 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
                                     </div>
                                 </div>
 
-                                <form action="<?php echo $action; ?>" method="post" name="payuForm" >
-                                    <input type="hidden" name="key" value="<?php echo $MERCHANT_KEY ?>" />
-                                    <input type="hidden" name="hash" value="<?php echo $hash ?>"/>
-                                    <input type="hidden" name="txnid" value="<?php echo $txnid ?>" />
-                                    <input type="hidden"name="amount" value="<?php echo (empty($posted['amount'])) ? '200' : $posted['amount'] ?>" />
-                                    <input type="hidden"name="firstname" id="firstname" value="<?php echo (empty($posted['firstname'])) ? 'rajiv' : $posted['firstname']; ?>" />
-                                    <input type="hidden"name="email" id="email" value="<?php echo (empty($posted['email'])) ? 'daya@gmail.com' : $posted['email']; ?>" />
-                                    <input type="hidden"name="phone" value="<?php echo (empty($posted['phone'])) ? '' : $posted['phone']; ?>" />
-                                    <textarea hidden="true" name="productinfo"><?php echo (empty($posted['productinfo'])) ? 'food' : $posted['productinfo'] ?></textarea>
-                                    <input type="hidden" name="surl" value="<?php echo (empty($posted['surl'])) ? 'http://www.chickenpot.in/resturent/paymentsuccessbilldtl' : $posted['surl'] ?>" size="64" />
-                                    <input type="hidden" name="furl" value="<?php echo (empty($posted['furl'])) ? 'http://www.chickenpot.in/resturent/paymentfailuredtl' : $posted['furl'] ?>" size="64" />
-                                    <input type="hidden" type="hidden" name="service_provider" value="payu_paisa" size="64" />
-                                    <b hidden="true">Optional Parameters</b>
-                                    <input type="hidden" name="lastname" id="lastname" value="<?php echo (empty($posted['lastname'])) ? '' : $posted['lastname']; ?>" />
-                                    <input type="hidden" name="curl" value="" />
-                                    <input type="hidden" name="address1" value="<?php echo (empty($posted['address1'])) ? '' : $posted['address1']; ?>" />
-                                    <input type="hidden" name="address2" value="<?php echo (empty($posted['address2'])) ? '' : $posted['address2']; ?>" />
-                                    <input type="hidden" name="city" value="<?php echo (empty($posted['city'])) ? '' : $posted['city']; ?>" />
-                                    <input type="hidden" name="state" value="<?php echo (empty($posted['state'])) ? '' : $posted['state']; ?>" />
-                                    <input type="hidden" name="country" value="<?php echo (empty($posted['country'])) ? '' : $posted['country']; ?>" />
-                                    <input type="hidden" name="zipcode" value="<?php echo (empty($posted['zipcode'])) ? '' : $posted['zipcode']; ?>" />
-                                    <input type="hidden" name="udf1" value="<?php echo (empty($posted['udf1'])) ? '' : $posted['udf1']; ?>" />
-                                    <input type="hidden" name="udf2" value="<?php echo (empty($posted['udf2'])) ? '' : $posted['udf2']; ?>" />
-                                    <input type="hidden" name="udf3" value="<?php echo (empty($posted['udf3'])) ? '' : $posted['udf3']; ?>" />
-                                    <input type="hidden" name="udf4" value="<?php echo (empty($posted['udf4'])) ? '' : $posted['udf4']; ?>" />
-                                    <input type="hidden" name="udf5" value="<?php echo (empty($posted['udf5'])) ? '' : $posted['udf5']; ?>" />
-                                    <input type="hidden" name="pg" value="<?php echo (empty($posted['pg'])) ? '' : $posted['pg']; ?>" />
 
-                                    <?php if (!$hash) { ?>
-                                        <input class="next-step" type="submit" value="Proceed To Payment" />
+                                <body onload="submitPayuForm()">
+
+                                    <?php if ($formError) { ?>
+
+                                        <span style="color:red">Please fill all mandatory fields.</span>
 
                                     <?php } ?>
-                                </form>
+                                    <form action="<?php echo $action; ?>" method="post" name="payuForm">
+                                        <input type="hidden" name="key" value="<?php echo $MERCHANT_KEY ?>" />
+                                        <input type="hidden" name="hash" value="<?php echo $hash ?>"/>
+                                        <input type="hidden" name="txnid" value="<?php echo $txnid ?>" />
+                                        <table hidden="true">
+                                            <tr>
+                                                <td><b>Mandatory Parameters</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Amount: </td>
+                                                <td><input name="amount" value="<?php echo (empty($posted['amount'])) ? '200' : $posted['amount'] ?>" /></td>
+                                                <td>First Name: </td>
+                                                <td><input name="firstname" id="firstname" value="<?php echo (empty($posted['firstname'])) ? 'dayanand' : $posted['firstname']; ?>" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Email: </td>
+                                                <td><input name="email" id="email" value="<?php echo (empty($posted['email'])) ? 'daya@gmail.com' : $posted['email']; ?>" /></td>
+                                                <td>Phone: </td>
+                                                <td><input name="phone" value="<?php echo (empty($posted['phone'])) ? '7890197952' : $posted['phone']; ?>" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Product Info: </td>
+                                                <td colspan="3"><textarea name="productinfo"><?php echo (empty($posted['productinfo'])) ? 'fooditem' : $posted['productinfo'] ?></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Success URI: </td>
+                                                <td colspan="3"><input name="surl" value="<?php echo (empty($posted['surl'])) ? 'http://www.chickenpot.in/resturent/paymentsuccessbilldtl' : $posted['surl'] ?>" size="64" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Failure URI: </td>
+                                                <td colspan="3"><input name="furl" value="<?php echo (empty($posted['furl'])) ? 'http://www.chickenpot.in/resturent/paymentfailuredtl' : $posted['furl'] ?>" size="64" /></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td colspan="3"><input type="hidden" name="service_provider" value="payu_paisa" size="64" /></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><b>Optional Parameters</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Last Name: </td>
+                                                <td><input name="lastname" id="lastname" value="<?php echo (empty($posted['lastname'])) ? '' : $posted['lastname']; ?>" /></td>
+                                                <td>Cancel URI: </td>
+                                                <td><input name="curl" value="" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Address1: </td>
+                                                <td><input name="address1" value="<?php echo (empty($posted['address1'])) ? '' : $posted['address1']; ?>" /></td>
+                                                <td>Address2: </td>
+                                                <td><input name="address2" value="<?php echo (empty($posted['address2'])) ? '' : $posted['address2']; ?>" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>City: </td>
+                                                <td><input name="city" value="<?php echo (empty($posted['city'])) ? '' : $posted['city']; ?>" /></td>
+                                                <td>State: </td>
+                                                <td><input name="state" value="<?php echo (empty($posted['state'])) ? '' : $posted['state']; ?>" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Country: </td>
+                                                <td><input name="country" value="<?php echo (empty($posted['country'])) ? '' : $posted['country']; ?>" /></td>
+                                                <td>Zipcode: </td>
+                                                <td><input name="zipcode" value="<?php echo (empty($posted['zipcode'])) ? '' : $posted['zipcode']; ?>" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>UDF1: </td>
+                                                <td><input name="udf1" value="<?php echo (empty($posted['udf1'])) ? '' : $posted['udf1']; ?>" /></td>
+                                                <td>UDF2: </td>
+                                                <td><input name="udf2" value="<?php echo (empty($posted['udf2'])) ? '' : $posted['udf2']; ?>" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>UDF3: </td>
+                                                <td><input name="udf3" value="<?php echo (empty($posted['udf3'])) ? '' : $posted['udf3']; ?>" /></td>
+                                                <td>UDF4: </td>
+                                                <td><input name="udf4" value="<?php echo (empty($posted['udf4'])) ? '' : $posted['udf4']; ?>" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>UDF5: </td>
+                                                <td><input name="udf5" value="<?php echo (empty($posted['udf5'])) ? '' : $posted['udf5']; ?>" /></td>
+                                                <td>PG: </td>
+                                                <td><input name="pg" value="<?php echo (empty($posted['pg'])) ? '' : $posted['pg']; ?>" /></td>
+                                            </tr>
+
+
+
+                                        </table>
+                                        <?php if (!$hash) { ?>
+                                            <input class="next-step" type="submit" value="Proceed To Payment" />
+                                        <?php } ?>
+                                    </form>
+                                </body>
+
+
+
                             </div>
 
                         </div>
@@ -221,3 +278,13 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
 <!--End Content-->
 
 
+<script>
+    var hash = '<?php echo $hash ?>';
+    function submitPayuForm() {
+        if (hash === '') {
+            return;
+        }
+        var payuForm = document.forms.payuForm;
+        payuForm.submit();
+    }
+</script>
