@@ -178,7 +178,7 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
                                             </tr>
                                             <tr>
                                                 <td>Amount: </td>
-                                                <td><input name="amount" value="<?php echo (empty($posted['amount'])) ? '200' : $posted['amount'] ?>" /></td>
+                                                <td><input name="amount" value="<?php echo (empty($posted['amount'])) ? '1' : $posted['amount'] ?>" /></td>
                                                 <td>First Name: </td>
                                                 <td><input name="firstname" id="firstname" value="<?php echo (empty($posted['firstname'])) ? 'dayanand' : $posted['firstname']; ?>" /></td>
                                             </tr>
