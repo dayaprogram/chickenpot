@@ -32,7 +32,7 @@ $posted_hash = $_POST["hash"];
 $key = $_POST["key"];
 $productinfo = $_POST["productinfo"];
 $email = $_POST["email"];
-$salt = "";
+$salt = "qKF9WHhimi";
 
 // Salt should be same Post Request 
 
