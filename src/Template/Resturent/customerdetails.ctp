@@ -89,16 +89,15 @@
                                 <div class="form">
                                     <input type="text" name="first_name" id="first_name" class="form-control" placeholder="Enter your first name" required>
                                     <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Enter your last name" required>
-                                    <input type="text" name="email" id="email" class="form-control" placeholder="Enter your email id" required>
-                                    <input type="text" name="contact_no" id="contact_no" class="form-control"  maxlength="15" placeholder="Enter your mobile no" required>
-
+                                    <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email id" required>
+                                    <input type="text" name="contact_no" id="contact_no" class="form-control"  maxlength="10" placeholder="Enter your mobile no" required>
                                     <p>Fill your address</p>
                                     <textarea name="address1" id="address1" class="form-control" placeholder="Enter your address 1" required></textarea>
                                     <textarea name="address2" id="address2" class="form-control" placeholder="Enter your address 2" required></textarea>
                                     <textarea name="landmark" id="landmark" class="form-control" placeholder="Enter your landmark" required></textarea>
                                     <div class="input-group">
                                         <span class="input-group-addon">Jalandhar</span>
-                                        <select class="form-control" id="location" name="location" onchange="selectloc();">
+                                        <select class="form-control" id="area_code" name="area_code" onchange="selectloc();">
                                             <option value="">Choose your location</option>
                                             <?php
                                             foreach ($select_location as $location) {
@@ -116,9 +115,6 @@
                     </div>
                 </div>
             </div>
-
-
-
         </div>
     </div>
     <!--End Cash Billing-->

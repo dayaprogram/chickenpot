@@ -25,9 +25,9 @@
                                 
                                 <div class="col-md-3">
                                     
-                                        <div class="field">
-                                            <input name="reserv_email1" id="reserv_email1" type="text" value="Jalandhar" readonly="true">
-                                                   </div>
+                                    <div class="field" style="background-color: #f7d554;">
+                                        <input name="reserv_email1" id="reserv_email1" type="text" value="Jalandhar" readonly="true">
+                                    </div>
                                  
                                 </div>
                                 <div class="col-md-9">
@@ -54,14 +54,19 @@
                                 <div class="col-md-6"><div class="field basic-example2">
                                         <select class="basic-example" id="reserv_time" name="reserv_time">
                                             <option value="">Choose A Time</option>
-                                            <option value="9:00amto12:00pm">9:00am to 12:00pm</option>
-                                            <option value="12:00pmto3:00pm">12:00pm to 3:00pm</option>
-                                            <option value="3:00pmto6:00pm">3:00pm to 6:00pm</option>
-                                            <option value="6:00pmto9:00pm">6:00pm to 9:00pm</option>
-                                            <option value="9:00pmto12:00am">9:00pm to 12:00am</option>
+                                            <option value="9:00|11:00">9:00am to 12:00pm</option>
+                                            <option value="11:00|13:00">12:00pm to 3:00pm</option>
+                                            <option value="13:00|15:00">3:00pm to 6:00pm</option>
+                                            <option value="15:00|17:00">6:00pm to 9:00pm</option>
+                                            <option value="17:00|19:00">9:00pm to 12:00am</option>
+                                            <option value="17:00|19:00">9:00pm to 12:00am</option>
+                                            <option value="17:00|19:00">9:00pm to 12:00am</option>
+                                            <option value="17:00|19:00">9:00pm to 12:00am</option>
+                                            <option value="17:00|19:00">9:00pm to 12:00am</option>
                                         </select>
                                     </div></div>
-                                <div class="col-md-6"><div class="field">
+                                <div class="col-md-6">
+                                    <div class="field">
                                         <select class="basic-example" name="reserv_persons" id="reserv_persons">
                                             <option value="">Persons</option>
                                             <option value="1">1</option>
@@ -70,12 +75,16 @@
                                             <option value="4">4</option>
                                             <option value="5">5+</option>
                                         </select>
-                                    </div></div>
-                                <div class="col-md-6"><div class="field"><input name="reserv_email" id="reserv_email" type="text" value="Email Address" onblur="if (this.value == '') {
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="field"><input name="reserv_email" id="reserv_email" type="text" value="Email Address" onblur="if (this.value == '') {
                                             this.value = 'Email Address'
-                                        }" onfocus="if (this.value == 'Email Address') {
+                                        }" onfocus="if (this.value === 'Email Address') {
                                                     this.value = ''
-                                                }"></div></div>
+                                                }">
+                                    </div>
+                                </div>
                                <input name=" " type="submit" value="Order Now" onClick="validateReservation();">
                             </form>
                         </div>
@@ -137,8 +146,11 @@
 
 //date picker
     jQuery("#datepicker").datepicker({
-        inline: true
+        inline: true,
+        minDate: new Date(),
+        maxDate: "+5d"
     });<!-- Form Drop Down -->
+    var currentDate = $( "#datepicker" ).datepicker( "getDate" );
     $(document).ready(function () {
 
         $(".basic-example").heapbox();

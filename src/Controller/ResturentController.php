@@ -71,7 +71,7 @@ class resturentController extends AppController {
         
     }
 
-    public function tracklocation(){
+    public function tracklocation() {
 //        $this->loadModel('Area_master');
 //        $select_location = $this->Area_master->find()->toArray();
 //       $date = date('Y-m-d'); //today date
@@ -98,6 +98,9 @@ class resturentController extends AppController {
         $this->loadModel('Shipping_add');
         $select_location = $this->Area_master->find()->toArray();
         $uid = $this->Auth->user('id');
+        if (empty($uid)) {
+            return $this->redirect(["controller" => "users", "action" => "signin"]);
+        }
         $userdetails = $this->Users->find('all')->where(['id' => $uid])->first();
         $shipping = $this->Shipping_add->newEntity();
         if ($this->request->is('post')) {
@@ -128,10 +131,6 @@ class resturentController extends AppController {
                 $rand_8_char = substr($uniqid, $rand_start, 8);
                 $this->request->data['shipping_code'] = $rand_8_char;
                 $this->request->data['user_id'] = $uid;
-                $this->request->data['address1'] = $this->request->data['address1'];
-                $this->request->data['address2'] = $this->request->data['address2'];
-                $this->request->data['area_code'] = $this->request->data['location'];
-                $this->request->data['landmark'] = $this->request->data['landmark'];
                 $shipping = $this->Shipping_add->patchEntity($shipping, $this->request->data);
                 $shp_id = $this->Shipping_add->save($shipping);
                 // pr($shp_id); die;
@@ -155,13 +154,6 @@ class resturentController extends AppController {
         $itemveriant = $this->item_variant->find('all')->toArray();
         $this->set(compact('itemveriant'));
         $this->set(compact('getitem'));
-
-
-//        $a = array('a' => 1, 'b' => 2, 'c' => false, 'd' => 0);
-//        $b = array_filter($a, function($v) {
-//            return $v !== 0;
-//        });
-//        var_dump($b);
     }
 
     public function details($id = null) {
@@ -410,8 +402,8 @@ class resturentController extends AppController {
             foreach ($this->request->session()->read('cart_item') as $data) {
                 $view .= '<div class="cart-food" id="' . $data["id"] . '"><div class="detail"><a href="javascript:;" class="btn btn-danger pull-right" onclick="return deleteItem(' . $data["id"] . ');"><i class="icon-icons163"></i></a><img src="' . $data["image"] . '" alt=""><div class="text">';
                 $subtotal = $subtotal + ($data['foodprice'] * $data['quantity']);
-                $view .= '<a href="javascript:;">' . $data["foodname"] . '</a><p><span class="priceMoney hidden">' . $data["foodprice"] . 
-                        '</span>'. $data['foodsize'].'  &rightarrowtail;&nbsp;' . $data["foodprice"] . ' x <input type="number" style="width:40px;" value="' . $data["quantity"] . '" id="changeValuePrice"> = <span id="calculatePrice">' . ($data["foodprice"] * $data["quantity"]) . '</span></p></div></div></div>';
+                $view .= '<a href="javascript:;">' . $data["foodname"] . '</a><p><span class="priceMoney hidden">' . $data["foodprice"] .
+                        '</span>' . $data['foodsize'] . '  &rightarrowtail;&nbsp;' . $data["foodprice"] . ' x <input type="number" style="width:40px;" value="' . $data["quantity"] . '" id="changeValuePrice"> = <span id="calculatePrice">' . ($data["foodprice"] * $data["quantity"]) . '</span></p></div></div></div>';
             }
         } else {
             $view .= '<h7>No Card added to your account.</h7>';

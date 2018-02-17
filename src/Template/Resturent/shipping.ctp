@@ -87,9 +87,9 @@
                                     <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Enter your last name" value="<?php echo $details->last_name ?>" required>
                                     <input type="text" name="email" id="email" class="form-control" placeholder="Enter your email id" value="<?php echo $details->email ?>" required>
                                     <input type="text" name="contact_no" id="contact_no" class="form-control"  maxlength="15" placeholder="Enter your mobile no" value="<?php echo $details->contact_no ?>" required>
-                                    <textarea name="address" id="address" class="form-control" placeholder="Enter your address" value="<?php echo $details->address1 ?>" required>
+                                    <textarea name="address" id="address1" class="form-control" placeholder="Enter your address" value="<?php echo $details->address1 ?>" required>
                                         <?php echo $details->address1 ?></textarea>	
-                                    <textarea name="address" id="address2" class="form-control" placeholder="Enter your address" value="<?php echo $details->address1 ?>" required>
+                                    <textarea name="address" id="address2" class="form-control" placeholder="Enter your address" value="<?php echo $details->address2 ?>" required>
                                         <?php echo $details->address1 ?></textarea>	
                                     <span class="input-group-addon">Jalandhar</span>
                                     <select class="form-control" id="location" name="location" onchange="selectloc();" value="<?php echo $details->area_code ?>">
