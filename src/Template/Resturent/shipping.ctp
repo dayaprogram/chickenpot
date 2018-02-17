@@ -87,21 +87,21 @@
                                     <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Enter your last name" value="<?php echo $details->last_name ?>" required>
                                     <input type="text" name="email" id="email" class="form-control" placeholder="Enter your email id" value="<?php echo $details->email ?>" required>
                                     <input type="text" name="contact_no" id="contact_no" class="form-control"  maxlength="15" placeholder="Enter your mobile no" value="<?php echo $details->contact_no ?>" required>
+                                    <textarea name="address" id="address" class="form-control" placeholder="Enter your address" value="<?php echo $details->address1 ?>" required>
+                                        <?php echo $details->address1 ?></textarea>	
+                                    <textarea name="address" id="address2" class="form-control" placeholder="Enter your address" value="<?php echo $details->address1 ?>" required>
+                                        <?php echo $details->address1 ?></textarea>	
                                     <span class="input-group-addon">Jalandhar</span>
                                     <select class="form-control" id="location" name="location" onchange="selectloc();" value="<?php echo $details->area_code ?>">
                                         <option value="">Choose A location</option>
                                         <?php
                                         foreach ($select_location as $location) {
                                             ?>
-                                            <option value="<?php echo $location['area_id'] ?>">
+                                            <option value="<?php echo $location['area_code'] ?>">
                                                 <?php echo $location['area_name'] ?>
                                             </option>
                                         <?php } ?>
                                     </select>
-
-                                    <p>Fill your address</p>
-                                    <textarea name="address" id="address" class="form-control" placeholder="Enter your address" value="<?php echo $details->address1 ?>" required>
-                                        <?php echo $details->address1 ?></textarea>									
                                     <button type="submit" class="btn btn-primary btn-md btn-block next-step">Continue Shipping Method</button>
                                 </div>
                             </div>

@@ -25,13 +25,13 @@
         <link href="<?php echo $this->request->webroot; ?>chickenpot/css/Tabs.css" rel="stylesheet" type="text/css"> 
         <link href="<?php echo $this->request->webroot; ?>chickenpot/css/bootstrap.css" rel="stylesheet" type="text/css"> 
         <link href="<?php echo $this->request->webroot; ?>chickenpot/css/selectbar.css" rel="stylesheet" type="text/css">
+        <link href="<?php echo $this->request->webroot; ?>chickenpot/css/form-dropdown.css" rel="stylesheet" type="text/css">
 
 
 
-        <!--js-->
-        <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/jquery.min.js"></script>
+        <!--js
         <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/form-dropdown.js"></script>
-
+        -->
 
         <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/jquery.js"></script>
 
@@ -66,10 +66,8 @@
 
         <!-- All Scripts -->
         <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/custom.js"></script> 
-        <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/cart-detail.js"></script> 
-        <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/jquery.mmenu.min.all.js"></script> 
         <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/tabs.js"></script> 
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="<?php echo $this->request->webroot; ?>chickenpot/js/jquery-ui-1.10.3.custom.js"></script> 
 
 
         <!--PreLoader-->

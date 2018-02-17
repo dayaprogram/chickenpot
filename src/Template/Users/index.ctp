@@ -93,46 +93,6 @@
 
 
 
-<!--Start Content-->
-<div class="content">
-    <!--Start Services-->
-    <div class="services">
-        <div class="container">
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="main-title">
-                        <span>Our Location</span>
-                    </div>
-                </div>
-            </div>
-
-
-            
-            <div class="col-sm-2"></div>
-            <div class="col-sm-6">
-                <div class="input-group">
-                    <span class="input-group-addon" style="font-size:15px">Jalandhar</span>
-                    <select class="form-control" id="sel1" onchange="selectloc();" style="font-size:15px">
-                        <option value="">Choose A location</option>
-                        <?php
-                        foreach ($select_location as $location) {
-                            pr($location['name'])
-                            ?>
-                            <option value="<?php echo $location['id'] ?>" id="location">
-                                <?php echo $location['area_name'] ?>
-                            </option>
-                        <?php } ?>
-                    </select>
-                </div>
-            </div>
-            <div class="col-sm-2"><button type="button" class="btn btn-success">Go</button></div>
-            <div class="col-sm-2"></div>
-        </div>
-    </div>
-</div>
-<!--End Services-->
-
 <!--Start Master of Town-->
 <div class="master-town">
 
