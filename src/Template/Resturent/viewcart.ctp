@@ -471,25 +471,17 @@ window.onclick = function(event) {
 <script>
     function prooceedtologin(){
       var phone = $('#phone').val();
-      var pass = $('#pass').val();
+      var password = $('#pass').val();
      alert(phone);
-      $.ajax({
-       type: "POST",
-       data: {phone:phone, pass:pass},
-       dataType:"json",
-       url: "<?php echo $this->request->webroot . 'Resturent/login'; ?>",
-       success: function(data){
-        if(data.Ack =='1'){
-          //alert('kk');
-          window.location.href = "";
-        }
-        else{
-            //alert('jj');
-          alert(rrect Password or Email', "success");
-        }
-       //console.log(data);
-   }
-});
-      return(false);
+       $.ajax({
+                    type: "POST",
+                    data: {phone:phone, password:password},
+                    dataType: "json",
+                    url: "<?php echo $this->request->webroot . 'resturent/login' ?>",
+                    success: function (data) {
+                    //alert(data);
+                      window.location = "";
+                    }
+                });
     }
 </script>
