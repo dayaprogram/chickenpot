@@ -26,7 +26,7 @@ $MERCHANT_KEY = "GlmxtHX5";
 $SALT = "qKF9WHhimi";
 // Merchant Key and Salt as provided by Payu.
 
- $PAYU_BASE_URL = "https://sandboxsecure.payu.in";  // For Sandbox Mode
+$PAYU_BASE_URL = "https://sandboxsecure.payu.in";  // For Sandbox Mode
 //$PAYU_BASE_URL = "https://secure.payu.in";			// For Production Mode
 
 $action = '';
@@ -34,8 +34,23 @@ $action = '';
 $posted = array();
 if (!empty($_POST)) {
     //print_r($_POST);
-    foreach ($_POST as $key => $value) {
-        $posted[$key] = $value;
+//    foreach ($_POST as $key => $value) {
+//        $posted[$key] = $value;
+//    }
+    $cartItem = $this->Session->read('cart_item');
+    $shippindAddDtl = $this->Session->read('shippindAddDtl');
+    if ((!empty($shippindAddDtl))) {
+        $posted['amount'] = $subtotal;
+        $posted['firstname'] = $shippindAddDtl['first_name'];
+        $posted['email'] = $shippindAddDtl['email'];
+        $posted['phone'] = $shippindAddDtl['contact_no'];
+        $posted['productinfo'] = $shippindAddDtl['firstname'];
+        $posted['lastname'] = $shippindAddDtl['last_name'];
+        $posted['address1'] = $shippindAddDtl['address1'];
+        // $posted['city'] = $shippindAddDtl['firstname'];
+        // $posted['state'] = $shippindAddDtl['firstname'];
+        // $posted['country'] = $shippindAddDtl['firstname'];
+        // $posted['zipcode'] = $shippindAddDtl['firstname'];
     }
 }
 
@@ -204,7 +219,6 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
                                             <tr>
                                                 <td colspan="3"><input type="hidden" name="service_provider" value="payu_paisa" size="64" /></td>
                                             </tr>
-
                                             <tr>
                                                 <td><b>Optional Parameters</b></td>
                                             </tr>
