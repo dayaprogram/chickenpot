@@ -72,27 +72,30 @@ class resturentController extends AppController {
     }
 
     public function tracklocation() {
-//        $this->loadModel('Area_master');
-//        $select_location = $this->Area_master->find()->toArray();
-//       $date = date('Y-m-d'); //today date
-//         if ($this->request->is('post')) {
-//          $this->Session = $this->request->session();
-//             $tracklocation = array(
-//                 'location'=> $this->request->data['findlocation'],
-//                 'date'=> $this->request->data['selectdate'],
-//                 'time'=> $this->request->data['selecttime'],
-//                 'chooselocation'=> $this->request->data['trackloc'],
-//              );
-//           $session =  $this->Session->read('loc');
-//          return $this->redirect(["controller" => "resturent", "action" => "shop"]);
-//           
-//           
-//           
-//        }
-//        $this->set(compact('select_location','weekOfdays','times','loc'));
+        $this->loadModel('Area_master');
+       $select_location = $this->Area_master->find()->toArray();
+       $date = date('Y-m-d'); //today date
+       $this->Session = $this->request->session();
+         if ($this->request->is('post')) {
+            $tracklocation = array(
+                 'location'=> $this->request->data['findlocation'],
+                'date'=> $this->request->data['selectdate'],
+                'time'=> $this->request->data['selecttime'],
+                'chooselocation'=> $this->request->data['trackloc'],
+            );
+            $tracklocation = $this->Session->write('location',  $tracklocation );
+            $loc = $this->Session->read('location');
+         }
+          if($loc){
+            return $this->redirect(["controller" => "resturent", "action" => "shop"]);  
+          }
+        $this->set(compact('select_location','weekOfdays','times','loc'));
     }
 
     public function customerdetails() {
+        $this->Session = $this->request->session();
+         $loc = $this->Session->read('location');
+       // pr($loc); die;
         $this->loadModel('Users');
         $this->loadModel('Area_master');
         $this->loadModel('Shipping_add');
@@ -138,7 +141,7 @@ class resturentController extends AppController {
                 return $this->redirect(["controller" => "resturent", "action" => "shipping", $shp_id->shipping_id]);
             }
         }
-        $this->set(compact('userdetails', 'select_location'));
+        $this->set(compact('userdetails', 'select_location','loc'));
     }
 
     public function shop($catagary = 'ALL') {

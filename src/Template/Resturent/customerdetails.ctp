@@ -87,6 +87,7 @@
 
                                 <?php echo $this->Form->create('', ['enctype' => "multipart/form-data", 'class' => 'form-horizontal', 'id' => 'user-validate']); ?>
                                 <div class="form">
+                              
                                     <input type="text" name="first_name" id="first_name" class="form-control" placeholder="Enter your first name" required>
                                     <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Enter your last name" required>
                                     <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email id" required>
@@ -95,10 +96,16 @@
                                     <textarea name="address1" id="address1" class="form-control" placeholder="Enter your address 1" required></textarea>
                                     <textarea name="address2" id="address2" class="form-control" placeholder="Enter your address 2" required></textarea>
                                     <textarea name="landmark" id="landmark" class="form-control" placeholder="Enter your landmark" required></textarea>
+                                   <?php if($loc['chooselocation'] == 'rloc'){ ?>
+                                <input type="radio" name="trackloc" value="rloc" id="plocation" checked>
+                                    <?php  } else{ ?>
+                                <input type="radio" name="trackloc" value="rloc" id="plocation">
+                                   <?php  }?>
+                                    
                                     <div class="input-group">
-                                        <span class="input-group-addon">Jalandhar</span>
-                                        <select class="form-control" id="area_code" name="area_code" onchange="selectloc();">
-                                            <option value="">Choose your location</option>
+                                    <span class="input-group-addon">Jalandhar</span>
+                                        <select class="form-control" id="area_code" value="<?php echo $loc['location']?>" name="area_code" onchange="selectloc();">
+                                     <option value="">Choose your location</option>
                                             <?php
                                             foreach ($select_location as $location) {
                                                 ?>
@@ -108,6 +115,32 @@
                                             <?php } ?>
                                         </select>
                                     </div>
+                                   
+                                  <?php if($loc['chooselocation'] == 'ploc'){ ?>
+                                <input type="radio" name="trackloc" value="ploc" id="pickshop" checked>
+                                    <?php  } else{ ?>
+                                <input type="radio" name="trackloc" value="ploc" id="pickshop">
+                                   <?php  }?>
+                                    
+                                     <div class="input-group">
+                   <button type="button" class="btn btn-success" id="disablepick" style="display:none;">Pick From Shop</button>
+                   <button type="button" class="btn btn-danger" id="ablepick" >Pick From Shop</button>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" id="datespn"   style="font-size:15px">Date</span>
+                 <?php    if(!empty($loc['date'])){
+                         $date = $loc['date'];
+                           } ?>
+                      <input type="text" class="form-control" name="selectdate" value="<?php echo $date?>" id="datepicker">
+                </div>
+                 <div class="input-group">
+                    <span class="input-group-addon"  id="datespn" style="font-size:15px">Time</span>
+                    <?php    if(!empty($loc['time'])){
+                         $time = $loc['time'];
+                           } ?>
+                   <input type="text" class="form-control" name="selecttime" id="time" value="<?php echo $time?>">
+                </div>
+            </div>
                                     <button type="submit" class="btn btn-primary btn-md btn-block next-step">Continue Payment Method</button>
                                 </div>
                             </div>
@@ -121,3 +154,64 @@
 
 </div>
 <!--End Content-->
+ 
+   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
+ <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+ <script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+  </script>
+     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+    <script>
+    $(document).ready(function(){
+    $('#time').timepicker({
+    timeFormat: 'h:mm p',
+    interval: 30,
+    minTime: '10',
+    maxTime: '6:00pm',
+    defaultTime: '11',
+    startTime: '10:00',
+    dynamic: false,
+    dropdown: true,
+    scrollbar: true
+});
+});
+    </script>
+
+<script>
+
+$("#sel1").change(function () {
+    var selectedValue = $(this).text();
+   // alert(selectedValue);
+    $("#txtBox").val($(this).find("option:selected").attr("value"))
+});
+
+</script>
+
+<script>
+$("#pickshop").click(function () {
+   $("#disablepick").show();
+  $("#ablepick").hide();
+  $('select[name=IMEI]').prop('disabled',false);
+  $('#shell').attr('disabled',true);
+});
+
+
+$("#plocation").click(function () {
+   $("#ablepick").show();
+  $("#disablepick").hide();
+  
+});
+
+ $('#area_code').val(<?php echo $loc['location']?>);
+</script>
+
+
+
