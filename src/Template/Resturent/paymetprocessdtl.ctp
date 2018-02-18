@@ -34,24 +34,25 @@ $action = '';
 $posted = array();
 if (!empty($_POST)) {
     //print_r($_POST);
-//    foreach ($_POST as $key => $value) {
-//        $posted[$key] = $value;
-//    }
-    $cartItem = $this->Session->read('cart_item');
-    $shippindAddDtl = $this->Session->read('shippindAddDtl');
-    if ((!empty($shippindAddDtl))) {
-        $posted['amount'] = $subtotal;
-        $posted['firstname'] = $shippindAddDtl['first_name'];
-        $posted['email'] = $shippindAddDtl['email'];
-        $posted['phone'] = $shippindAddDtl['contact_no'];
-        $posted['productinfo'] = $shippindAddDtl['firstname'];
-        $posted['lastname'] = $shippindAddDtl['last_name'];
-        $posted['address1'] = $shippindAddDtl['address1'];
-        // $posted['city'] = $shippindAddDtl['firstname'];
-        // $posted['state'] = $shippindAddDtl['firstname'];
-        // $posted['country'] = $shippindAddDtl['firstname'];
-        // $posted['zipcode'] = $shippindAddDtl['firstname'];
+    foreach ($_POST as $key => $value) {
+        $posted[$key] = $value;
     }
+    //    if ((!empty($shippindAddDtl))) {
+//        $posted['key'] = $MERCHANT_KEY;
+//        $posted['txnid'] = $_POST['txnid'];
+//        $posted['hash']= $hash;
+//        $posted['amount'] = $subtotal;
+//        $posted['firstname'] = $shippindAddDtl['first_name'];
+//        $posted['email'] = $shippindAddDtl['email'];
+//        $posted['phone'] = $shippindAddDtl['contact_no'];
+//        $posted['productinfo'] = 'fooditem';
+//        //  $posted['lastname'] = $shippindAddDtl['last_name'];
+//        // $posted['address1'] = $shippindAddDtl['address1'];
+//        // $posted['city'] = $shippindAddDtl['firstname'];
+//        // $posted['state'] = $shippindAddDtl['firstname'];
+//        // $posted['country'] = $shippindAddDtl['firstname'];
+//        // $posted['zipcode'] = $shippindAddDtl['firstname'];
+//    }
 }
 
 $formError = 0;
@@ -69,6 +70,7 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
     if (
             empty($posted['key']) || empty($posted['txnid']) || empty($posted['amount']) || empty($posted['firstname']) || empty($posted['email']) || empty($posted['phone']) || empty($posted['productinfo']) || empty($posted['surl']) || empty($posted['furl']) || empty($posted['service_provider'])
     ) {
+        pr($posted);
         $formError = 1;
     } else {
         //$posted['productinfo'] = json_encode(json_decode('[{"name":"tutionfee","description":"","value":"500","isRequired":"false"},{"name":"developmentfee","description":"monthly tution fee","value":"1500","isRequired":"false"}]'));
@@ -182,7 +184,11 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
 
                                         <span style="color:red">Please fill all mandatory fields.</span>
 
-                                    <?php } ?>
+                                    <?php
+                                    }
+                                    $cartItem = $this->request->session()->read('cart_item');
+                                    $shippindAddDtl = $this->request->session()->read('shippindAddDtl');
+                                    ?>
                                     <form action="<?php echo $action; ?>" method="post" name="payuForm">
                                         <input type="hidden" name="key" value="<?php echo $MERCHANT_KEY ?>" />
                                         <input type="hidden" name="hash" value="<?php echo $hash ?>"/>
@@ -190,18 +196,19 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
                                         <table hidden="true">
                                             <tr>
                                                 <td><b>Mandatory Parameters</b></td>
+
                                             </tr>
                                             <tr>
                                                 <td>Amount: </td>
-                                                <td><input name="amount" value="<?php echo (empty($posted['amount'])) ? '1' : $posted['amount'] ?>" /></td>
+                                                <td><input name="amount" value="<?php echo (empty($posted['amount'])) ? $subtotal : $posted['amount'] ?>" /></td>
                                                 <td>First Name: </td>
-                                                <td><input name="firstname" id="firstname" value="<?php echo (empty($posted['firstname'])) ? 'dayanand' : $posted['firstname']; ?>" /></td>
+                                                <td><input name="firstname" id="firstname" value="<?php echo (empty($posted['firstname'])) ?  $shippindAddDtl['first_name']  : $posted['firstname']; ?>" /></td>
                                             </tr>
                                             <tr>
                                                 <td>Email: </td>
-                                                <td><input name="email" id="email" value="<?php echo (empty($posted['email'])) ? 'daya@gmail.com' : $posted['email']; ?>" /></td>
+                                                <td><input name="email" id="email" value="<?php echo (empty($posted['email'])) ?  $shippindAddDtl['email']  : $posted['email']; ?>" /></td>
                                                 <td>Phone: </td>
-                                                <td><input name="phone" value="<?php echo (empty($posted['phone'])) ? '7890197952' : $posted['phone']; ?>" /></td>
+                                                <td><input name="phone" value="<?php echo (empty($posted['phone'])) ?  $shippindAddDtl['contact_no']  : $posted['phone']; ?>" /></td>
                                             </tr>
                                             <tr>
                                                 <td>Product Info: </td>

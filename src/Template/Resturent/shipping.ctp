@@ -75,40 +75,47 @@
 
             <!--End Bread Crumb-->
 
+
+            <!--Start Shipping Address-->
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="cash-delivery">
                         <div class="cash-delivery-detail">
-                            <h5>Customer information</h5>
-                            <div class="form">
-                                <?php echo $this->Form->create('', ['enctype' => "multipart/form-data", 'class' => 'form-horizontal', 'id' => 'user-validate']); ?>
-                                <div class="form">
-                                    <input type="text" name="first_name" id="first_name" class="form-control" placeholder="Enter your first name" value="<?php echo $details->first_name ?>" required>
-                                    <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Enter your last name" value="<?php echo $details->last_name ?>" required>
-                                    <input type="text" name="email" id="email" class="form-control" placeholder="Enter your email id" value="<?php echo $details->email ?>" required>
-                                    <input type="text" name="contact_no" id="contact_no" class="form-control"  maxlength="15" placeholder="Enter your mobile no" value="<?php echo $details->contact_no ?>" required>
-                                    <textarea name="address" id="address1" class="form-control" placeholder="Enter your address" value="<?php echo $details->address1 ?>" required>
-                                        <?php echo $details->address1 ?></textarea>	
-                                    <textarea name="address" id="address2" class="form-control" placeholder="Enter your address" value="<?php echo $details->address2 ?>" required>
-                                        <?php echo $details->address1 ?></textarea>	
-                                    <span class="input-group-addon">Jalandhar</span>
-                                    <select class="form-control" id="location" name="location" onchange="selectloc();" value="<?php echo $details->area_code ?>">
-                                        <option value="">Choose A location</option>
-                                        <?php
-                                        foreach ($select_location as $location) {
-                                            ?>
-                                            <option value="<?php echo $location['area_code'] ?>">
-                                                <?php echo $location['area_name'] ?>
-                                            </option>
-                                        <?php } ?>
-                                    </select>
-                                    <button type="submit" class="btn btn-primary btn-md btn-block next-step">Continue Shipping Method</button>
+                            <h5>Shipping address</h5>
+                            <div class="shipping-address">
+
+                                <div class="shipping-detail">
+                                    <div class="adres"><span class="bold">Your Name:</span> <span>john smith</span></div>
+                                    <div class="adres"><span class="bold">Email Address:</span> <span>johnsmith@gmail.com</span></div>
+                                    <div class="adres"><span class="bold">Shipping Address:</span> <span>Street Name 123 123 45 USA</span></div>
+                                    <div class="adres"><span class="bold">City:</span> <span>New York</span></div>
+                                    <div class="adres"><span class="bold">Zip Code:</span> <span>54000</span></div>
+                                    <div class="adres"><span class="bold">Phone no:</span> <span>+123 55 33 444 888</span></div>
+                                    <a class="edit-address" 
+                                       href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "customerdetails"]); ?>">
+                                        Edit shipping address
+                                    </a>
                                 </div>
+
+
+                                <div class="shipping-method">
+                                    <h6>Shipping method</h6>
+                                    <div class="shipping-across">
+                                        <span class="dot"></span>
+                                        <span class="across">Free Shipping Across United States</span>
+                                        <span class="free">Free</span>
+                                    </div>
+                                </div>
+
+                                <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "paymetprocessdtl"]); ?>" class="next-step">Continue to payment method</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!--End Shipping Address-->
 
 
 
