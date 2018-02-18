@@ -60,7 +60,25 @@ class resturentController extends AppController {
     }
 
     public function paymetprocessdtl() {
-        
+        $this->Session = $this->request->session();
+        $cartItem = $this->Session->read('cart_item');
+        $shippindAddDtl = $this->Session->read('shippindAddDtl');
+
+        $subtotal = 0.00;
+        $foodbillAmt = 0.00;
+        if (!empty($cartItem)) {
+            foreach ($cartItem as $data) {
+                if ($data['potpackflg'] == 'A') {
+                    $subtotal = $subtotal + ($data['foodprice'] * $data['quantity']) +
+                            ($data['packCharge'] * $data['quantity']);
+                } else {
+                    $subtotal = $subtotal + ($data['foodprice'] * $data['quantity']);
+                }
+                $foodbillAmt = $foodbillAmt + ($data['foodprice'] * $data['quantity']);
+            }
+        }
+
+        $this->set(compact('subtotal'));
     }
 
     public function paymentfailuredtl() {
@@ -73,39 +91,44 @@ class resturentController extends AppController {
 
     public function tracklocation() {
         $this->loadModel('Area_master');
-       $select_location = $this->Area_master->find()->toArray();
-       $date = date('Y-m-d'); //today date
-       $this->Session = $this->request->session();
-         if ($this->request->is('post')) {
+        $select_location = $this->Area_master->find()->toArray();
+        $date = date('Y-m-d'); //today date
+        $this->Session = $this->request->session();
+        if ($this->request->is('post')) {
             $tracklocation = array(
-                 'location'=> $this->request->data['findlocation'],
-                'date'=> $this->request->data['selectdate'],
-                'time'=> $this->request->data['selecttime'],
-                'chooselocation'=> $this->request->data['trackloc'],
+                'location' => $this->request->data['findlocation'],
+                'date' => $this->request->data['selectdate'],
+                'time' => $this->request->data['selecttime'],
+                'chooselocation' => $this->request->data['trackloc'],
             );
-            $tracklocation = $this->Session->write('location',  $tracklocation );
-            $loc = $this->Session->read('location');
-         }
-          if($loc){
-            return $this->redirect(["controller" => "resturent", "action" => "shop"]);  
-          }
-        $this->set(compact('select_location','weekOfdays','times','loc'));
+            $this->Session->write('location', $tracklocation);
+
+            if ($this->Session->read('location')) {
+                return $this->redirect(["controller" => "resturent", "action" => "shop"]);
+            }
+        }
+        $loc = $this->Session->read('location');
+        $this->set(compact('select_location', 'times', 'loc'));
     }
 
     public function customerdetails() {
         $this->Session = $this->request->session();
-         $loc = $this->Session->read('location');
-       // pr($loc); die;
+        $loc = $this->Session->read('location');
+        // pr($loc); die;
         $this->loadModel('Users');
         $this->loadModel('Area_master');
         $this->loadModel('Shipping_add');
         $select_location = $this->Area_master->find()->toArray();
-        $uid = $this->Auth->user('id');
-        if (empty($uid)) {
+        if (empty($this->Auth->user('id'))) {
             return $this->redirect(["controller" => "users", "action" => "signin"]);
         }
-        $userdetails = $this->Users->find('all')->where(['id' => $uid])->first();
-        $shipping = $this->Shipping_add->newEntity();
+        $userdetails = array(
+            'id' => $this->Auth->user('id'),
+            'firstname' => $this->Auth->user('first_name'),
+            'lastname' => $this->Auth->user('last_name'),
+            'phone' => $this->Auth->user('phone'),
+            'email' => $this->Auth->user('email'),
+        );
         if ($this->request->is('post')) {
             $flag = true;
             if ($this->request->data('first_name') == "") {
@@ -133,30 +156,50 @@ class resturentController extends AppController {
                 $rand_start = rand(1, 5);
                 $rand_8_char = substr($uniqid, $rand_start, 8);
                 $this->request->data['shipping_code'] = $rand_8_char;
-                $this->request->data['user_id'] = $uid;
-                $shipping = $this->Shipping_add->patchEntity($shipping, $this->request->data);
-                $shp_id = $this->Shipping_add->save($shipping);
+                $this->request->data['user_id'] = $this->Auth->user('id');
+
+                $shippindAddDtl = array();
+                if (!empty($this->request->data)) {
+                    //print_r($_POST);
+                    foreach ($this->request->data as $key => $value) {
+                        $shippindAddDtl[$key] = $value;
+                    }
+                }
+
+
+                if (empty($this->Session->read('shippindAddDtl'))) {
+                    $this->Session->write('shippindAddDtl', $shippindAddDtl);
+                } else {
+                    $this->Session->delete('shippindAddDtl');
+                    $this->Session->write('shippindAddDtl', $shippindAddDtl);
+                }
+                //$shipping = $this->Shipping_add->newEntity();
+                //$this->Shipping_add->patchEntity($shipping, $this->request->data);
+                //$this->Shipping_add->save($shipping);
                 // pr($shp_id); die;
                 $this->Flash->success(__('Shipping Details is Saved'));
-                return $this->redirect(["controller" => "resturent", "action" => "shipping", $shp_id->shipping_id]);
+                return $this->redirect(["controller" => "resturent", "action" => "shipping"]);
             }
         }
-        $this->set(compact('userdetails', 'select_location','loc'));
+        $this->set(compact('userdetails', 'select_location', 'loc'));
     }
 
     public function shop($catagary = 'ALL') {
-        //var_dump($catagary);
         session_start();
         $this->loadModel('Item');
         $this->loadModel('item_variant');
+        $this->loadModel('ref_rec_type');
         if ($catagary == 'ALL') {
             $getitem = $this->Item->find('all')->toArray();
         } else {
             $getitem = $this->Item->find('all')->where(['food_category' => $catagary])->toArray();
         }
         $itemveriant = $this->item_variant->find('all')->toArray();
+        $foodcatagoryList = $this->ref_rec_type->find()->select(['ref_code', 'ref_desc'])
+                        ->where(['ref_rec_no' => '002'])->order(['order_by' => 'asc'])->toArray();
         $this->set(compact('itemveriant'));
         $this->set(compact('getitem'));
+        $this->set(compact('foodcatagoryList'));
     }
 
     public function details($id = null) {
@@ -185,28 +228,16 @@ class resturentController extends AppController {
         }
     }
 
-    public function shipping($id) {
-        $this->loadModel('Shipping_add');
-        $this->loadModel('Users');
+    public function shipping() {
+        $this->Session = $this->request->session();
+        $shippindAddDtl = $this->Session->read('shippindAddDtl');
         $this->loadModel('Area_master');
-        $select_location = $this->Area_master->find()->toArray();
-        $details = $this->Shipping_add->find('all')->where(['shipping_id' => $id])->first();
-        //  pr($details); die;
-        $uid = $this->Auth->user('id');
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $tableRegObj = TableRegistry::get('Shipping_add');
-            $query = $tableRegObj->query();
-            $query->update()->set(['first_name' => $this->request->data['first_name'],
-                'last_name' => $this->request->data['last_name'], 'email' => $this->request->data['email'],
-                'address1' => $this->request->data['address'],
-                //   'landmark' => 'near hanuman mandir',
-                'area_code' => $this->request->data['location']])->where(['shipping_id' => $id])->execute();
-            if ($query) {
-                $this->checkout();
-            }
-        }
-        $userdetails = $this->Users->find('all')->where(['id' => $uid])->first();
-        $this->set(compact('details', 'select_location'));
+        // $areaDetail = array();
+        //  if (!empty($shippindAddDtl)) {
+        // $areaDetail = $this->Area_master->find('area_code', 'area_name', 'city', 'state', 'country', 'pincode')
+        //      ->where(['area_code' => $shippindAddDtl['area_code']])->toArray();
+        //}
+        // $this->set(compact('areaDetail'));
     }
 
     public function logout() {
@@ -403,7 +434,9 @@ class resturentController extends AppController {
         $view = "";
         if (!empty($this->request->session()->read('cart_item'))) {
             foreach ($this->request->session()->read('cart_item') as $data) {
-                $view .= '<div class="cart-food" id="' . $data["id"] . '"><div class="detail"><a href="javascript:;" class="btn btn-danger pull-right" onclick="return deleteItem(' . $data["id"] . ');"><i class="icon-icons163"></i></a><img src="' . $data["image"] . '" alt=""><div class="text">';
+                $view .= '<div class="cart-food" id="' . $data["id"] . '"><div class="detail">'
+                        . '<!--<a href="javascript:;" class="btn btn-danger pull-right" onclick="return deleteItem(' . $data["id"] . ');"><i class="icon-icons163"></i></a>-->'
+                        . '<img src="' . $data["image"] . '" alt=""><div class="text">';
                 $subtotal = $subtotal + ($data['foodprice'] * $data['quantity']);
                 $view .= '<a href="javascript:;">' . $data["foodname"] . '</a><p><span class="priceMoney hidden">' . $data["foodprice"] .
                         '</span>' . $data['foodsize'] . '  &rightarrowtail;&nbsp;' . $data["foodprice"] . ' x <input type="number" style="width:40px;" value="' . $data["quantity"] . '" id="changeValuePrice"> = <span id="calculatePrice">' . ($data["foodprice"] * $data["quantity"]) . '</span></p></div></div></div>';
