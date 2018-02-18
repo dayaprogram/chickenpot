@@ -28,12 +28,18 @@
     <!--Start The Menu-->
     <div class="our-menu">
         <div id="filters-container" class="cbp-l-filters-list ">
+
             <div data-filter="*" class="cbp-filter-item-active cbp-filter-item cbp-l-filters-list-first">
                 <a href="<?php echo $this->Url->build(["action" => "shop", 'ALL']); ?>">ALL PRODUCTS</a></div>
-            <div data-filter=".starters" class="cbp-filter-item"><a href="<?php echo $this->Url->build(["action" => "shop", 'a']); ?>">Prince</a></div>
-            <div data-filter=".mains" class="cbp-filter-item">MAINS</div>
-            <div data-filter=".BREAKFAST" class="cbp-filter-item cbp-l-filters-list-last">BREAKFAST</div>
-            <div data-filter=".starters" class="cbp-filter-item">STARTERS</div>
+            <?php
+            foreach ($foodcatagoryList as $foodcatagory) {
+                ?>    
+                <div data-filter=".starters" class="cbp-filter-item">
+                    <a href="<?php echo $this->Url->build(["action" => "shop", $foodcatagory['ref_code']]); ?>">
+                        <?php echo $foodcatagory['ref_desc'] ?>
+                    </a>
+                </div>
+            <?php } ?>
         </div>
         <div class="container">
             <div class="row">
@@ -64,7 +70,7 @@
                                     <?php
                                     if (sizeof($foodVar) == 1) {
                                         foreach ($foodVar as $first) {
-                                            echo('<div class="col-sm-5">
+                                            echo('<div class="col-md-5 col-sm-5">
                                                 <span class="small-tit" style="color: #dc4e20;">
                                             <strong> <i class="icon-inr"></i>&nbsp;&nbsp;');
                                             echo(' <span class="singleItm_price_' . $items['id'] . ' hidden">' . $first['price'] . '</span>');
@@ -77,7 +83,7 @@
                                             break;
                                         }
                                     } else {
-                                        echo('<div class="col-sm-5">
+                                        echo('<div class="col-md-5 col-sm-5">
                                             <div class="form-group">
                                                 <label for="sel1">Select list:</label>
                                                 <select class="form-control" id="multivarItm_' . $items['id'] . '" style="color: #dc4e20;font-size: 15px;font-weight: bold;">');
@@ -98,7 +104,7 @@
                                             </div>
                                         </span>
                                     </div>
-                                    <div class="col-sm-3 col-sm-6">
+                                    <div class="col-md-3 col-sm-6">
                                         <span class="small-tit">
                                             <a href="javascript:;" class="btn btn-success" 
                                                onclick="addtocart(<?php echo $items['id'] ?>,<?php echo sizeof($foodVar) ?>)">

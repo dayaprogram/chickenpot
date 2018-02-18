@@ -52,9 +52,6 @@ if ($hash != $posted_hash) {
 }
 ?>	
 
-
-
-
 <!--Start Content-->
 <div class="content">
 
