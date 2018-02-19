@@ -20,14 +20,6 @@
 
 <!--End Sub Banner-->
 
-
-<?php
-$clientdata=$this->requestAction('/resturent/menu/'.'clientid');
-pr($clientdata);
-?>
-
-
-
 <!--Start Content-->
 <div class="content">
 
@@ -83,7 +75,11 @@ pr($clientdata);
 
             <!--End Bread Crumb-->
 
+            <?php
+            // $areaDetail;
 
+            $shippindAddDtl = $this->request->session()->read('shippindAddDtl');
+            ?>
             <!--Start Shipping Address-->
 
             <div class="row">
@@ -94,28 +90,31 @@ pr($clientdata);
                             <div class="shipping-address">
 
                                 <div class="shipping-detail">
-                                    <div class="adres"><span class="bold">Your Name:</span> <span>john smith</span></div>
-                                    <div class="adres"><span class="bold">Email Address:</span> <span>johnsmith@gmail.com</span></div>
-                                    <div class="adres"><span class="bold">Shipping Address:</span> <span>Street Name 123 123 45 USA</span></div>
-                                    <div class="adres"><span class="bold">City:</span> <span>New York</span></div>
-                                    <div class="adres"><span class="bold">Zip Code:</span> <span>54000</span></div>
-                                    <div class="adres"><span class="bold">Phone no:</span> <span>+123 55 33 444 888</span></div>
+                                    <div class="adres"><span class="bold">Your Name:</span> <span><?php echo $shippindAddDtl['first_name']; ?></span>&nbsp;<span><?php echo $shippindAddDtl['last_name']; ?></span></div>
+                                    <div class="adres"><span class="bold">Email Address:</span> <span><?php echo $shippindAddDtl['email']; ?></span></div>
+                                    <div class="adres"><span class="bold">Shipping Address:</span> <span><?php echo $shippindAddDtl['address1']; ?></span>
+                                        <span><?php echo $shippindAddDtl['address2']; ?></span>
+                                        <span><?php echo $shippindAddDtl['landmark']; ?></span>
+                                    </div>
+                                    <div class="adres"><span class="bold">City:</span> <span><?php echo $areaDetail['area_name']; ?></span></div>
+                                    <div class="adres"><span class="bold">Zip Code:</span> <span><?php echo $areaDetail['pincode']; ?></span></div>
+                                    <div class="adres"><span class="bold">Phone no:</span> <span><?php echo $shippindAddDtl['contact_no']; ?></span></div>
                                     <a class="edit-address" 
                                        href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "customerdetails"]); ?>">
                                         Edit shipping address
                                     </a>
                                 </div>
 
-
-                                <div class="shipping-method">
-                                    <h6>Shipping method</h6>
-                                    <div class="shipping-across">
-                                        <span class="dot"></span>
-                                        <span class="across">Free Shipping Across United States</span>
-                                        <span class="free">Free</span>
-                                    </div>
-                                </div>
-
+                                <!--
+                                                                <div class="shipping-method">
+                                                                    <h6>Shipping method</h6>
+                                                                    <div class="shipping-across">
+                                                                        <span class="dot"></span>
+                                                                        <span class="across">Free Shipping Across United States</span>
+                                                                        <span class="free">Free</span>
+                                                                    </div>
+                                                                </div>
+                                -->
                                 <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "paymetprocessdtl"]); ?>" class="next-step">Continue to payment method</a>
                             </div>
                         </div>

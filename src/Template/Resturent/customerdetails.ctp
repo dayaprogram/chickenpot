@@ -97,7 +97,7 @@
                                     <input type="text" name="contact_no" id="contact_no" class="form-control" 
                                            value="<?php echo $userdetails['phone'] ?>" maxlength="10" placeholder="Enter your mobile no" required>
                                     <p>Fill your address</p>
-                                    <textarea name="address1" id="address1" class="form-control" placeholder="Enter your address 1" required></textarea>
+                                    <textarea name="address1" id="address1" class="form-control" placeholder="Enter your address 1"  required></textarea>
                                     <textarea name="address2" id="address2" class="form-control" placeholder="Enter your address 2" required></textarea>
                                     <textarea name="landmark" id="landmark" class="form-control" placeholder="Enter your landmark" required></textarea>
                                     <?php if ($loc['chooselocation'] == 'rloc') { ?>

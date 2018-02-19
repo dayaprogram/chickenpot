@@ -904,8 +904,8 @@ font-size: 30px; font-weight: 700; padding: 4px 0 0 0; box-shadow: 0 0 0 6px #F4
 
 
 /*..... CASH ON PAYMENT ......*/
-.cash-payment{ padding:120px 0;}
-.cash-payment .cash-delivery{ text-align:center; margin:98px 0 0 0;}
+.cash-payment{ padding:30px 0;}
+.cash-payment .cash-delivery{ text-align:center; margin:80px 0 0 0;}
 .cash-payment .cash-delivery .cash-delivery-detail{ width:755px; border: solid 1px #bfbfbf; border-radius: 6px; display: inline-block; padding:32px;}
 .cash-payment .cash-delivery .cash-delivery-detail h5{ text-align:left; text-transform:uppercase;}
 .cash-payment .cash-delivery .cash-delivery-detail .form{ text-align:left; margin:42px 0 0 0;}

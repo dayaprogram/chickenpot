@@ -32,21 +32,14 @@ class ResturentController extends AppController {
             'addorder', 'viewcart', 'addtokrt', 'deletecart', 'cartview',
             'updateQcart', 'signup', 'tracklocation', 'updatePotPackFlag',
             'getValidCouponDtl', 'validateUserToredeemCoupon',
-            'paymentsuccessbilldtl', 'paymetprocessdtl','login','transactiondetails','transactindtls']);
+            'paymentsuccessbilldtl', 'paymetprocessdtl', 'login', 'transactiondetails', 'transactindtls']);
     }
 
     public function index() {
         
     }
 
-    public function menu($id) {
-        //pr($id);die;
-        $resultJ = json_encode(array('result' => 'error', 'errors' => 'ggggg'));
-
-            $this->response->type('json');
-            $this->response->body($resultJ);
-            return $this->response;
-        //return 'how are you'.$id;
+    public function menu() {
         
     }
 
@@ -67,74 +60,68 @@ class ResturentController extends AppController {
     }
 
     public function paymetprocessdtl() {
-       // echo 'lll'; die;
+        // echo 'lll'; die;
         $this->Session = $this->request->session();
         $cartItem = $this->Session->read('cart_item');
-     //   pr($cartItem); die;
+        //   pr($cartItem); die;
         $shippindAddDtl = $this->Session->read('ShippindAddDtl');
         //$phone = $shippindAddDtl; die;
-     $conn = ConnectionManager::get('default');
-            $orderid = $conn->execute('select ifnull(max(order_id)+1,1) as order_id from payment_detail')->fetchAll('assoc');
-            $billno = $conn->execute('select ifnull(max(bill_no)+1,1) as bill_no from payment_detail')->fetchAll('assoc');
-           // pr($couponDtlRowList[0]['order_id']); die;
+        $conn = ConnectionManager::get('default');
+        $orderid = $conn->execute('select ifnull(max(order_id)+1,1) as order_id from payment_detail')->fetchAll('assoc');
+        $billno = $conn->execute('select ifnull(max(bill_no)+1,1) as bill_no from payment_detail')->fetchAll('assoc');
+        // pr($couponDtlRowList[0]['order_id']); die;
 
         $this->loadModel('Payment_detail');
-         $this->loadModel('Orderlist');
+        $this->loadModel('Orderlist');
         $id = $this->request->data('password_id');
-        if(!empty($shippindAddDtl)){
-            $shippingdetails =  $this->Shipping_add->newEntity(); 
+        if (!empty($shippindAddDtl)) {
+            $shippingdetails = $this->Shipping_add->newEntity();
             $shippingvalues = array(
-                'user_id'=>$shippindAddDtl['user_id'],
-                'first_name'=> $shippindAddDtl['first_name'],
-                'last_name'=> $shippindAddDtl['last_name'],
-                'address1'=> $shippindAddDtl['address1'],
-                'address2'=> $shippindAddDtl['address2'],
-                'landmark'=>$shippindAddDtl['landmark'],
-                'area_code'=>$shippindAddDtl['area_code'],
-                'contact_no'=>$shippindAddDtl['contact_no'],
-                'email'=>$shippindAddDtl['email'],
-                'shipping_code'=>'',            
+                'user_id' => $shippindAddDtl['user_id'],
+                'first_name' => $shippindAddDtl['first_name'],
+                'last_name' => $shippindAddDtl['last_name'],
+                'address1' => $shippindAddDtl['address1'],
+                'address2' => $shippindAddDtl['address2'],
+                'landmark' => $shippindAddDtl['landmark'],
+                'area_code' => $shippindAddDtl['area_code'],
+                'contact_no' => $shippindAddDtl['contact_no'],
+                'email' => $shippindAddDtl['email'],
+                'shipping_code' => '',
             );
-           $shippingdetails =  $this->Shipping_add->patchEntity($shippingdetails, $shippingvalues);
+            $shippingdetails = $this->Shipping_add->patchEntity($shippingdetails, $shippingvalues);
             $this->Orderlist->save($shippingdetails);
-            
-            
         }
-         
-       if(!empty($cartItem)){
-           foreach($cartItem as $key => $selpack){
-              // pr($selpack);
-               $cartdetails =  $this->Orderlist->newEntity(); 
-            $foodDetails = array(
-                'user_id'=>$shippindAddDtl['user_id'],
-                'item_id'=> '1',
-                'foodname'=> $selpack['foodname'],
-                'quantity'=> $selpack['quantity'],
-                'size_variant'=> 'M',
-                'pot_pack_flg'=> $selpack['potpackflg'],
-                'phone_no'=> $shippindAddDtl['contact_no'],
-                'description'=>'should be testy',
-                'is_active'=>'1',
-                'COMMENT'=>'',
-                'order_status'=>'G',
-                'delivery_date'=> $shippindAddDtl['selectdate'],
-                'delivery_time'=>$shippindAddDtl['selecttime'],
-                'shipping_add_code'=>'code112',
-               'entry_date'=> date('Y-m-d'),
-                'order_id'=>$orderid,
-            ) ;
-           $cartdetails =  $this->Orderlist->patchEntity($cartdetails, $foodDetails);
-           $this->Orderlist->save($cartdetails);
-             }
-       }
-       
+
+        if (!empty($cartItem)) {
+            foreach ($cartItem as $key => $selpack) {
+                // pr($selpack);
+                $cartdetails = $this->Orderlist->newEntity();
+                $foodDetails = array(
+                    'user_id' => $shippindAddDtl['user_id'],
+                    'item_id' => '1',
+                    'foodname' => $selpack['foodname'],
+                    'quantity' => $selpack['quantity'],
+                    'size_variant' => 'M',
+                    'pot_pack_flg' => $selpack['potpackflg'],
+                    'phone_no' => $shippindAddDtl['contact_no'],
+                    'description' => 'should be testy',
+                    'is_active' => '1',
+                    'COMMENT' => '',
+                    'order_status' => 'G',
+                    'delivery_date' => $shippindAddDtl['selectdate'],
+                    'delivery_time' => $shippindAddDtl['selecttime'],
+                    'shipping_add_code' => 'code112',
+                    'entry_date' => date('Y-m-d'),
+                    'order_id' => $orderid,
+                        );
+                $cartdetails = $this->Orderlist->patchEntity($cartdetails, $foodDetails);
+                $this->Orderlist->save($cartdetails);
+            }
+        }
+
 //      
-       
-       
-       
-        
-       // pr($cartItem); die;
-        
+        // pr($cartItem); die;
+
 
         $subtotal = 0.00;
         $foodbillAmt = 0.00;
@@ -153,22 +140,22 @@ class ResturentController extends AppController {
         $finalbillamt = $subtotal + $tax;
         $discount = '1';
         $finalpaid = $finalbillamt - $discount;
-        $payment =  $this->Payment_detail->newEntity(); 
-         $paymentDetais = array(
-           'bill_no' => $billno,
-           'customer_id' =>$shippindAddDtl['user_id'],
-           'total_bill_amt'=> $subtotal,
-             'tax_amt'=> '1',
-             'final_bill_amt'=> $finalbillamt,
-             'final_paid_amt' => $finalpaid,
-             'bill_status'=> 'G',
-             'rec_no' =>$orderid,
-             'entry_date'=> date('Y-m-d'),
-       );
-         $payment =  $this->Payment_detail->patchEntity($payment, $paymentDetais); 
-         $this->Orderlist->save($payment);
-         
-         
+        $payment = $this->Payment_detail->newEntity();
+        $paymentDetais = array(
+            'bill_no' => $billno,
+            'customer_id' => $shippindAddDtl['user_id'],
+            'total_bill_amt' => $subtotal,
+            'tax_amt' => '1',
+            'final_bill_amt' => $finalbillamt,
+            'final_paid_amt' => $finalpaid,
+            'bill_status' => 'G',
+            'rec_no' => $orderid,
+            'entry_date' => date('Y-m-d'),
+        );
+        $payment = $this->Payment_detail->patchEntity($payment, $paymentDetais);
+        $this->Orderlist->save($payment);
+
+
 
         $this->set(compact('subtotal'));
     }
@@ -182,7 +169,7 @@ class ResturentController extends AppController {
     }
 
     public function tracklocation() {
-        
+
         $this->loadModel('Area_master');
         $select_location = $this->Area_master->find()->toArray();
         $date = date('Y-m-d'); //today date
@@ -325,12 +312,13 @@ class ResturentController extends AppController {
         $this->Session = $this->request->session();
         $shippindAddDtl = $this->Session->read('shippindAddDtl');
         $this->loadModel('Area_master');
-        // $areaDetail = array();
-        //  if (!empty($shippindAddDtl)) {
-        // $areaDetail = $this->Area_master->find('area_code', 'area_name', 'city', 'state', 'country', 'pincode')
-        //      ->where(['area_code' => $shippindAddDtl['area_code']])->toArray();
-        //}
-        // $this->set(compact('areaDetail'));
+        $areaDetail = array();
+        if (!empty($shippindAddDtl)) {
+            $areaDetail = $this->Area_master->find()->select(['area_code', 'area_name', 'city', 'state', 'country', 'pincode'])
+                            ->where(['area_code' => $shippindAddDtl['area_code']])->first()->toArray();
+        }
+        //pr($areaDetail);die;
+        $this->set(compact('areaDetail'));
     }
 
     public function logout() {
@@ -641,67 +629,66 @@ class ResturentController extends AppController {
         }
         return $result;
     }
-public function login(){
-       // echo 'lll'; die;
-        $responce = array();
-        $logs=array(
-           'phone' => $this->request->data['phone'],
-           'pass' => $this->request->data['password'],
-             );
-      // print_r($logs);die;
-    if($this->request->is('post')) {
-      // print_r($logs);die;
-        $user = $this->Auth->identify();
-       //ss print_r($user); die;
-     if(!empty($user)) {
-      $this->Auth->setUser($user);
-        $responce = array('Ack' => '1', 'msg' => 'Successfully login');
-     } }else {
-         $responce = array('Ack' => '0', 'msg' => 'Register your email.');
-     }
-     echo json_encode($responce);
-     exit;
-   //$this->set('response', $response);
-   }
-   public function transactiondetails(){
-       
-       //$resultJ = json_encode(array('result' => $trnctnid, 'errors' => 'ggggg'));
 
-         //   $this->response->type('json');
-          //  $this->response->body($resultJ);
-       
-   }
-   public function transactindtls($data){
-       
-       $transactiondetails = (explode("_",$data));
-      // pr($transactiondetails); die;
+    public function login() {
+        // echo 'lll'; die;
+        $responce = array();
+        $logs = array(
+            'phone' => $this->request->data['phone'],
+            'pass' => $this->request->data['password'],
+        );
+        // print_r($logs);die;
+        if ($this->request->is('post')) {
+            // print_r($logs);die;
+            $user = $this->Auth->identify();
+            //ss print_r($user); die;
+            if (!empty($user)) {
+                $this->Auth->setUser($user);
+                $responce = array('Ack' => '1', 'msg' => 'Successfully login');
+            }
+        } else {
+            $responce = array('Ack' => '0', 'msg' => 'Register your email.');
+        }
+        echo json_encode($responce);
+        exit;
+        //$this->set('response', $response);
+    }
+
+    public function transactiondetails() {
+
+        //$resultJ = json_encode(array('result' => $trnctnid, 'errors' => 'ggggg'));
+        //   $this->response->type('json');
+        //  $this->response->body($resultJ);
+    }
+
+    public function transactindtls($data) {
+
+        $transactiondetails = (explode("_", $data));
+        // pr($transactiondetails); die;
         $this->loadModel('Txn_master');
         $date = date("Y/m/d");
         $uid = $this->Auth->user('id');
         $random = rand();
-     $billno = $uid.'|'.$date.'|'.$random;
-         $usertranscation = $this->Txn_master->newEntity();
-         if(!empty($transactiondetails)){
-             $usertranscation = $this->Txn_master->patchEntity($usertranscation, ['txn_ref_id' => $transactiondetails[0], 'cr_amt' => $transactiondetails[2], 'enter_date' => $date, 'txn_id'=>$random, 'bill_no'=>$billno]);
-            $savedDetails =  $this->Txn_master->save($usertranscation);
-            if($savedDetails){
-               $resultJ = json_encode(array('result' => $trnctnid, 'errors' => 'ggggg'));
+        $billno = $uid . '|' . $date . '|' . $random;
+        $usertranscation = $this->Txn_master->newEntity();
+        if (!empty($transactiondetails)) {
+            $usertranscation = $this->Txn_master->patchEntity($usertranscation, ['txn_ref_id' => $transactiondetails[0], 'cr_amt' => $transactiondetails[2], 'enter_date' => $date, 'txn_id' => $random, 'bill_no' => $billno]);
+            $savedDetails = $this->Txn_master->save($usertranscation);
+            if ($savedDetails) {
+                $resultJ = json_encode(array('result' => $trnctnid, 'errors' => 'ggggg'));
 
-               $this->response->type('json');
-              $this->response->body($resultJ);
-               return $this->response;
+                $this->response->type('json');
+                $this->response->body($resultJ);
+                return $this->response;
             }
-            
-         }
-        
-       
+        }
+
+
 //       $resultJ = json_encode(array('result' => $trnctnid, 'errors' => 'ggggg'));
 //
 //        $this->response->type('json');
 //         $this->response->body($resultJ);
 //         return $this->response;sonpurs
-         
-   }
+    }
 
 }
-
