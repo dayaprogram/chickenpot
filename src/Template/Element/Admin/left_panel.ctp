@@ -334,10 +334,10 @@
          <!----------------- Order Management Start ------------------------>
         <?php if(!empty($admin_permissions) && in_array(17, $admin_permissions))
         { ?>
-       <li class="panel <?php if ($this->request->params['controller'] == 'orderslist') { ?> active <?php } else { ?><?php } ?>"> 
+       <li class="panel <?php if ($this->request->params['controller'] == 'orderlist') { ?> active <?php } else { ?><?php } ?>"> 
             <a href="javascript:void(0)" data-parent="#menu" data-toggle="collapse" class="accordion-toggle collapsed" data-target="#orders"> Order </a>
-            <ul class="<?php echo $this->request->params['controller'] == 'orderslist' ? 'in' : 'collapse' ?>" id="orders">
-                <li class=""><a href="<?php echo $this->Url->build(["controller" => "orderslist", "action" => "index"]); ?>">
+            <ul class="<?php echo $this->request->params['controller'] == 'orderlist' ? 'in' : 'collapse' ?>" id="orders">
+                <li class=""><a href="<?php echo $this->Url->build(["controller" => "orderlist", "action" => "index"]); ?>">
                         <i class="icon-angle-right"></i>Order List </a></li>                    
              </ul>
         </li> 
