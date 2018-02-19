@@ -564,7 +564,7 @@ text-transform: uppercase; font-weight: 800; float: left; border: none; margin: 
 
 
 /*..... THE MENU PAGE 1 ......*/
-.our-menu{ padding:120px 0;}
+.our-menu{ padding:10px 0;}
 .our-menu .menu-sec{ margin: 0 0 110px 0; border-bottom: solid 1px #ccc; padding: 0 0 130px 0;}
 .our-menu .menu-sec.last{ margin:0; border-bottom:none; padding:0;}
 .our-menu .menu-sec .menu-detail{ margin: 62px 0 0 0;}

@@ -95,7 +95,8 @@
                                     <input type="email" name="email" id="email" class="form-control" 
                                            value="<?php echo $userdetails['email'] ?>" placeholder="Enter your email id" required>
                                     <input type="text" name="contact_no" id="contact_no" class="form-control" 
-                                           value="<?php echo $userdetails['phone'] ?>" maxlength="10" placeholder="Enter your mobile no" required>
+                                           value="<?php echo $userdetails['phone'] ?>" maxlength="10" 
+                                           placeholder="Enter your mobile no" required disabled="true">
                                     <p>Fill your address</p>
                                     <textarea name="address1" id="address1" class="form-control" placeholder="Enter your address 1"  required></textarea>
                                     <textarea name="address2" id="address2" class="form-control" placeholder="Enter your address 2" required></textarea>

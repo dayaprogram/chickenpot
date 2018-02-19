@@ -64,18 +64,22 @@ class ResturentController extends AppController {
         $this->Session = $this->request->session();
         $cartItem = $this->Session->read('cart_item');
         //   pr($cartItem); die;
-        $shippindAddDtl = $this->Session->read('ShippindAddDtl');
+        $shippindAddDtl = $this->Session->read('shippindAddDtl');
+
         //$phone = $shippindAddDtl; die;
         $conn = ConnectionManager::get('default');
-        $orderid = $conn->execute('select ifnull(max(order_id)+1,1) as order_id from payment_detail')->fetchAll('assoc');
-        $billno = $conn->execute('select ifnull(max(bill_no)+1,1) as bill_no from payment_detail')->fetchAll('assoc');
+        $orderid = $conn->execute('select ifnull(max(order_id)+1,1) as order_id from payment_detail')->fetchAll('assoc')[0]['order_id'];
+        $billno = $conn->execute('select ifnull(max(bill_no)+1,1) as bill_no from payment_detail')->fetchAll('assoc')[0]['bill_no'];
+        $shipId = $conn->execute('select ifnull(max(shipping_code)+1,1) as shipping_code from shipping_add')->fetchAll('assoc')[0]['shipping_code'];
+
         // pr($couponDtlRowList[0]['order_id']); die;
 
-        $this->loadModel('Payment_detail');
+        $this->loadModel('payment_detail');
+        $this->loadModel('shipping_add');
         $this->loadModel('Orderlist');
         $id = $this->request->data('password_id');
         if (!empty($shippindAddDtl)) {
-            $shippingdetails = $this->Shipping_add->newEntity();
+            $shippingdetails = $this->shipping_add->newEntity();
             $shippingvalues = array(
                 'user_id' => $shippindAddDtl['user_id'],
                 'first_name' => $shippindAddDtl['first_name'],
@@ -86,10 +90,10 @@ class ResturentController extends AppController {
                 'area_code' => $shippindAddDtl['area_code'],
                 'contact_no' => $shippindAddDtl['contact_no'],
                 'email' => $shippindAddDtl['email'],
-                'shipping_code' => '',
+                'shipping_code' => $shipId,
             );
-            $shippingdetails = $this->Shipping_add->patchEntity($shippingdetails, $shippingvalues);
-            $this->Orderlist->save($shippingdetails);
+            $shippingdetails = $this->shipping_add->patchEntity($shippingdetails, $shippingvalues);
+            $this->shipping_add->save($shippingdetails);
         }
 
         if (!empty($cartItem)) {
@@ -98,10 +102,10 @@ class ResturentController extends AppController {
                 $cartdetails = $this->Orderlist->newEntity();
                 $foodDetails = array(
                     'user_id' => $shippindAddDtl['user_id'],
-                    'item_id' => '1',
+                    'item_id' => $selpack['id'],
                     'foodname' => $selpack['foodname'],
                     'quantity' => $selpack['quantity'],
-                    'size_variant' => 'M',
+                    'size_variant' => $selpack['foodsize'],
                     'pot_pack_flg' => $selpack['potpackflg'],
                     'phone_no' => $shippindAddDtl['contact_no'],
                     'description' => 'should be testy',
@@ -110,18 +114,15 @@ class ResturentController extends AppController {
                     'order_status' => 'G',
                     'delivery_date' => $shippindAddDtl['selectdate'],
                     'delivery_time' => $shippindAddDtl['selecttime'],
-                    'shipping_add_code' => 'code112',
+                    'delivery_method' => 'g',
+                    'shipping_add_code' => $shipId,
                     'entry_date' => date('Y-m-d'),
                     'order_id' => $orderid,
-                        );
+                );
                 $cartdetails = $this->Orderlist->patchEntity($cartdetails, $foodDetails);
                 $this->Orderlist->save($cartdetails);
             }
         }
-
-//      
-        // pr($cartItem); die;
-
 
         $subtotal = 0.00;
         $foodbillAmt = 0.00;
@@ -136,27 +137,28 @@ class ResturentController extends AppController {
                 $foodbillAmt = $foodbillAmt + ($data['foodprice'] * $data['quantity']);
             }
         }
-        $tax = '1';
+        $tax = 0.00;
         $finalbillamt = $subtotal + $tax;
-        $discount = '1';
+        $discount = 0.00;
         $finalpaid = $finalbillamt - $discount;
-        $payment = $this->Payment_detail->newEntity();
+        $payment = $this->payment_detail->newEntity();
         $paymentDetais = array(
             'bill_no' => $billno,
+            //'payment_id' => '1',
+            'order_id' => $orderid,
             'customer_id' => $shippindAddDtl['user_id'],
             'total_bill_amt' => $subtotal,
-            'tax_amt' => '1',
+            'tax_amt' => $tax,
             'final_bill_amt' => $finalbillamt,
             'final_paid_amt' => $finalpaid,
             'bill_status' => 'G',
+            'applied_coupon' => '',
+            'discount_amt' => $discount,
             'rec_no' => $orderid,
             'entry_date' => date('Y-m-d'),
         );
-        $payment = $this->Payment_detail->patchEntity($payment, $paymentDetais);
-        $this->Orderlist->save($payment);
-
-
-
+        $payment = $this->payment_detail->patchEntity($payment, $paymentDetais);
+        $this->payment_detail->save($payment);
         $this->set(compact('subtotal'));
     }
 
@@ -232,10 +234,10 @@ class ResturentController extends AppController {
                 $flag = false;
             }
             if ($flag) {
-                $uniqid = uniqid();
-                $rand_start = rand(1, 5);
-                $rand_8_char = substr($uniqid, $rand_start, 8);
-                $this->request->data['shipping_code'] = $rand_8_char;
+//                $uniqid = uniqid();
+//                $rand_start = rand(1, 5);
+//                $rand_8_char = substr($uniqid, $rand_start, 8);
+//                $this->request->data['shipping_code'] = $rand_8_char;
                 $this->request->data['user_id'] = $this->Auth->user('id');
 
                 $shippindAddDtl = array();

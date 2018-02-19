@@ -105,8 +105,14 @@
                                         </span>
                                     </div>
                                     <div class="col-md-3 col-sm-6">
+                                        <?php
+                                        $foodType = 'btn-success';
+                                        if ($items['food_type'] !== 'V') {
+                                            $foodType = 'btn-danger';
+                                        }
+                                        ?>
                                         <span class="small-tit">
-                                            <a href="javascript:;" class="btn btn-success" 
+                                            <a href="javascript:;" class="btn <?php echo $foodType ?>" 
                                                onclick="addtocart(<?php echo $items['id'] ?>,<?php echo sizeof($foodVar) ?>)">
                                                 <strong>
                                                     Add <i class="icon-mail-forward"></i><i class="icon-cart-plus"></i>
