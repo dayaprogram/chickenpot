@@ -37,7 +37,8 @@
                             <span>Traditional </span>
                             <h1>Atmosphere</h1>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tortor at tellus feugiat congue quis ut nunc. Semper ac dolor vitae accumsan. interdum hendrerit lacinia. Semper ac dolor vitae accumsan.</p>
+                        <p>Chicken Pot Aims to take these recipes and push theme forward for the people out there experiences our brand.
+                            We Believe there is no branding packing.Test is Our Tradition.</p>
                     </div>
                 </div>
 
@@ -76,9 +77,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="main-title">
-                        <span>Pearl Tour</span>
+                        <span>Chicken pot</span>
                         <h1>THE RESTAURANT</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tortor at tellus feugiat congue quis ut nunc. Semper ac dolor vitae accumsan. interdum hendrerit lacinia.</p>
+                        <p>Chicken Pot is located in the Most Happening Market area of jalandhar. Chicken Pot is the destination for the food lovers who look for authentic regional specialties. The only restaurant in jalandhar who serves delicious food in clay pot. A variety of traditional food serves and cooked in clay Pot . we take pride in our traditions and local favourites and therefore have absorbed all the inspiration from our history of Hundy Biryani, Chicken Pot, Paneer Pot , Cicken Dum Biryani.
+                            Chicken Pot Aims to take these recipes and push theme forward for the people out there experiences our brand.
+                            We Believe there is no branding packing.Test is Our Tradition. </p>
                     </div>
                 </div>
             </div>

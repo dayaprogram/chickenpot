@@ -147,14 +147,15 @@
                                         if (!empty($loc['time'])) {
                                             $time = $loc['time'];
                                         }
+                                        $time = '12:00AM';
                                         ?>
                                         <input type="text" class="form-control" name="selecttime" id="time" value="<?php echo $time ?>">
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-md btn-block next-step">Continue Payment Method</button>
                             </div>
-                            
-                            
+
+
                         </div>
                     </div>
                 </div>
