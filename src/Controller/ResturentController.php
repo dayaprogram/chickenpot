@@ -23,7 +23,7 @@ Type::build('date')->setLocaleFormat('yy/mm/dd');
  *
  * @property \App\Model\Table\AddressesTable $Addresses
  */
-class resturentController extends AppController {
+class ResturentController extends AppController {
 
     public function initialize() {
         parent::initialize();
@@ -39,7 +39,14 @@ class resturentController extends AppController {
         
     }
 
-    public function menu() {
+    public function menu($id) {
+        //pr($id);die;
+        $resultJ = json_encode(array('result' => 'error', 'errors' => 'ggggg'));
+
+            $this->response->type('json');
+            $this->response->body($resultJ);
+            return $this->response;
+        //return 'how are you'.$id;
         
     }
 

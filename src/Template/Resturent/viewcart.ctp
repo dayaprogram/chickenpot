@@ -336,26 +336,6 @@
 
 
 <style>
-    input[type=text], input[type=password] {
-        width: 70%;
-        padding: 12px 20px;
-        margin: 8px 0;
-        display: inline-block;
-        border: 1px solid #ccc;
-        box-sizing: border-box;
-    }
-
-    /* Set a style for all buttons */
-    button {
-        background-color: #4CAF50;
-        color: white;
-        padding: 14px 20px;
-        margin: 17px 0;
-        margin-left:70px;
-        border: none;
-        cursor: pointer;
-        width: 30%;
-    }
 
     button:hover {
         opacity: 0.8;

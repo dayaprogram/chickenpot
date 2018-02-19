@@ -37,14 +37,19 @@
                             <h5>Login</h5>
                             <form class="form-signup login-form" method="post" >
                                 <div class="form">
-                                    <input type="text" name="phone" id="phone" class="form-control"  maxlength="15" placeholder="Enter your mobile no" required>
-                                    <input type="text" name="password" id="password" class="form-control" placeholder="Enter your password" required>
+                                    <input type="text" name="phone" id="phone" 
+                                           class="form-control"  maxlength="15" 
+                                           placeholder="Enter your mobile no" required>
+                                    <input type="password" name="password" 
+                                           id="password" class="form-control" 
+                                           placeholder="Enter your password" required>
                                     <button type="submit" class="btn btn-primary btn-md btn-block next-step">Log In</button>
                                 </div>
                             </form>
 
                             <div class="already-account">
-                                <span>Don't have an account? Please <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "signup"]); ?>">Sign Up</a></span>
+                                <span>Don't have an account? Please 
+                                    <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "signup"]); ?>">Sign Up</a></span>
                             </div>
                         </div>
                     </div>

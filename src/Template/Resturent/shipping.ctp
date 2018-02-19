@@ -20,6 +20,14 @@
 
 <!--End Sub Banner-->
 
+
+<?php
+$clientdata=$this->requestAction('/resturent/menu/'.'clientid');
+pr($clientdata);
+?>
+
+
+
 <!--Start Content-->
 <div class="content">
 
@@ -125,17 +133,3 @@
 
 </div>
 <!--End Content-->
-
-
-<!--script>
-function selectloc(){
-var x = $('#location').val();
-$('#loc').value = x;
- 
-}
-
-
-</script-->
-
-
-
