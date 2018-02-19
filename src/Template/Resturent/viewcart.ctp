@@ -187,7 +187,7 @@
                                     <?php if (!empty($user_details)) { ?>
                                         <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "customerdetails"]); ?>">proceed to checkout</a>
                                     <?php } else { ?>
-                                        <button onclick="document.getElementById('id01').style.display = 'block'" style="width:auto;">Loginkkkkk</button>
+                                        <a href="#" onclick="document.getElementById('id01').style.display = 'block'" style="width:auto;">proceed to checkout</a>
                                     <?php } ?>
 
                                 </div>
@@ -211,14 +211,47 @@
             <span onclick="document.getElementById('id01').style.display = 'none'" class="close" title="Close Modal">&times;</span>
             <img src="img_avatar2.png" alt="Avatar" class="avatar">
         </div>
-        <label for="phone"><b>Mobile</b></label>
-        <input type="text" placeholder="Enter Phone" name="phone" id="phone" required></br>
-        <label for="pass"><b> Password</b></label>
-        <input type="text" placeholder="Enter Phone" name="pass" id="pass" required>
-        <input type="button" value="login" onclick='prooceedtologin();'>
-        <label>
-            <input type="checkbox" checked="checked" name="remember"> Remember me
-        </label>
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-2">
+                <label for="phone"><b>Mobile</b></label>
+            </div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" placeholder="Enter Monile No." name="phone" id="phone" required></br>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-2">
+                <label for="pass"><b> Password</b></label>
+            </div>
+            <div class="col-sm-6">
+                <input type="password" class="form-control" placeholder="Enter Password" name="pass" id="pass" required>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+
+        <br>
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-2">
+
+            </div>
+            <div class="col-sm-6" style="text-align: center">
+                <button type="button" class="btn btn-primary btn-lg" onclick='prooceedtologin();'>Login</button>
+            </div>
+            <div class="col-sm-2">
+                <label>
+                    <input type="checkbox" checked="checked" name="remember"> Remember me
+                </label>
+            </div>
+        </div>
+
+
+
     </div>
 </div>
 </div>
@@ -373,14 +406,14 @@
     .modal {
         display: none; /* Hidden by default */
         position: fixed; /* Stay in place */
-        z-index: 1; /* Sit on top */
+        z-index: 120000; /* Sit on top */
         left: 0;
         top: 0;
         width: 100%; /* Full width */
         height: 100%; /* Full height */
         overflow: auto; /* Enable scroll if needed */
         background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        background-color: rgba(224, 189, 63, 0.7); /* Black w/ opacity */
         padding-top: 60px;
     }
 
@@ -442,7 +475,7 @@
 
 // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
-        if (event.target == modal) {
+        if (event.target === modal) {
             modal.style.display = "none";
         }
     }
@@ -452,7 +485,6 @@
     function prooceedtologin() {
         var phone = $('#phone').val();
         var password = $('#pass').val();
-        alert(phone);
         $.ajax({
             type: "POST",
             data: {phone: phone, password: password},

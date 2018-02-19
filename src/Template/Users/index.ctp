@@ -119,8 +119,7 @@
                         <span>Discover</span>
                         <h1>our story</h1>
                     </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tortor at tellus feugiat congue quis ut nunc. Semper
-                        ac dolor vitae accumsan. interdum hendrerit lacinia.</p>
+                    <p>Chicken Pot is located in the Most Happening Market area of jalandhar. Chicken Pot is the destination for the food lovers who look for authentic regional specialties. The only restaurant in jalandhar who serves delicious food in clay pot. </p>
                     <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "ourstory"]); ?>" class="full-story">view full story</a>
                 </div>
             </div>
