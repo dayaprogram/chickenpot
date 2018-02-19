@@ -32,21 +32,14 @@ class ResturentController extends AppController {
             'addorder', 'viewcart', 'addtokrt', 'deletecart', 'cartview',
             'updateQcart', 'signup', 'tracklocation', 'updatePotPackFlag',
             'getValidCouponDtl', 'validateUserToredeemCoupon',
-            'paymentsuccessbilldtl', 'paymetprocessdtl','login']);
+            'paymentsuccessbilldtl', 'paymetprocessdtl', 'login']);
     }
 
     public function index() {
         
     }
 
-    public function menu($id) {
-        //pr($id);die;
-        $resultJ = json_encode(array('result' => 'error', 'errors' => 'ggggg'));
-
-            $this->response->type('json');
-            $this->response->body($resultJ);
-            return $this->response;
-        //return 'how are you'.$id;
+    public function menu() {
         
     }
 
@@ -239,12 +232,13 @@ class ResturentController extends AppController {
         $this->Session = $this->request->session();
         $shippindAddDtl = $this->Session->read('shippindAddDtl');
         $this->loadModel('Area_master');
-        // $areaDetail = array();
-        //  if (!empty($shippindAddDtl)) {
-        // $areaDetail = $this->Area_master->find('area_code', 'area_name', 'city', 'state', 'country', 'pincode')
-        //      ->where(['area_code' => $shippindAddDtl['area_code']])->toArray();
-        //}
-        // $this->set(compact('areaDetail'));
+        $areaDetail = array();
+        if (!empty($shippindAddDtl)) {
+            $areaDetail = $this->Area_master->find()->select(['area_code', 'area_name', 'city', 'state', 'country', 'pincode'])
+                            ->where(['area_code' => $shippindAddDtl['area_code']])->first()->toArray();
+        }
+        //pr($areaDetail);die;
+        $this->set(compact('areaDetail'));
     }
 
     public function logout() {
@@ -555,28 +549,29 @@ class ResturentController extends AppController {
         }
         return $result;
     }
-public function login(){
-       // echo 'lll'; die;
+
+    public function login() {
+        // echo 'lll'; die;
         $responce = array();
-        $logs=array(
-           'phone' => $this->request->data['phone'],
-           'pass' => $this->request->data['password'],
-             );
-      // print_r($logs);die;
-    if($this->request->is('post')) {
-      // print_r($logs);die;
-        $user = $this->Auth->identify();
-       //ss print_r($user); die;
-     if(!empty($user)) {
-      $this->Auth->setUser($user);
-        $responce = array('Ack' => '1', 'msg' => 'Successfully login');
-     } }else {
-         $responce = array('Ack' => '0', 'msg' => 'Register your email.');
-     }
-     echo json_encode($responce);
-     exit;
-   //$this->set('response', $response);
-   }
+        $logs = array(
+            'phone' => $this->request->data['phone'],
+            'pass' => $this->request->data['password'],
+        );
+        // print_r($logs);die;
+        if ($this->request->is('post')) {
+            // print_r($logs);die;
+            $user = $this->Auth->identify();
+            //ss print_r($user); die;
+            if (!empty($user)) {
+                $this->Auth->setUser($user);
+                $responce = array('Ack' => '1', 'msg' => 'Successfully login');
+            }
+        } else {
+            $responce = array('Ack' => '0', 'msg' => 'Register your email.');
+        }
+        echo json_encode($responce);
+        exit;
+        //$this->set('response', $response);
+    }
 
 }
-
