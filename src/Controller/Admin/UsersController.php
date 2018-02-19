@@ -78,12 +78,8 @@ class UsersController extends AppController {
           pr($this->request->session()->read('Auth.Admin'));
           exit;
          */
-//        $this->loadModel("Properties");
-//        $total_property=$this->Properties->find("all")->count();
-//        $total_user=$this->Users->find("all")->where(["utype"=>2])->count();
-//        $this->set(compact('total_user','total_property'));
-//        $this->set('_serialize', ['total_user','total_property']);
-//        $this->viewBuilder()->layout('admin');
+       
+        $this->viewBuilder()->layout('admin');
     }
 
     public function logout() {
