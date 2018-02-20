@@ -52,12 +52,8 @@ if ($hash != $posted_hash) {
     echo "<h4>Your Transaction ID for this transaction is " . $txnid . ".</h4>";
     echo "<h4>We have received a payment of Rs. " . $amount . ". Your order will soon be shipped.</h4>";
 
-   $txnid = '111';
-   $customerorderdetails = $this->requestAction('/resturent/transactiondetails/'.$txnid);
-  
-  
-
-
+    $txnid = '111';
+    $customerorderdetails = $this->requestAction('/resturent/transactiondetails/' . $txnid);
 }
 ?>	
 
@@ -75,50 +71,51 @@ if ($hash != $posted_hash) {
                             <i class="icon-checkmark3"></i>
 
                             <h5>Thank you for your Shopping!</h5>
-                            <span class="order-num">Order 39036</span>
-                            <p>A confirmation email has been sent to johnsmith@gmail.com</p>
+                            <span class="order-num">Order <?php echo $txnid; ?></span>
+                           <!-- <p>A confirmation email has been sent to johnsmith@gmail.com</p>-->
 
                             <p class="delivered-text">Your order would be delivered via Delivery Boy at your mentioned address. The Delivery  	 	 	 							Boy who delivers the package collects the invoice value at the time of delivery. Delivery takes between 1/2 to 2  	 								Hours.</p>
-
-                            <div class="delivered-detail">
-
-                                <div class="delivered-sec">
-                                    <span class="title">Shipping Address</span>
-                                    <ul>
-                                        <li><span>john smith</span></li>
-                                        <li><span>johnsmith@gmail.com</span></li>
-                                        <li><span>Street Name 123 123 45 USA</span></li>
-                                        <li><span>New York</span></li>
-                                        <li><span>54000</span></li>
-                                        <li><span>+123 55 33 444 888</span></li>
-                                    </ul>
-                                </div>
-
-                                <div class="delivered-sec right">
-                                    <span class="title">Billing Address</span>
-                                    <ul>
-                                        <li><span>john smith</span></li>
-                                        <li><span>johnsmith@gmail.com</span></li>
-                                        <li><span>Street Name 123 123 45 USA</span></li>
-                                        <li><span>New York</span></li>
-                                        <li><span>54000</span></li>
-                                        <li><span>+123 55 33 444 888</span></li>
-                                    </ul>
-                                </div>
-
-                                <div class="delivered-sec">
-                                    <span class="title">Shipping Method</span>
-                                    <p>Free Shipping Across America</p>
-                                </div>
-
-                                <div class="delivered-sec right">
-                                    <span class="title">Shipping Method</span>
-                                    <img class="card" src="images/cod-card.jpg" alt=""><p>Cash on Delivery (COD) - $145.00</p>
-                                </div>
-                            </div>
+                            <!--
+                                                        <div class="delivered-detail">
+                            
+                                                            <div class="delivered-sec">
+                                                                <span class="title">Shipping Address</span>
+                                                                <ul>
+                                                                    <li><span>john smith</span></li>
+                                                                    <li><span>johnsmith@gmail.com</span></li>
+                                                                    <li><span>Street Name 123 123 45 USA</span></li>
+                                                                    <li><span>New York</span></li>
+                                                                    <li><span>54000</span></li>
+                                                                    <li><span>+123 55 33 444 888</span></li>
+                                                                </ul>
+                                                            </div>
+                            
+                                                            <div class="delivered-sec right">
+                                                                <span class="title">Billing Address</span>
+                                                                <ul>
+                                                                    <li><span>john smith</span></li>
+                                                                    <li><span>johnsmith@gmail.com</span></li>
+                                                                    <li><span>Street Name 123 123 45 USA</span></li>
+                                                                    <li><span>New York</span></li>
+                                                                    <li><span>54000</span></li>
+                                                                    <li><span>+123 55 33 444 888</span></li>
+                                                                </ul>
+                                                            </div>
+                            
+                                                            <div class="delivered-sec">
+                                                                <span class="title">Shipping Method</span>
+                                                                <p>Free Shipping Across America</p>
+                                                            </div>
+                            
+                                                            <div class="delivered-sec right">
+                                                                <span class="title">Shipping Method</span>
+                                                                <img class="card" src="images/cod-card.jpg" alt=""><p>Cash on Delivery (COD) - $145.00</p>
+                                                            </div>
+                                                        </div>
+                            -->
 
                             <div class="clear"></div>
-                            <a class="return-stor" href="shop.html">return to store</a>
+                            <a class="return-stor" href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "shop"]); ?>">return to Online store</a>
 
                         </div>
                     </div>

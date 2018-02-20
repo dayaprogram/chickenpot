@@ -197,9 +197,15 @@
                                             <?= $subtotal - $dicountAmt ?>
                                         </span>
                                     </div>
-                                    <?php if (!empty($user_details)) { ?>
+                                    <?php if (!empty($user_details)) {
+                                       // if(($subtotal - $dicountAmt )>=200.00){
+                                        ?>
                                         <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "customerdetails"]); ?>">proceed to checkout</a>
-                                    <?php } else { ?>
+                                    <?php 
+                                    
+                                        //} 
+                                        
+                                        }else { ?>
                                         <a href="#" onclick="document.getElementById('id01').style.display = 'block'" style="width:auto;">proceed to checkout</a>
                                     <?php } ?>
 
