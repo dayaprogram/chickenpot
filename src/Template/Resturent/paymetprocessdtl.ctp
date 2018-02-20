@@ -188,6 +188,8 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
                                     }
                                     $cartItem = $this->request->session()->read('cart_item');
                                     $shippindAddDtl = $this->request->session()->read('shippindAddDtl');
+                     
+                                    
                                     ?>
                                     <form action="<?php echo $action; ?>" method="post" name="payuForm">
                                         <input type="hidden" name="key" value="<?php echo $MERCHANT_KEY ?>" />

@@ -57,7 +57,8 @@ class ResturentController extends AppController {
     }
 
     public function paymentsuccessbilldtl() {
-        $this->request->session()->delete('orderCompleteDeatail');
+        $this->Session = $this->request->session();
+        $this->Session->delete('orderCompleteDeatail');
         $orderCompleteDeatail = array();
         if (empty($this->Session->read('orderCompleteDeatail'))) {
             $this->Session->write('orderCompleteDeatail', $orderCompleteDeatail);
@@ -700,28 +701,47 @@ class ResturentController extends AppController {
     }
 
     public function transactindtls($data) {
-
-        $transactiondetails = (explode("_", $data));
-        // pr($transactiondetails); die;
+        $txndetails = (explode("|", $data));
+        //pr($txndetails); die;
         $this->loadModel('Txn_master');
-        $date = date("Y/m/d");
-        $uid = $this->Auth->user('id');
-        $random = rand();
-        $billno = $uid . '|' . $date . '|' . $random;
+        $orderCompleteDeatail = $this->request->session()->read('orderCompleteDeatail');
+        $conn = ConnectionManager::get('default');
+        $txnNo = $conn->execute('select count(bill_no) as bill_no from txn_master where bill_no=?', [$orderCompleteDeatail['bill_no']])->fetchAll('assoc')[0]['bill_no'];
         $usertranscation = $this->Txn_master->newEntity();
-        if (!empty($transactiondetails)) {
-            $usertranscation = $this->Txn_master->patchEntity($usertranscation, ['txn_ref_id' => $transactiondetails[0], 'cr_amt' => $transactiondetails[2], 'enter_date' => $date, 'txn_id' => $random, 'bill_no' => $billno]);
-            $savedDetails = $this->Txn_master->save($usertranscation);
-            if ($savedDetails) {
-                $resultJ = json_encode(array('result' => $trnctnid, 'errors' => 'ggggg'));
+        $resultJ = json_encode('error');
+        if ($txnNo <= 0) {
+            if ((!empty($txndetails)) && (!empty($orderCompleteDeatail))) {
 
-                $this->response->type('json');
-                $this->response->body($resultJ);
-                return $this->response;
+                $usertranscation = $this->Txn_master->patchEntity($usertranscation, [
+                    'txn_ref_id' => $txndetails[0],
+                    'cr_amt' => $txndetails[1],
+                    'dr_amt' => 0.00,
+                    'rec_no' => $orderCompleteDeatail['rec_no'],
+                    'txn_mode' => 'payumony',
+                    'enter_date' => date('Y-m-d h:i:s'),
+                    // 'txn_id' => $txnNo,
+                    'bill_no' => $orderCompleteDeatail['bill_no'],
+                    'description' => '',
+                    'eenter_by' => 'online'
+                ]);
+                $savedDetails = $this->Txn_master->save($usertranscation);
+                $userid = $this->Auth->user('id');
+                $conn->begin();
+                $conn->execute('UPDATE orderlist SET order_status = ? WHERE user_id = ? and order_id=?', ['P', $userid, $orderCompleteDeatail['order_id']]);
+                $conn->execute('UPDATE payment_detail SET bill_status = ? WHERE customer_id = ? and order_id=?', ['P', $userid, $orderCompleteDeatail['order_id']]);
+                $conn->commit();
+                if ($savedDetails) {
+                    $resultJ = json_encode('success');
+                }
+            } else {
+                $resultJ = json_encode('error');
             }
         }
 
 
+        $this->response->type('json');
+        $this->response->body($resultJ);
+        return $this->response;
 //       $resultJ = json_encode(array('result' => $trnctnid, 'errors' => 'ggggg'));
 //
 //        $this->response->type('json');
