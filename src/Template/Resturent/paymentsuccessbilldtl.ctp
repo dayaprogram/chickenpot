@@ -52,8 +52,8 @@ if ($hash != $posted_hash) {
     echo "<h4>Your Transaction ID for this transaction is " . $txnid . ".</h4>";
     echo "<h4>We have received a payment of Rs. " . $amount . ". Your order will soon be shipped.</h4>";
 
-    $txnid = '111';
-    $customerorderdetails = $this->requestAction('/resturent/transactiondetails/' . $txnid);
+   // $txnid = '111';
+  //  $customerorderdetails = $this->requestAction('/resturent/transactiondetails/' . $txnid);
 }
 ?>	
 
