@@ -109,7 +109,7 @@
 
                                     <div class="input-group">
                                         <span class="input-group-addon">Jalandhar</span>
-                                        <select class="form-control" id="area_code" name="area_code" onchange="selectloc();">
+                                        <select class="form-control" id="area_code" name="area_code" onchange="selectloc();" required="true">
                                             <option value="">Choose your location</option>
                                             <?php
                                             foreach ($select_location as $location) {
