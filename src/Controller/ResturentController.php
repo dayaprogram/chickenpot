@@ -57,12 +57,23 @@ class ResturentController extends AppController {
     }
 
     public function paymentsuccessbilldtl() {
-        
+        $this->request->session()->delete('orderCompleteDeatail');
+        $orderCompleteDeatail = array();
+        if (empty($this->Session->read('orderCompleteDeatail'))) {
+            $this->Session->write('orderCompleteDeatail', $orderCompleteDeatail);
+        }
     }
 
     public function paymetprocessdtl() {
-        // echo 'lll'; die;
         $this->Session = $this->request->session();
+        $orderCompleteDeatail = array();
+        if (empty($this->Session->read('orderCompleteDeatail'))) {
+            $this->Session->write('orderCompleteDeatail', $orderCompleteDeatail);
+        } else {
+            return;
+        }
+
+
         $cartItem = $this->Session->read('cart_item');
         //   pr($cartItem); die;
         $shippindAddDtl = $this->Session->read('shippindAddDtl');
@@ -72,6 +83,7 @@ class ResturentController extends AppController {
         $orderid = $conn->execute('select ifnull(max(order_id)+1,1) as order_id from payment_detail')->fetchAll('assoc')[0]['order_id'];
         $billno = $conn->execute('select ifnull(max(bill_no)+1,1) as bill_no from payment_detail')->fetchAll('assoc')[0]['bill_no'];
         $shipId = $conn->execute('select ifnull(max(shipping_code)+1,1) as shipping_code from shipping_add')->fetchAll('assoc')[0]['shipping_code'];
+        $recno = $conn->execute('select ifnull(max(rec_no)+1,1) as rec_no from payment_detail')->fetchAll('assoc')[0]['rec_no'];
 
         // pr($couponDtlRowList[0]['order_id']); die;
 
@@ -170,11 +182,17 @@ class ResturentController extends AppController {
             'bill_status' => 'G',
             'applied_coupon' => '',
             'discount_amt' => $discount,
-            'rec_no' => $orderid,
-            'entry_date' => date('Y-m-d'),
+            'rec_no' => $recno,
+            'entry_date' => date('Y-m-d h:i:s'),
         );
         $payment = $this->payment_detail->patchEntity($payment, $paymentDetais);
         $this->payment_detail->save($payment);
+        $orderCompleteDeatail = array(
+            'bill_no' => $billno,
+            'rec_no' => $recno,
+            'order_id' => $orderid,
+        );
+        $this->Session->write('orderCompleteDeatail', $orderCompleteDeatail);
         $this->set(compact('subtotal'));
     }
 
@@ -656,7 +674,6 @@ class ResturentController extends AppController {
             'phone' => $this->request->data['phone'],
             'pass' => $this->request->data['password'],
         );
-        $discountPer = 0.00;
         // print_r($logs);die;
         if ($this->request->is('post')) {
             // print_r($logs);die;
