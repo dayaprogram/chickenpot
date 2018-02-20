@@ -57,12 +57,7 @@ class ResturentController extends AppController {
     }
 
     public function paymentsuccessbilldtl() {
-        $this->Session = $this->request->session();
-        $this->Session->delete('orderCompleteDeatail');
-        $orderCompleteDeatail = array();
-        if (empty($this->Session->read('orderCompleteDeatail'))) {
-            $this->Session->write('orderCompleteDeatail', $orderCompleteDeatail);
-        }
+        
     }
 
     public function paymetprocessdtl() {
@@ -731,6 +726,13 @@ class ResturentController extends AppController {
                 $conn->execute('UPDATE payment_detail SET bill_status = ? WHERE customer_id = ? and order_id=?', ['P', $userid, $orderCompleteDeatail['order_id']]);
                 $conn->commit();
                 if ($savedDetails) {
+                    $this->Session = $this->request->session();
+                    $this->Session->delete('orderCompleteDeatail');
+                    $this->Session->delete('cart_item');
+                    $orderCompleteDeatail = array();
+                    if (empty($this->Session->read('orderCompleteDeatail'))) {
+                        $this->Session->write('orderCompleteDeatail', $orderCompleteDeatail);
+                    }
                     $resultJ = json_encode('success');
                 }
             } else {
