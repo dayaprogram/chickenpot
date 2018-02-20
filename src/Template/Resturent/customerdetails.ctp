@@ -96,7 +96,7 @@
                                            value="<?php echo $userdetails['email'] ?>" placeholder="Enter your email id" required>
                                     <input type="text" name="contact_no" id="contact_no" class="form-control" 
                                            value="<?php echo $userdetails['phone'] ?>" maxlength="10" 
-                                           placeholder="Enter your mobile no" required disabled="true">
+                                           placeholder="Enter your mobile no" required readonly="true">
                                     <p>Fill your address</p>
                                     <textarea name="address1" id="address1" class="form-control" placeholder="Enter your address 1"  required></textarea>
                                     <textarea name="address2" id="address2" class="form-control" placeholder="Enter your address 2" required></textarea>
@@ -137,10 +137,10 @@
                                         if (!empty($loc['date'])) {
                                             $date = $loc['date'];
                                         } else {
-                                            $date = '2017-02-17';
+                                            $date = date("Y-m-d");
                                         }
                                         ?>
-                                        <input type="text" class="form-control" name="selectdate" value="<?php echo $date ?>" id="datepicker">
+                                        <input type="text" class="form-control" name="selectdate" value="<?php echo $date ?>" id="datepicker" required="true">
                                     </div>
                                     <div class="input-group">
                                         <span class="input-group-addon"  id="datespn" style="font-size:15px">Time</span>
@@ -148,9 +148,10 @@
                                         if (!empty($loc['time'])) {
                                             $time = $loc['time'];
                                         }
-                                        $time = '12:00AM';
+                                        $time = date("g:i a");
+                                        
                                         ?>
-                                        <input type="text" class="form-control" name="selecttime" id="time" value="<?php echo $time ?>">
+                                        <input type="text" class="form-control" name="selecttime" id="time" value="<?php echo $time ?>" required="true">
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-md btn-block next-step">Continue Payment Method</button>
@@ -178,7 +179,11 @@
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script>
                                             $(function () {
-                                                $("#datepicker").datepicker();
+
+                                                $("#datepicker").datepicker({dateFormat: "yy-mm-dd",
+                                                    setDate: new Date(),
+                                                    minDate: new Date(),
+                                                    maxDate: '+4D', }).val();
                                             });
 </script>
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
@@ -190,7 +195,7 @@
                                                     interval: 30,
                                                     minTime: '10',
                                                     maxTime: '6:00pm',
-                                                    defaultTime: '11',
+                                                    defaultTime: new Date(),
                                                     startTime: '10:00',
                                                     dynamic: false,
                                                     dropdown: true,

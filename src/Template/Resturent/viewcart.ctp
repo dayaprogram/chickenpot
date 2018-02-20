@@ -27,6 +27,10 @@
                         $subtotal = 0.00;
                         $totalpotpackcharge = 0.00;
                         $foodbillAmt = 0.00;
+                        $discountper = 0;
+                        if (!empty($user_details)) {
+                            $discountper = $this->requestAction('/resturent/applyDiscount/');
+                        }
                         if (!empty($this->request->session()->read('cart_item'))) {
                             foreach ($this->request->session()->read('cart_item') as $data) {
                                 if ($data['potpackflg'] == 'A') {
@@ -172,16 +176,25 @@
                                         <span class="left">Shipping</span>
                                         <span class="right">Free Shipping</span>
                                     </div>
+                                    <?php
+                                    $dicountAmt = 0.00;
+                                    if (!empty($user_details)) {
+                                        $dicountAmt = ($foodbillAmt * $discountper) / 100;
+                                    } else {
+                                        $dicountAmt = 0.00;
+                                    }
+                                    ?>
                                     <div class="sub-total-sec">
-                                        <span class="left">Coupon Discount</span>
+                                        <span class="left">Coupon Discount&nbsp; <span style="color: rgb(76, 174, 76);"> <?php echo ( $discountper) ?>%</span>  </span>
                                         <span class="right"><span class="right"><i class="icon-inr"></i>
-                                                0
-                                            </span></span>
+                                                <?php echo $dicountAmt ?>
+                                            </span>
+                                        </span>
                                     </div>
                                     <div class="order-total">
                                         <span class="left">Order Total</span>
                                         <span class="right"><i class="icon-inr"></i>
-                                            <?= $subtotal ?>
+                                            <?= $subtotal - $dicountAmt ?>
                                         </span>
                                     </div>
                                     <?php if (!empty($user_details)) { ?>
@@ -209,7 +222,7 @@
     <div id="id01" class="modal">
         <div class="imgcontainer">
             <span onclick="document.getElementById('id01').style.display = 'none'" class="close" title="Close Modal">&times;</span>
-            <img src="img_avatar2.png" alt="Avatar" class="avatar">
+            <img src="img_avatar2.png" alt="" class="avatar">
         </div>
         <div class="row">
             <div class="col-sm-2"></div>

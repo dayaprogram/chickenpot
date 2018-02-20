@@ -32,7 +32,8 @@ class ResturentController extends AppController {
             'addorder', 'viewcart', 'addtokrt', 'deletecart', 'cartview',
             'updateQcart', 'signup', 'tracklocation', 'updatePotPackFlag',
             'getValidCouponDtl', 'validateUserToredeemCoupon',
-            'paymentsuccessbilldtl', 'paymetprocessdtl', 'login', 'transactiondetails', 'transactindtls']);
+            'paymentsuccessbilldtl', 'paymetprocessdtl', 'login',
+            'transactiondetails', 'transactindtls', 'applyDiscount']);
     }
 
     public function index() {
@@ -126,6 +127,7 @@ class ResturentController extends AppController {
 
         $subtotal = 0.00;
         $foodbillAmt = 0.00;
+        $finalbillamt = 0.00;
         if (!empty($cartItem)) {
             foreach ($cartItem as $data) {
                 if ($data['potpackflg'] == 'A') {
@@ -136,10 +138,24 @@ class ResturentController extends AppController {
                 }
                 $foodbillAmt = $foodbillAmt + ($data['foodprice'] * $data['quantity']);
             }
+            $finalbillamt = $subtotal;
         }
+        $dicountAmt = 0.00;
+        $discountper = 0.00;
+        if (!empty($this->Auth->user('id'))) {
+            $discountper = $this->Session->read('discountper');
+            $dicountAmt = ($foodbillAmt * $discountper) / 100;
+            $subtotal = $subtotal - $dicountAmt;
+        } else {
+            $dicountAmt = 0.00;
+        }
+
+
+
+
         $tax = 0.00;
-        $finalbillamt = $subtotal + $tax;
-        $discount = 0.00;
+        $finalbillamt = $finalbillamt + $tax;
+        $discount = $dicountAmt;
         $finalpaid = $finalbillamt - $discount;
         $payment = $this->payment_detail->newEntity();
         $paymentDetais = array(
@@ -147,7 +163,7 @@ class ResturentController extends AppController {
             //'payment_id' => '1',
             'order_id' => $orderid,
             'customer_id' => $shippindAddDtl['user_id'],
-            'total_bill_amt' => $subtotal,
+            'total_bill_amt' => $foodbillAmt,
             'tax_amt' => $tax,
             'final_bill_amt' => $finalbillamt,
             'final_paid_amt' => $finalpaid,
@@ -272,9 +288,9 @@ class ResturentController extends AppController {
         $this->loadModel('item_variant');
         $this->loadModel('ref_rec_type');
         if ($catagary == 'ALL') {
-            $getitem = $this->Item->find('all')->toArray();
+            $getitem = $this->Item->find('all')->where(['active_flag' => 'A'])->toArray();
         } else {
-            $getitem = $this->Item->find('all')->where(['food_category' => $catagary])->toArray();
+            $getitem = $this->Item->find('all')->where(['food_category' => $catagary, 'active_flag' => 'A'])->toArray();
         }
         $itemveriant = $this->item_variant->find('all')->toArray();
         $foodcatagoryList = $this->ref_rec_type->find()->select(['ref_code', 'ref_desc'])
@@ -405,10 +421,11 @@ class ResturentController extends AppController {
                 $oldorder = $this->Session->read('orders');
 
                 echo 'before:';
-                pr($oldorder);
+                // pr($oldorder);
                 array_push($oldorder, $products);
                 echo 'after:';
-                pr($oldorder);
+                //
+                //  pr($oldorder);
                 //$this->Session->destroy('orders');
                 $this->Session->write('orders', $oldorder);
             } else {
@@ -611,7 +628,7 @@ class ResturentController extends AppController {
         $this->loadModel('coupon_master');
         $redmfreqType = $this->coupon_master->find()->select(['redm_freq'])->where(['coupon_code' => $couponcode])->first();
 
-        pr($redmfreqType);
+
         $result = 'invalid';
         if (!empty($redmfreqType)) {
             if ($redmfreqType['redm_freq'] == 'ALL') {
@@ -639,6 +656,7 @@ class ResturentController extends AppController {
             'phone' => $this->request->data['phone'],
             'pass' => $this->request->data['password'],
         );
+        $discountPer = 0.00;
         // print_r($logs);die;
         if ($this->request->is('post')) {
             // print_r($logs);die;
@@ -646,10 +664,11 @@ class ResturentController extends AppController {
             //ss print_r($user); die;
             if (!empty($user)) {
                 $this->Auth->setUser($user);
+
                 $responce = array('Ack' => '1', 'msg' => 'Successfully login');
             }
         } else {
-            $responce = array('Ack' => '0', 'msg' => 'Register your email.');
+            $responce = array('Ack' => '0', 'msg' => 'Register your Mobile No.');
         }
         echo json_encode($responce);
         exit;
@@ -691,6 +710,30 @@ class ResturentController extends AppController {
 //        $this->response->type('json');
 //         $this->response->body($resultJ);
 //         return $this->response;sonpurs
+    }
+
+    public function applyDiscount() {
+
+        $this->loadModel('orderlist');
+        $noofPrviousOrder = $this->orderlist->find()->where(['user_id' => $this->Auth->user('id')])->count();
+        if ($noofPrviousOrder == 0) {
+            $discountPer = 20.00;
+        } else {
+            $discountPer = 0.00;
+        }
+
+        if (empty($this->request->session()->read('discountper'))) {
+            $this->request->session()->write('discountper', $discountPer);
+        } else {
+            $this->request->session()->delete('discountper');
+            $this->request->session()->write('discountper', $discountPer);
+        }
+
+        $resultJ = json_encode($discountPer);
+
+        $this->response->type('json');
+        $this->response->body($resultJ);
+        return $this->response;
     }
 
 }
