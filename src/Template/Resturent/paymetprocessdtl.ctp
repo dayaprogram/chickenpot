@@ -25,9 +25,8 @@
 $MERCHANT_KEY = "GlmxtHX5";
 $SALT = "qKF9WHhimi";
 // Merchant Key and Salt as provided by Payu.
-
-$PAYU_BASE_URL = "https://sandboxsecure.payu.in";  // For Sandbox Mode
-// $PAYU_BASE_URL = "https://secure.payu.in";			// For Production Mode
+// $PAYU_BASE_URL = "https://sandboxsecure.payu.in";  // For Sandbox Mode
+$PAYU_BASE_URL = "https://secure.payu.in";   // For Production Mode
 
 $action = '';
 
@@ -184,12 +183,10 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
 
                                         <span style="color:red">Please fill all mandatory fields.</span>
 
-                                    <?php
+                                        <?php
                                     }
                                     $cartItem = $this->request->session()->read('cart_item');
                                     $shippindAddDtl = $this->request->session()->read('shippindAddDtl');
-                     
-                                    
                                     ?>
                                     <form action="<?php echo $action; ?>" method="post" name="payuForm">
                                         <input type="hidden" name="key" value="<?php echo $MERCHANT_KEY ?>" />
@@ -203,13 +200,13 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
                                                 <td>Amount: </td>
                                                 <td><input name="amount" value="<?php echo (empty($posted['amount'])) ? $subtotal : $posted['amount'] ?>" /></td>
                                                 <td>First Name: </td>
-                                                <td><input name="firstname" id="firstname" value="<?php echo (empty($posted['firstname'])) ?  $shippindAddDtl['first_name']  : $posted['firstname']; ?>" /></td>
+                                                <td><input name="firstname" id="firstname" value="<?php echo (empty($posted['firstname'])) ? $shippindAddDtl['first_name'] : $posted['firstname']; ?>" /></td>
                                             </tr>
                                             <tr>
                                                 <td>Email: </td>
-                                                <td><input name="email" id="email" value="<?php echo (empty($posted['email'])) ?  $shippindAddDtl['email']  : $posted['email']; ?>" /></td>
+                                                <td><input name="email" id="email" value="<?php echo (empty($posted['email'])) ? $shippindAddDtl['email'] : $posted['email']; ?>" /></td>
                                                 <td>Phone: </td>
-                                                <td><input name="phone" value="<?php echo (empty($posted['phone'])) ?  $shippindAddDtl['contact_no']  : $posted['phone']; ?>" /></td>
+                                                <td><input name="phone" value="<?php echo (empty($posted['phone'])) ? $shippindAddDtl['contact_no'] : $posted['phone']; ?>" /></td>
                                             </tr>
                                             <tr>
                                                 <td>Product Info: </td>
@@ -276,7 +273,7 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
 
 
                                         </table>
-                                        <?php if (!$hash) { ?>
+<?php if (!$hash) { ?>
                                             <input class="next-step" type="submit" value="Proceed To Payment" />
                                         <?php } ?>
                                     </form>
