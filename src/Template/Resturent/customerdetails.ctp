@@ -148,8 +148,7 @@
                                         if (!empty($loc['time'])) {
                                             $time = $loc['time'];
                                         }
-                                        $time = date("g:i a");
-                                        
+                                        $time = '';
                                         ?>
                                         <input type="text" class="form-control" name="selecttime" id="time" value="<?php echo $time ?>" required="true">
                                     </div>
@@ -193,10 +192,10 @@
                                                 $('#time').timepicker({
                                                     timeFormat: 'h:mm p',
                                                     interval: 30,
-                                                    minTime: new Date(),
+                                                    minTime: '10',
                                                     maxTime: '11:00pm',
                                                     defaultTime: new Date(),
-                                                    startTime: new Date(),
+                                                    startTime: '10:00am',
                                                     dynamic: false,
                                                     dropdown: true,
                                                     scrollbar: true
@@ -231,6 +230,16 @@
 
     $('#area_code').val("<?php echo $loc['location'] ?>");
 </script>
+<style>
+    .input-group .form-control {
+        position: relative;
+        z-index: 2;
+        float: left;
+        width: 100%;
+        margin-bottom: 0;
+        height: 50px;
+    }
+</style>
 
 
 
