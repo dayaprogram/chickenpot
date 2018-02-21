@@ -30,7 +30,12 @@
                                 <?php echo $this->Form->create($order, ['class' => 'form-horizontal', 'id' => 'user-validate']); ?>
 
                                 <input type="hidden" name="active" id="active" value="1" />
-
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4">Food Id</label>
+                                    <div class="col-lg-8">
+                                        <input type="text" id="first_name" name="food_name" class="form-control" value="<?php echo $order['item_id'] ?>" readonly="readonly" />
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Food Name</label>
                                     <div class="col-lg-8">
@@ -89,6 +94,18 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="control-label col-lg-4">Email</label>
+                                    <div class="col-lg-8">
+                                        <input type="text" id="time" name="email" readonly="readonly" class="form-control" value="<?php echo $customer_details['email'] ?>"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4">Contact</label>
+                                    <div class="col-lg-8">
+                                        <input type="text" id="time" name="email" readonly="readonly" class="form-control" value="<?php echo $customer_details['contact_no'] ?>"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="control-label col-lg-4">Address 1</label>
                                     <div class="col-lg-8">
                                         <input type="text" id="time" name="address1" readonly="readonly" class="form-control" value="<?php echo $customer_details['address1'] ?>"/>
@@ -107,28 +124,28 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-lg-4">Address Code</label>
+                                    <label class="control-label col-lg-4">Area Details</label>
                                     <div class="col-lg-8">
-                                        <input type="text" id="time" name="code" readonly="readonly" class="form-control" value="<?php echo $customer_details['area_code'] ?>"/>
+                                        Area  <input type="text" id="time" name="code" readonly="readonly" class="form-control"
+                                                     value="<?php echo $areadetail['area_name'] ?>"/>
+                                        City  <input type="text" id="time" name="code" readonly="readonly" class="form-control"
+                                                     value="<?php echo $areadetail['city'] ?>"/>
+                                        Pin Code  <input type="text" id="time" name="code" readonly="readonly" class="form-control"
+                                                         value="<?php echo $areadetail['pincode'] ?>"/>
+                                        Distance (KM) <input type="text" id="time" name="code" readonly="readonly" class="form-control"
+                                                             value="<?php echo $areadetail['distance'] ?>"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-lg-4">Email</label>
+                                    <label class="control-label col-lg-4">Order Status:</label>
                                     <div class="col-lg-8">
-                                        <input type="text" id="time" name="email" readonly="readonly" class="form-control" value="<?php echo $customer_details['email'] ?>"/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-lg-4">Email</label>
-                                    <div class="col-lg-8">
-                                        <input type="text" id="time" name="email" readonly="readonly" class="form-control" value="<?php echo $customer_details['contact_no'] ?>"/>
-                                    </div>
-                                </div>
-                                <?php echo $this->Form->create($status, ['class' => 'form-horizontal', 'id' => 'user-validate']); ?>
-                                <div class="form-group">
-                                    <label class="control-label col-lg-4">Status</label>
-                                    <div class="col-lg-8">
-                                        <input type="text" id="time" name="order_status" class="form-control" value="<?php echo $order['order_status'] ?>"/>
+                                        <div class="form-group">
+                                            <select class="form-control" id="orderstatus">
+                                                <?php foreach ($statuslist as $data) { ?>
+                                                    <option value="<?php echo $data['ref_code'] ?>"><?php echo $data['ref_desc'] ?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-8" style="text-align:left;"> 
@@ -144,3 +161,7 @@
         </div>
     </div>
 </div>
+<script>
+    $('#orderstatus').val("<?php echo $order['order_status'] ?>");
+
+</script>

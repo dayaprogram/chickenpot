@@ -193,10 +193,10 @@
                                                 $('#time').timepicker({
                                                     timeFormat: 'h:mm p',
                                                     interval: 30,
-                                                    minTime: '10',
-                                                    maxTime: '6:00pm',
+                                                    minTime: new Date(),
+                                                    maxTime: '11:00pm',
                                                     defaultTime: new Date(),
-                                                    startTime: '10:00',
+                                                    startTime: new Date(),
                                                     dynamic: false,
                                                     dropdown: true,
                                                     scrollbar: true
