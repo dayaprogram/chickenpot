@@ -79,26 +79,33 @@
 
                                     <div class="total">
                                         <div class="checkout" style="margin: 20px 0 0 0;">
-                                            <input type="checkbox" name="potpackflg" 
-                                                   id="potpackflg_<?php echo $data['id'] . "_" . $data['foodsize']; ?>" 
-                                                   class="css-checkbox" <?php
-                                                   if ($data['potpackflg'] == 'A') {
-                                                       echo 'checked';
-                                                   } else {
-                                                       echo '';
-                                                   };
-                                                   ?>
-                                                   onchange="potPackFlgHandle(<?php echo $data['id']; ?>,<?php echo "'" . $data['foodsize'] . "'"; ?>)">
-                                            <label for="potpackflg_<?php echo $data['id'] . "_" . $data['foodsize']; ?>" 
-                                                   class="css-label">
-                                                <i class="icon-inr"></i>
-                                                <strong>
-                                                    <?php
-                                                    echo ($data['packCharge'] * $data['quantity']);
-                                                    $potPackCharge = ($data['packCharge'] * $data['quantity']);
-                                                    ?>
-                                                </strong>
-                                            </label>
+                                            <div <?php
+                                            if ($data['packCharge'] == 0) {
+                                                echo ('style="display: none;"');
+                                            }
+                                            ?> 
+                                                >
+                                                <input type="checkbox" name="potpackflg" 
+                                                       id="potpackflg_<?php echo $data['id'] . "_" . $data['foodsize']; ?>" 
+                                                       class="css-checkbox" <?php
+                                                       if ($data['potpackflg'] == 'A') {
+                                                           echo 'checked';
+                                                       } else {
+                                                           echo '';
+                                                       }
+                                                       ?>
+                                                       onchange="potPackFlgHandle(<?php echo $data['id']; ?>,<?php echo "'" . $data['foodsize'] . "'"; ?>)">
+                                                <label for="potpackflg_<?php echo $data['id'] . "_" . $data['foodsize']; ?>" 
+                                                       class="css-label">
+                                                    <i class="icon-inr"></i>
+                                                    <strong>
+                                                        <?php
+                                                        echo ($data['packCharge'] * $data['quantity']);
+                                                        $potPackCharge = ($data['packCharge'] * $data['quantity']);
+                                                        ?>
+                                                    </strong>
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -165,6 +172,7 @@
                             <div class="cart-total">
                                 <h5>Cart Totals</h5>
                                 <div class="total-sec">
+                                    <span class="left" style="color: red">* Minimun Order of Rs. 200 required !</span>
                                     <div class="sub-total-sec">
                                         <span class="left">Cart Subtotal</span>
                                         <span class="right">
@@ -196,20 +204,20 @@
                                     </div>
                                     <div class="order-total">
                                         <span class="left">Order Total</span>
-                                        <span class="right"><i class="icon-inr"></i>
+                                        <span class="right"><i class="icon-inr" ></i>
                                             <?= $subtotal - $dicountAmt ?>
                                         </span>
                                     </div>
                                     <?php
                                     if (!empty($user_details)) {
-                                        // if(($subtotal - $dicountAmt )>=200.00){
-                                        ?>
-                                        <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "customerdetails"]); ?>">proceed to checkout</a>
-                                        <?php
-                                        //} 
+                                        if (($subtotal - $dicountAmt ) >= 200.00) {
+                                            echo('<a href="' . $this->Url->build(["controller" => "resturent", "action" => "customerdetails"]) . '">proceed to checkout</a>');
+                                        } else {
+                                            echo('<a href="' . $this->Url->build(["controller" => "resturent", "action" => "shop"]) . '" >Add More Food to checkout</a>');
+                                        }
                                     } else {
                                         ?>
-                                        <a href="#" onclick="document.getElementById('id01').style.display = 'block'" style="width:auto;">proceed to checkout</a>
+                                        <a href="#" onclick="document.getElementById('id01').style.display = 'block'">proceed to checkout</a>
                                     <?php } ?>
 
                                 </div>
@@ -290,6 +298,10 @@
 </div>
 
 <script>
+    openLoginPopup(){
+        document.getElementById('id01').style.display = 'block';
+    }
+
     $('.notify--dismissible').append('<button type="button" class="notify-close">&times;</button>');
 
     $('.notify-close').on('click', function () {
@@ -536,6 +548,7 @@
             url: "<?php echo $this->request->webroot . 'resturent/login' ?>",
             success: function (data) {
                 //alert(data);
+                // window.location = "<?php echo $this->request->webroot . 'resturent/customerdetails' ?>";
                 window.location = "";
             }
         });

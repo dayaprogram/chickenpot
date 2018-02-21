@@ -744,17 +744,12 @@ class ResturentController extends AppController {
         $this->response->type('json');
         $this->response->body($resultJ);
         return $this->response;
-//       $resultJ = json_encode(array('result' => $trnctnid, 'errors' => 'ggggg'));
-//
-//        $this->response->type('json');
-//         $this->response->body($resultJ);
-//         return $this->response;sonpurs
     }
 
     public function applyDiscount() {
 
         $this->loadModel('orderlist');
-        $noofPrviousOrder = $this->orderlist->find()->where(['user_id' => $this->Auth->user('id')])->count();
+        $noofPrviousOrder = $this->orderlist->find()->where(['user_id' => $this->Auth->user('id'),'order_status !='=>'G'])->count();
         if ($noofPrviousOrder == 0) {
             $discountPer = 20.00;
         } else {
