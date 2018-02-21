@@ -27,7 +27,7 @@
                         <div class="col-sm-6">
 
                             <div class="row">
-				  <?php echo $this->Form->create($order,['class' => 'form-horizontal', 'id' => 'user-validate']);?>
+                                <?php echo $this->Form->create($order, ['class' => 'form-horizontal', 'id' => 'user-validate']); ?>
 
                                 <input type="hidden" name="active" id="active" value="1" />
 
@@ -43,8 +43,8 @@
                                         <input type="text" id="last_name" name="last_name" class="form-control" value="<?php echo $order['quantity'] ?>" readonly="readonly" />
                                     </div>
                                 </div>
- 
-                                                             
+
+
 
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Food Size</label>
@@ -63,79 +63,79 @@
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Delivery Date</label>
                                     <div class="col-lg-8">
-                                       <input type="text" id="date" name="date" readonly="readonly" class="form-control" value="<?php echo $order['delivery_date'] ?>"/>
+                                        <input type="text" id="date" name="date" readonly="readonly" class="form-control" value="<?php echo $order['delivery_date'] ?>"/>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Delivery Time</label>
                                     <div class="col-lg-8">
-                                       <input type="text" id="time" name="time" readonly="readonly" class="form-control" value="<?php echo $order['delivery_time'] ?>"/>
+                                        <input type="text" id="time" name="time" readonly="readonly" class="form-control" value="<?php echo $order['delivery_time'] ?>"/>
                                     </div>
                                 </div>
-                                 <div class="form-group">
-                                     <h1>Customer Details</h1>
+                                <div class="form-group">
+                                    <h1>Customer Details</h1>
                                 </div>
-                                 <div class="form-group">
+                                <div class="form-group">
                                     <label class="control-label col-lg-4">Customer First Name</label>
                                     <div class="col-lg-8">
-                                       <input type="text" id="time" name="name" readonly="readonly" class="form-control" value="<?php echo $customer_details['first_name'] ?>"/>
-                                    </div>
-                                </div>
-                                 <div class="form-group">
-                                    <label class="control-label col-lg-4">Customer Last Name</label>
-                                    <div class="col-lg-8">
-                                       <input type="text" id="time" name="lastname" readonly="readonly" class="form-control" value="<?php echo $customer_details['last_name'] ?>"/>
+                                        <input type="text" id="time" name="name" readonly="readonly" class="form-control" value="<?php echo $customer_details['first_name'] ?>"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Customer Last Name</label>
                                     <div class="col-lg-8">
-                                       <input type="text" id="time" name="lastname" readonly="readonly" class="form-control" value="<?php echo $customer_details['last_name'] ?>"/>
+                                        <input type="text" id="time" name="lastname" readonly="readonly" class="form-control" value="<?php echo $customer_details['last_name'] ?>"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Address 1</label>
                                     <div class="col-lg-8">
-                                       <input type="text" id="time" name="address1" readonly="readonly" class="form-control" value="<?php echo $customer_details['address1'] ?>"/>
+                                        <input type="text" id="time" name="address1" readonly="readonly" class="form-control" value="<?php echo $customer_details['address1'] ?>"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Address 2</label>
                                     <div class="col-lg-8">
-                                       <input type="text" id="time" name="address2" readonly="readonly" class="form-control" value="<?php echo $customer_details['address2'] ?>"/>
+                                        <input type="text" id="time" name="address2" readonly="readonly" class="form-control" value="<?php echo $customer_details['address2'] ?>"/>
                                     </div>
                                 </div>
-                                  <div class="form-group">
+                                <div class="form-group">
                                     <label class="control-label col-lg-4">Landmark</label>
                                     <div class="col-lg-8">
-                                       <input type="text" id="time" name="landmark" readonly="readonly" class="form-control" value="<?php echo $customer_details['landmark'] ?>"/>
+                                        <input type="text" id="time" name="landmark" readonly="readonly" class="form-control" value="<?php echo $customer_details['landmark'] ?>"/>
                                     </div>
                                 </div>
-                                 <div class="form-group">
+                                <div class="form-group">
                                     <label class="control-label col-lg-4">Address Code</label>
                                     <div class="col-lg-8">
-                                       <input type="text" id="time" name="code" readonly="readonly" class="form-control" value="<?php echo $customer_details['area_code'] ?>"/>
+                                        <input type="text" id="time" name="code" readonly="readonly" class="form-control" value="<?php echo $customer_details['area_code'] ?>"/>
                                     </div>
                                 </div>
-                                 <div class="form-group">
+                                <div class="form-group">
                                     <label class="control-label col-lg-4">Email</label>
                                     <div class="col-lg-8">
-                                       <input type="text" id="time" name="email" readonly="readonly" class="form-control" value="<?php echo $customer_details['email'] ?>"/>
+                                        <input type="text" id="time" name="email" readonly="readonly" class="form-control" value="<?php echo $customer_details['email'] ?>"/>
                                     </div>
                                 </div>
-                                <?php echo $this->Form->create($status,['class' => 'form-horizontal', 'id' => 'user-validate']);?>
-                                  <div class="form-group">
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4">Email</label>
+                                    <div class="col-lg-8">
+                                        <input type="text" id="time" name="email" readonly="readonly" class="form-control" value="<?php echo $customer_details['contact_no'] ?>"/>
+                                    </div>
+                                </div>
+                                <?php echo $this->Form->create($status, ['class' => 'form-horizontal', 'id' => 'user-validate']); ?>
+                                <div class="form-group">
                                     <label class="control-label col-lg-4">Status</label>
                                     <div class="col-lg-8">
-                                       <input type="text" id="time" name="order_status" class="form-control" value="<?php echo $order['order_status'] ?>"/>
+                                        <input type="text" id="time" name="order_status" class="form-control" value="<?php echo $order['order_status'] ?>"/>
                                     </div>
                                 </div>
-                                 <div class="col-lg-8" style="text-align:left;"> 
+                                <div class="col-lg-8" style="text-align:left;"> 
                                     <input type="submit" name="submit" value="Edit status" class="btn btn-primary" />
                                 </div>
                                 </form>
-                                </div>
+                            </div>
                         </div>
                         <div class="clearfix"></div>
                     </div>
