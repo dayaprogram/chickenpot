@@ -722,8 +722,8 @@ class ResturentController extends AppController {
                 $savedDetails = $this->Txn_master->save($usertranscation);
                 $userid = $this->Auth->user('id');
                 $conn->begin();
-                $conn->execute('UPDATE orderlist SET order_status = ? WHERE user_id = ? and order_id=?', ['P', $userid, $orderCompleteDeatail['order_id']]);
-                $conn->execute('UPDATE payment_detail SET bill_status = ? WHERE customer_id = ? and order_id=?', ['P', $userid, $orderCompleteDeatail['order_id']]);
+                $conn->execute('UPDATE orderlist SET order_status = ? WHERE user_id = ? and order_id=?', ['A', $userid, $orderCompleteDeatail['order_id']]);
+                $conn->execute('UPDATE payment_detail SET bill_status = ? WHERE customer_id = ? and order_id=?', ['A', $userid, $orderCompleteDeatail['order_id']]);
                 $conn->commit();
                 if ($savedDetails) {
                     $this->Session = $this->request->session();
