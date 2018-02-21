@@ -28,7 +28,7 @@
                                             <table cellpadding="0" cellspacing="0" class="table table-striped table-bordered table-hover">
                                                 <thead>
                                                     <tr>
-                                                        <th><?php echo $this->Paginator->sort('id') ?></th>
+                                                        <th><?php echo $this->Paginator->sort('order_id') ?></th>
                                                         <th><?php echo $this->Paginator->sort('foodname') ?></th>
                                                         <th><?php echo $this->Paginator->sort('quantity') ?></th>
                                                         <th><?php echo $this->Paginator->sort('food_size') ?></th>
@@ -42,7 +42,7 @@
                                                 <tbody>
                                             <?php $i =1; foreach ($orders as $order): ?>
                                                     <tr>
-                                                        <td><?php echo $this->Number->format($i) ?></td>
+                                                        <td><?php echo h($order->order_id) ?></td>
                                                         <td><?php echo h($order->foodname) ?></td>
                                                         <td><?php echo h($order->quantity) ?></td>
                                                         <td><?php echo h($order->size_variant) ?></td>
