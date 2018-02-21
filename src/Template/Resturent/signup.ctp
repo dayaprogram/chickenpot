@@ -39,7 +39,7 @@
                                     <input type="tel" name="phone" id="contact_no" class="form-control"  maxlength="15" placeholder="Enter your mobile no" required>
                                     <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password" required>
                                     <input type="password" name="password" id="password" class="form-control" placeholder="Confirm password" required>
-                                    <textarea name="address" id="address" class="form-control" placeholder="Enter your address" required></textarea>									
+                                  <!--  <textarea name="address" id="address" class="form-control" placeholder="Enter your address" required></textarea>-->
                                     <button type="submit" class="btn btn-primary btn-md btn-block next-step">Sign Up</button>
                                 </div>
                             </form>

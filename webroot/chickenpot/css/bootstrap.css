@@ -6886,7 +6886,14 @@ button.close {
 
 
     .cash-payment .cash-delivery .cash-delivery-detail .form input[type=text]{ width:100%;}
+    .cash-payment .cash-delivery .cash-delivery-detail .form input[type=email]{ width:100%;}
+    .cash-payment .cash-delivery .cash-delivery-detail .form input[type=password]{ width:100%;}
+    .cash-payment .cash-delivery .cash-delivery-detail .form input[type=tel]{ width:100%;}
     .cash-payment .cash-delivery .cash-delivery-detail .form input[type=submit] { font-size: 15px; margin: 28px 0 40px 0;}
+
+    .cash-payment .cash-delivery .cash-delivery-detail .form input[type=radio] {width: 100%; }
+
+
     .sub-banner .detail h1{ font-size:38px;}
 
     .cash-payment .shipping-address .shipping-detail span.bold { width: 100%;}

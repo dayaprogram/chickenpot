@@ -17,7 +17,7 @@
                                 <span>Price * Quantity</span>
                             </div>
                             <div class="total">
-                                <span>Pot Pack</span>
+                                <span>Pot Pack<i class=" icon-bag" style="color: red"></i></span>
                             </div>
                             <div class="total">
                                 <span>Total</span>
@@ -147,18 +147,21 @@
                     <div class="row">
 
                         <div class="col-md-5">
-                            <div class="on-delivery">
+                          <!--  <div class="on-delivery">
                                 <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "blog"]); ?>">cash on delivery</a>
-                            </div>
+                            
+                         
+                        </div> -->
                         </div>
 
-                        <div class="col-md-2">
+                       <!-- <div class="col-md-1">
                             <div class="or">
                                 <h5>or</h5>
                             </div>
-                        </div>
+                        
+                        </div>  -->
 
-                        <div class="col-md-5">
+                        <div class="col-md-7">
                             <div class="cart-total">
                                 <h5>Cart Totals</h5>
                                 <div class="total-sec">

@@ -33,13 +33,13 @@
                                             <h4>Opening Hour</h4>
                                             <div class="detail">
                                                 <ul>
-                                                    <li><span class="day">Monday</span> <span class="time">10 am - 09 pm</span></li>
-                                                    <li><span class="day">Tuesday</span> <span class="time">10 am - 09 pm</span></li>
-                                                    <li><span class="day">Wednesday</span> <span class="time">10 am - 09 pm</span></li>
-                                                    <li><span class="day">Thursday</span> <span class="time">10 am - 09 pm</span></li>
-                                                    <li><span class="day">Friday</span> <span class="time">10 am - 09 pm</span></li>
-                                                    <li><span class="day">Saturday</span> <span class="time">10 am - 09 pm</span></li>
-                                                    <li><span class="day">Sunday</span> <span class="time">Closed</span></li>
+                                                    <li><span class="day">Monday</span> <span class="time">10 am - 11 pm</span></li>
+                                                    <li><span class="day">Tuesday</span> <span class="time">10 am - 11 pm</span></li>
+                                                    <li><span class="day">Wednesday</span> <span class="time">10 am - 11 pm</span></li>
+                                                    <li><span class="day">Thursday</span> <span class="time">10 am - 11 pm</span></li>
+                                                    <li><span class="day">Friday</span> <span class="time">10 am - 11 pm</span></li>
+                                                    <li><span class="day">Saturday</span> <span class="time">10 am - 11 pm</span></li>
+                                                    <li><span class="day">Sunday</span> <span class="time">12 am - 11 pm</span></li>
                                                 </ul>
                                             </div>
                                         </div>
