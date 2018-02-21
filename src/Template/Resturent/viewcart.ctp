@@ -147,19 +147,19 @@
                     <div class="row">
 
                         <div class="col-md-5">
-                          <!--  <div class="on-delivery">
-                                <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "blog"]); ?>">cash on delivery</a>
-                            
-                         
-                        </div> -->
+                            <!--  <div class="on-delivery">
+                                  <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "blog"]); ?>">cash on delivery</a>
+                              
+                           
+                          </div> -->
                         </div>
 
-                       <!-- <div class="col-md-1">
-                            <div class="or">
-                                <h5>or</h5>
-                            </div>
-                        
-                        </div>  -->
+                        <!-- <div class="col-md-1">
+                             <div class="or">
+                                 <h5>or</h5>
+                             </div>
+                         
+                         </div>  -->
 
                         <div class="col-md-7">
                             <div class="cart-total">
@@ -200,15 +200,15 @@
                                             <?= $subtotal - $dicountAmt ?>
                                         </span>
                                     </div>
-                                    <?php if (!empty($user_details)) {
-                                       // if(($subtotal - $dicountAmt )>=200.00){
+                                    <?php
+                                    if (!empty($user_details)) {
+                                        // if(($subtotal - $dicountAmt )>=200.00){
                                         ?>
                                         <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "customerdetails"]); ?>">proceed to checkout</a>
-                                    <?php 
-                                    
+                                        <?php
                                         //} 
-                                        
-                                        }else { ?>
+                                    } else {
+                                        ?>
                                         <a href="#" onclick="document.getElementById('id01').style.display = 'block'" style="width:auto;">proceed to checkout</a>
                                     <?php } ?>
 
@@ -230,7 +230,7 @@
 
     <div id="id01" class="modal">
         <div class="imgcontainer">
-            <span onclick="document.getElementById('id01').style.display = 'none'" class="close" title="Close Modal">&times;</span>
+            <span onclick="document.getElementById('id01').style.display = 'none'" class="close" title="Close Modal"><i class="icon-close" style="color: red"></i></span>
             <img src="img_avatar2.png" alt="" class="avatar">
         </div>
         <div class="row">
@@ -265,11 +265,21 @@
             <div class="col-sm-6" style="text-align: center">
                 <button type="button" class="btn btn-primary btn-lg" onclick='prooceedtologin();'>Login</button>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-2" hidden>
                 <label>
                     <input type="checkbox" checked="checked" name="remember"> Remember me
                 </label>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-2">
+
+            </div>
+            <div class="col-sm-8" style="text-align: center">
+                <p>Don't have an account? Please <a href="<?php echo $this->Url->build(["controller" => "users", "action" => "signup"]); ?>"><strong>Sign Up</strong></a> </p>
+            </div>
+
         </div>
 
 
@@ -435,7 +445,7 @@
         height: 100%; /* Full height */
         overflow: auto; /* Enable scroll if needed */
         background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(224, 189, 63, 0.7); /* Black w/ opacity */
+        background-color: rgba(224, 189, 63, 0.9); /* Black w/ opacity */
         padding-top: 60px;
     }
 
@@ -450,11 +460,12 @@
     /* The Close Button (x) */
     .close {
         position: absolute;
-        right: 25px;
-        top: 0;
+        right: 41px;
+        top: -59px;
         color: #000;
-        font-size: 35px;
+        font-size: 40px;
         font-weight: bold;
+
     }
 
     .close:hover,
@@ -462,7 +473,12 @@
         color: red;
         cursor: pointer;
     }
+    .modal .form-control {
 
+
+        height: 60px;
+        font-size: 18px;
+    }
     /* Add Zoom Animation */
     .animate {
         -webkit-animation: animatezoom 0.6s;
@@ -487,6 +503,12 @@
         }
         .cancelbtn {
             width: 100%;
+        }
+        .modal .form-control {
+
+            width: 92%;
+            height: 70px;
+            font-size: 18px;
         }
     }
 </style>
