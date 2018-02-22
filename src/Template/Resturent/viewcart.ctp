@@ -217,7 +217,7 @@
                                         }
                                     } else {
                                         ?>
-                                        <a href="#" onclick="document.getElementById('id01').style.display = 'block'">proceed to checkout</a>
+                                        <a href="#" onclick="document.getElementById('id01').style.display = 'block'">login to checkout</a>
                                     <?php } ?>
 
                                 </div>
@@ -547,9 +547,20 @@
             dataType: "json",
             url: "<?php echo $this->request->webroot . 'resturent/login' ?>",
             success: function (data) {
-                //alert(data);
+                var arr = $.map(data, function (el) {
+                    return el;
+                });
+                alert(arr[0]);
+                if (arr[0] === '1') {
+                    document.getElementById('id01').style.display = 'none';
+                    snackMessage(arr[1]);
+                    window.location = "";
+                } else {
+                    document.getElementById('id01').style.display = 'none';
+                    snackMessage(arr[1]);
+                }
                 // window.location = "<?php echo $this->request->webroot . 'resturent/customerdetails' ?>";
-                window.location = "";
+                //  window.location = "";
             }
         });
     }

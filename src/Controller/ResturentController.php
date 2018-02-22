@@ -681,7 +681,7 @@ class ResturentController extends AppController {
                 $responce = array('Ack' => '1', 'msg' => 'Successfully login');
             }
         } else {
-            $responce = array('Ack' => '0', 'msg' => 'Register your Mobile No.');
+            $responce = array('Ack' => '0', 'msg' => 'Mobile No or Password Invalid!');
         }
         echo json_encode($responce);
         exit;
