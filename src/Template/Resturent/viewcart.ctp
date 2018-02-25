@@ -247,7 +247,7 @@
                 <label for="phone"><b>Mobile</b></label>
             </div>
             <div class="col-sm-6">
-                <input type="text" class="form-control" placeholder="Enter Monile No." name="phone" id="phone" required></br>
+                <input type="text" class="form-control" placeholder="Enter Mobile No." name="phone" id="phone" required></br>
             </div>
             <div class="col-sm-2"></div>
         </div>
@@ -298,7 +298,7 @@
 </div>
 
 <script>
-    openLoginPopup(){
+    function openLoginPopup() {
         document.getElementById('id01').style.display = 'block';
     }
 
@@ -326,12 +326,6 @@
             });
         }
     }
-
-    $(document).on('change', '#changeValuePrice', function () {
-        var new_price = parseInt($(this).parent().find('span.priceMoney').text()) * parseInt($(this).val());
-        console.log(new_price);
-        $(this).parent().find('span#calculatePrice').text(new_price);
-    });
 
     function potPackFlgHandle(id, foodsize) {
         // Get the checkbox
@@ -534,7 +528,7 @@
         if (event.target === modal) {
             modal.style.display = "none";
         }
-    }
+    };
 </script>
 
 <script>
@@ -550,7 +544,6 @@
                 var arr = $.map(data, function (el) {
                     return el;
                 });
-                alert(arr[0]);
                 if (arr[0] === '1') {
                     document.getElementById('id01').style.display = 'none';
                     snackMessage(arr[1]);
