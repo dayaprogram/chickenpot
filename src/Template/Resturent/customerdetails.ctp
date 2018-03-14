@@ -4,11 +4,11 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="detail">
-                    <h1>order now</h1>
-                    <span>Ridiculus sociosqu cursus neque cursus curae ante scelerisque vehicula.</span>
+                    <h1>CUSTOMER INFORMATION</h1>
+                    <span></span>
                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a class="select">Order Now</a></li>
+                        <li><a href="<?php echo $this->Url->build(["controller" => "users", "action" => "index"]); ?>">Home</a></li>
+                        <li><a class="select">Cust info</a></li>
                     </ul>
                 </div>
             </div>
@@ -102,9 +102,9 @@
                                     <textarea name="address2" id="address2" class="form-control" placeholder="Enter your address 2" required></textarea>
                                     <textarea name="landmark" id="landmark" class="form-control" placeholder="Enter your landmark" required></textarea>
                                     <?php if ($loc['chooselocation'] == 'rloc') { ?>
-                                        <input type="radio" name="trackloc" value="rloc" id="plocation" checked>
+                                    <input type="radio" name="trackloc" value="rloc" id="plocation" checked hidden>
                                     <?php } else { ?>
-                                        <input type="radio" name="trackloc" value="rloc" id="plocation">
+                                        <input type="radio" name="trackloc" value="rloc" id="plocation" hidden>
                                     <?php } ?>
 
                                     <div class="input-group">
@@ -122,17 +122,17 @@
                                     </div>
 
                                     <?php if ($loc['chooselocation'] == 'ploc') { ?>
-                                        <input type="radio" name="trackloc" value="ploc" id="pickshop" checked>
+                                        <input type="radio" name="trackloc" value="ploc" id="pickshop" checked hidden>
                                     <?php } else { ?>
-                                        <input type="radio" name="trackloc" value="ploc" id="pickshop">
+                                        <input type="radio" name="trackloc" value="ploc" id="pickshop" hidden>
                                     <?php } ?>
 
                                     <div class="input-group">
                                         <button type="button" class="btn btn-success" id="disablepick" style="display:none;">Pick From Shop</button>
-                                        <button type="button" class="btn btn-danger" id="ablepick" >Pick From Shop</button>
+                                        <button type="button" class="btn btn-danger" id="ablepick" style="display:none;">Pick From Shop</button>
                                     </div>
                                     <div class="input-group">
-                                        <span class="input-group-addon" id="datespn"   style="font-size:15px">Date</span>
+                                        <span class="input-group-addon" id="datespn"   style="font-size:15px">Delivery Date</span>
                                         <?php
                                         if (!empty($loc['date'])) {
                                             $date = $loc['date'];
@@ -143,7 +143,7 @@
                                         <input type="text" class="form-control" name="selectdate" value="<?php echo $date ?>" id="datepicker" required="true">
                                     </div>
                                     <div class="input-group">
-                                        <span class="input-group-addon"  id="datespn" style="font-size:15px">Time</span>
+                                        <span class="input-group-addon"  id="datespn" style="font-size:15px"> Delivery Time</span>
                                         <?php
                                         if (!empty($loc['time'])) {
                                             $time = $loc['time'];
@@ -171,16 +171,12 @@
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script>
                                             $(function () {
 
                                                 $("#datepicker").datepicker({dateFormat: "yy-mm-dd",
-                                                    setDate: new Date(),
+                                                    //setDate: new Date(),
                                                     minDate: new Date(),
                                                     maxDate: '+4D', }).val();
                                             });

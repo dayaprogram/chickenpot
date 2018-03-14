@@ -15,12 +15,14 @@
                         <h5> Order List</h5>
                         <div class="toolbar">
                             <ul class="nav">
-                               
+
                             </ul>
                         </div>
                     </header>
                     <div id="collapseOne" class="accordion-body collapse in body">
                         <div class="col-sm-12">
+                            <p><strong>Order Status</strong></p>
+                            <p><strong>G=> GENERATED, A=> ACCEPT, D=> DISPATCH, K=> SEND TO KITCHEN, M=> READY TO MOVE, P=> KITCHEN PROCESSED</strong></p>
                             <div class="row">                               
                                 <div class="form-group"> 
                                     <div class="col-lg-12">
@@ -35,36 +37,38 @@
                                                         <th><?php echo $this->Paginator->sort('pot pack') ?></th>
                                                         <th><?php echo $this->Paginator->sort('	delivery_date') ?></th>
                                                         <th><?php echo $this->Paginator->sort('delivery_time') ?></th>
-                                                         <th><?php echo $this->Paginator->sort('order status') ?></th>
+                                                        <th><?php echo $this->Paginator->sort('order status') ?></th>
                                                         <th class="actions"><?php echo __('Actions') ?></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                            <?php $i =1; foreach ($orders as $order): ?>
-                                                    <tr>
-                                                        <td><?php echo h($order->order_id) ?></td>
-                                                        <td><?php echo h($order->foodname) ?></td>
-                                                        <td><?php echo h($order->quantity) ?></td>
-                                                        <td><?php echo h($order->size_variant) ?></td>
-                                                        <td><?php echo h($order->pot_pack_flg) ?></td>
-                                                        <td><?php echo h($order->delivery_date)?></td>
-                                                         <td><?php echo h($order->delivery_time)?></td>
-                                                         <td><?php echo h($order->order_status) ?></td>
-<!--                                                        <th><?php echo (!empty($doct->status)?'Active':'Inactive'); ?></th>-->
-                                                        <td class="actions">
-                                                     <a href="<?php echo $this->Url->build(["action" => "edit", $order->id]); ?>"> <button class="btn btn-primary btn-xs"><i class="icon-pencil icon-white"></i> Edit</button>  </a>
-                                                        </td>                
-                                                    </tr>
-                                            <?php $i++; endforeach; ?>
+                                                    <?php $i = 1;
+                                                    foreach ($orders as $order): ?>
+                                                        <tr>
+                                                            <td><?php echo h($order->order_id) ?></td>
+                                                            <td><?php echo h($order->foodname) ?></td>
+                                                            <td><?php echo h($order->quantity) ?></td>
+                                                            <td><?php echo h($order->size_variant) ?></td>
+                                                            <td><?php echo h($order->pot_pack_flg) ?></td>
+                                                            <td><?php echo h($order->delivery_date) ?></td>
+                                                            <td><?php echo h($order->delivery_time) ?></td>
+                                                            <td><?php echo h($order->order_status) ?></td>
+    <!--                                                        <th><?php echo (!empty($doct->status) ? 'Active' : 'Inactive'); ?></th>-->
+                                                            <td class="actions">
+                                                                <a href="<?php echo $this->Url->build(["action" => "edit", $order->id]); ?>"> <button class="btn btn-primary btn-xs"><i class="icon-pencil icon-white"></i> Edit</button>  </a>
+                                                            </td>                
+                                                        </tr>
+    <?php $i++;
+endforeach; ?>
                                                 </tbody>
                                             </table>
                                             <div class="paginator">
                                                 <ul class="pagination"> 
-                                            <?php echo $this->Paginator->prev('< ' . __('previous')) ?>
-                                            <?php echo $this->Paginator->numbers() ?>
-                                            <?php echo $this->Paginator->next(__('next') . ' >') ?>
+                                                    <?php echo $this->Paginator->prev('< ' . __('previous')) ?>
+<?php echo $this->Paginator->numbers() ?>
+<?php echo $this->Paginator->next(__('next') . ' >') ?>
                                                 </ul>
-                                                <p><?php //echo $this->Paginator->counter() ?></p>
+                                                <p><?php //echo $this->Paginator->counter()  ?></p>
                                             </div>
                                         </div>  
                                     </div>
@@ -76,6 +80,6 @@
                 </div>
             </div>
         </div>        
-     </div>
+    </div>
 </div>
 <!--END PAGE CONTENT -->

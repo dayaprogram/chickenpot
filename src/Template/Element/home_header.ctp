@@ -186,9 +186,9 @@
 
                                         <div class="cart-food" id="<?php echo $data['id']; ?>">
                                             <div class="detail">
-                                              <!--  <a href="javascript:;" class="btn btn-danger pull-right" onclick="return deleteItem(<?php echo $data['id']; ?>);">
+                                                <a href="javascript:;" class="btn btn-danger pull-right" onclick="return deleteItem(<?php echo $data['id']; ?>,<?php echo"'". $data['foodsize']."'"; ?>);">
                                                     <i class="icon-icons163"></i></a>
-                                                -->
+
                                                 <img src="<?php echo $data['image']; ?>" alt="">
                                                 <div class="text">
                                                     <?php $subtotal = $subtotal + ($data['foodprice'] * $data['quantity']); ?>
@@ -236,12 +236,12 @@
                     <nav id="menu">
                         <ul>
                             <li><a href="<?php echo $this->Url->build(["controller" => "Users", "action" => "index"]); ?>">Home</a></li>
-                            <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "ourstory"]); ?>">our story</a></li>
+                            <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "ourstory"]); ?>">OurStory</a></li>
                             <!--
                                 <li class="parent"><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "blog"]); ?>">Blog</a></li>
                             -->
-                            <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "contactus"]); ?>">contact us</a></li>
-                            <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "shop"]); ?>"><strong style="color: #90EE90;">online order</strong></a></li>
+                            <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "contactus"]); ?>">Contact Us</a></li>
+                            <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "shop"]); ?>"><strong style="color: #90EE90;">Online Order</strong></a></li>
                             <?php if (!empty($user_details)) { ?>
                                 <li><a href="<?php echo $this->Url->build(["resturent" => "Users", "action" => "logout"]); ?>"  type="button" >Log Out</a></li>
                             <?php } else { ?>
@@ -331,11 +331,11 @@
             $('.notify-close').on('click', function () {
                 $(this).closest('.notify').hide();
             });
-            function deleteItem(id) {
+            function deleteItem(id, foodsize) {
                 if (confirm("Are you sure you want to delete this Item ?")) {
                     $.ajax({
                         type: "POST",
-                        data: {id: id},
+                        data: {id: id, foodsize: foodsize},
                         dataType: "html",
                         url: "<?php echo $this->request->webroot . 'resturent/deletecart' ?>",
                         success: function (data) {

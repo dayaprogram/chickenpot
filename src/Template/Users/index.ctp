@@ -9,17 +9,20 @@
                 <img src="<?php echo $this->request->webroot; ?>chickenpot/images/slides/banner1.jpg" alt="chickenpot" data-bgposition="center top"
                      data-bgfit="cover" data-bgrepeat="no-repeat">
 
-                <div class="tp-caption arrowicon customin  rs-parallaxlevel-10" data-x="center" data-y="380" data-customin="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0;scaleY:0;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;"
-                     data-speed="850" data-start="1500" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1"
-                     data-endspeed="1000" style="">
-                </div>
-
-
                 <div class="tp-caption grey_heavy_72 customin tp-resizeme rs-parallaxlevel-10" data-x="center" data-y="456" data-customin="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0;scaleY:0;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;"
                      data-speed="850" data-start="2500" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1"
                      data-endspeed="1000" style="font-size:72px; z-index: 5; max-width: auto; max-height: auto; white-space: nowrap;">Chicken pot
                 </div>
 
+                <div class="tp-caption grey_regular_18 customin tp-resizeme rs-parallaxlevel-0" data-x="center" data-y="580" data-customin="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0;scaleY:0;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;"
+                     data-speed="800" data-start="4200" data-easing="Power3.easeInOut" data-splitin="none" data-splitout="none" data-elementdelay="0.05"
+                     data-endelementdelay="0.1" style="z-index: 9; max-width: auto; max-height: auto; white-space: nowrap;">
+                    <div style="text-align:left; ">
+                        <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "shop"]); ?>" class="read-more" style=" line-height: initial; color: #fff; border:solid 2px #fff;
+                           text-transform: uppercase; font-weight: 500; letter-spacing: 0px; padding: 16px 36px; display: inline-block;
+                           font-size: 18px;">online order</a>
+                    </div>
+                </div>
 
                 <div class="tp-caption grey_regular_18 customin tp-resizeme rs-parallaxlevel-0" data-x="center" data-y="538" data-customin="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0;scaleY:0;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;"
                      data-speed="500" data-start="3500" data-easing="Power3.easeInOut" data-splitin="none" data-splitout="none" data-elementdelay="0.05"

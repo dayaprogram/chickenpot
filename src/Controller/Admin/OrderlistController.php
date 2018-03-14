@@ -43,7 +43,7 @@ class OrderlistController extends AppController {
     public function index() {
         $this->viewBuilder()->layout('admin');
         $this->loadModel('Orderlist');
-        $orders = $this->paginate($this->Orderlist);
+        $orders = $this->paginate($this->Orderlist->find('all')->order(['order_id' => 'desc']));
         $this->set(compact('orders'));
         $this->set('_serialize', ['orders']);
     }
@@ -60,7 +60,8 @@ class OrderlistController extends AppController {
         $areadetail = $this->area_master->find('all')->where(['area_code' => $customer_details['area_code']])->first()->toArray();
         $statuslist = $this->ref_rec_type->find()->select(['ref_code', 'ref_desc'])
                         ->where(['ref_rec_no' => '006'])->order(['order_by' => 'asc'])->toArray();
-        if ($this->request->is('post')) {
+      
+        if ($this->request->is('post')) { 
             $status = $this->request->data('order_status');
             $flag = true;
             $updatestatus = TableRegistry::get('Orderlist');

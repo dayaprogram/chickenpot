@@ -285,7 +285,7 @@
 
             </div>
             <div class="col-sm-8" style="text-align: center">
-                <p>Don't have an account? Please <a href="<?php echo $this->Url->build(["controller" => "users", "action" => "signup"]); ?>"><strong>Sign Up</strong></a> </p>
+                <p>Don't have an account? Please <a href="<?php echo $this->Url->build(["controller" => "Users", "action" => "signup"]); ?>"><strong>Sign Up</strong></a> </p>
             </div>
 
         </div>

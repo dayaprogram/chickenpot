@@ -5,10 +5,10 @@
             <div class="col-md-12">
                 <div class="detail">
                     <h1>Thank You</h1>
-                    <span>Ridiculus sociosqu cursus neque cursus curae ante scelerisque vehicula.</span>
+                    <span></span>
                     <ul>
                         <li><a href="index.html">Home</a></li>
-                        <li><a class="select">Our Story</a></li>
+                        <li><a class="select">Txn Success</a></li>
                     </ul>
                 </div>
             </div>
@@ -46,12 +46,12 @@ $hash = hash("sha512", $retHashSeq);
 if ($hash != $posted_hash) {
     echo "Invalid Transaction. Please try again";
 } else {
-
-
-    echo "<h3>Thank You. Your order status is " . $status . ".</h3>";
-    echo "<h4>Your Transaction ID for this transaction is " . $txnid . ".</h4>";
-    echo "<h4>We have received a payment of Rs. " . $amount . ". Your order will soon be shipped.</h4>";
-    $customerorderdetails = $this->requestAction('/resturent/transactindtls/' . $txnid . '|' . $amount);
+    $customerorderdetails = $this->requestAction('/resturent/transactindtlsuccess/' . $txnid . '|' . $amount . '|' . $status);
+    if (!empty($customerorderdetails)) {
+        echo "<h3>Thank You. Your order status is " . $status . ".</h3>";
+        echo "<h4>Your Transaction ID for this transaction is " . $txnid . ".</h4>";
+        echo "<h4>We have received a payment of Rs. " . $amount . ". Your order will soon be shipped.</h4>";
+    }
 }
 ?>	
 
@@ -71,7 +71,9 @@ if ($hash != $posted_hash) {
                         <span class="order-num">Order <?php echo $txnid; ?></span>
                        <!-- <p>A confirmation email has been sent to johnsmith@gmail.com</p>-->
 
-                        <p class="delivered-text">Your order would be delivered via Delivery Boy at your mentioned address. The Delivery  	 	 	 							Boy who delivers the package collects the invoice value at the time of delivery. Delivery takes between 1/2 to 2  	 								Hours.</p>
+                        <p class="delivered-text">Your order would be delivered via Delivery Boy at your mentioned address.
+                            The Delivery Boy who delivers the package collects the invoice value at the time of delivery.
+                            Delivery takes between 1/2 to 2 Hours.</p>
                         <!--
                                                     <div class="delivered-detail">
                         

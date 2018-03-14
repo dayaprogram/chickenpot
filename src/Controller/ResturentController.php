@@ -33,7 +33,7 @@ class ResturentController extends AppController {
             'updateQcart', 'signup', 'tracklocation', 'updatePotPackFlag',
             'getValidCouponDtl', 'validateUserToredeemCoupon',
             'paymentsuccessbilldtl', 'paymetprocessdtl', 'login',
-            'transactiondetails', 'transactindtls', 'applyDiscount']);
+            'transactiondetails', 'transactindtlsuccess', 'applyDiscount', 'transactindtlfail']);
     }
 
     public function index() {
@@ -61,6 +61,7 @@ class ResturentController extends AppController {
     }
 
     public function paymetprocessdtl() {
+        date_default_timezone_set('Asia/Kolkata');
         $this->Session = $this->request->session();
         $orderCompleteDeatail = array();
         if (empty($this->Session->read('orderCompleteDeatail'))) {
@@ -71,17 +72,13 @@ class ResturentController extends AppController {
 
 
         $cartItem = $this->Session->read('cart_item');
-        //   pr($cartItem); die;
         $shippindAddDtl = $this->Session->read('shippindAddDtl');
 
-        //$phone = $shippindAddDtl; die;
         $conn = ConnectionManager::get('default');
         $orderid = $conn->execute('select ifnull(max(order_id)+1,1) as order_id from payment_detail')->fetchAll('assoc')[0]['order_id'];
-        $billno = $conn->execute('select ifnull(max(bill_no)+1,1) as bill_no from payment_detail')->fetchAll('assoc')[0]['bill_no'];
-        $shipId = $conn->execute('select ifnull(max(shipping_code)+1,1) as shipping_code from shipping_add')->fetchAll('assoc')[0]['shipping_code'];
+        $billno = $conn->execute('select ifnull(max(cast(bill_no as UNSIGNED))+1,1) as bill_no from payment_detail')->fetchAll('assoc')[0]['bill_no'];
+        $shipId = $conn->execute('select ifnull(max(cast(shipping_code as UNSIGNED))+1,1) as shipping_code from shipping_add')->fetchAll('assoc')[0]['shipping_code'];
         $recno = $conn->execute('select ifnull(max(rec_no)+1,1) as rec_no from payment_detail')->fetchAll('assoc')[0]['rec_no'];
-
-        // pr($couponDtlRowList[0]['order_id']); die;
 
         $this->loadModel('payment_detail');
         $this->loadModel('shipping_add');
@@ -125,7 +122,7 @@ class ResturentController extends AppController {
                     'delivery_time' => $shippindAddDtl['selecttime'],
                     'delivery_method' => 'g',
                     'shipping_add_code' => $shipId,
-                    'entry_date' => date('Y-m-d'),
+                    'entry_date' => date('Y-m-d H:i:s'),
                     'order_id' => $orderid,
                 );
                 $cartdetails = $this->Orderlist->patchEntity($cartdetails, $foodDetails);
@@ -158,9 +155,6 @@ class ResturentController extends AppController {
             $dicountAmt = 0.00;
         }
 
-
-
-
         $tax = 0.00;
         $finalbillamt = $finalbillamt + $tax;
         $discount = $dicountAmt;
@@ -168,7 +162,6 @@ class ResturentController extends AppController {
         $payment = $this->payment_detail->newEntity();
         $paymentDetais = array(
             'bill_no' => $billno,
-            //'payment_id' => '1',
             'order_id' => $orderid,
             'customer_id' => $shippindAddDtl['user_id'],
             'total_bill_amt' => $foodbillAmt,
@@ -179,7 +172,7 @@ class ResturentController extends AppController {
             'applied_coupon' => '',
             'discount_amt' => $discount,
             'rec_no' => $recno,
-            'entry_date' => date('Y-m-d h:i:s'),
+            'entry_date' => date('Y-m-d H:i:s'),
         );
         $payment = $this->payment_detail->patchEntity($payment, $paymentDetais);
         $this->payment_detail->save($payment);
@@ -187,6 +180,7 @@ class ResturentController extends AppController {
             'bill_no' => $billno,
             'rec_no' => $recno,
             'order_id' => $orderid,
+            'subtotal' => $subtotal
         );
         $this->Session->write('orderCompleteDeatail', $orderCompleteDeatail);
         $this->set(compact('subtotal'));
@@ -232,7 +226,7 @@ class ResturentController extends AppController {
         $this->loadModel('Shipping_add');
         $select_location = $this->Area_master->find()->toArray();
         if (empty($this->Auth->user('id'))) {
-            return $this->redirect(["controller" => "users", "action" => "signin"]);
+            return $this->redirect(["controller" => "Users", "action" => "signin"]);
         }
         $userdetails = array(
             'id' => $this->Auth->user('id'),
@@ -264,20 +258,14 @@ class ResturentController extends AppController {
                 $flag = false;
             }
             if ($flag) {
-//                $uniqid = uniqid();
-//                $rand_start = rand(1, 5);
-//                $rand_8_char = substr($uniqid, $rand_start, 8);
-//                $this->request->data['shipping_code'] = $rand_8_char;
                 $this->request->data['user_id'] = $this->Auth->user('id');
 
                 $shippindAddDtl = array();
                 if (!empty($this->request->data)) {
-                    //print_r($_POST);
                     foreach ($this->request->data as $key => $value) {
                         $shippindAddDtl[$key] = $value;
                     }
                 }
-
 
                 if (empty($this->Session->read('shippindAddDtl'))) {
                     $this->Session->write('shippindAddDtl', $shippindAddDtl);
@@ -285,10 +273,7 @@ class ResturentController extends AppController {
                     $this->Session->delete('shippindAddDtl');
                     $this->Session->write('shippindAddDtl', $shippindAddDtl);
                 }
-                //$shipping = $this->Shipping_add->newEntity();
-                //$this->Shipping_add->patchEntity($shipping, $this->request->data);
-                //$this->Shipping_add->save($shipping);
-                // pr($shp_id); die;
+
                 $this->Flash->success(__('Shipping Details is Saved'));
                 return $this->redirect(["controller" => "resturent", "action" => "shipping"]);
             }
@@ -302,7 +287,7 @@ class ResturentController extends AppController {
         $this->loadModel('item_variant');
         $this->loadModel('ref_rec_type');
         if ($catagary == 'ALL') {
-            $getitem = $this->Item->find('all')->where(['active_flag' => 'A'])->toArray();
+            $getitem = $this->Item->find('all')->where(['active_flag' => 'A'])->order(['food_category' => 'asc'])->toArray();
         } else {
             $getitem = $this->Item->find('all')->where(['food_category' => $catagary, 'active_flag' => 'A'])->toArray();
         }
@@ -312,6 +297,7 @@ class ResturentController extends AppController {
         $this->set(compact('itemveriant'));
         $this->set(compact('getitem'));
         $this->set(compact('foodcatagoryList'));
+        $this->set(compact('catagary'));
     }
 
     public function details($id = null) {
@@ -330,12 +316,12 @@ class ResturentController extends AppController {
             if (!empty($existsUser)) {
                 $this->Flash->error(__('Mobile number is already registered!'));
                 $flag = false;
-                return $this->redirect(["controller" => "resturent", "action" => "signup"]);
+                return $this->redirect(["controller" => "Users", "action" => "signup"]);
             } else {
                 $user = $this->Users->patchEntity($user, $this->request->data);
                 $this->Users->save($user);
                 $this->Flash->success(__('Registered'));
-                return $this->redirect(["controller" => "users", "action" => "signin"]);
+                return $this->redirect(["controller" => "Users", "action" => "signin"]);
             }
         }
     }
@@ -418,9 +404,6 @@ class ResturentController extends AppController {
         }
         $this->Session = $this->request->session();
 
-        ////$orderdetail = $this->Orderdetails->newEntity();
-        // pr($session);die;
-
         if ($this->request->isPost()) {
             $products = array(
                 'foodname' => $this->request->data('foodname'),
@@ -428,9 +411,6 @@ class ResturentController extends AppController {
                 'quantity' => $this->request->data('quantity'),
                 'id' => $this->request->data('id')
             );
-            //$_SESSION['ordersss'][] = $products;
-
-
             if ($this->Session->read('orders')) {
                 $oldorder = $this->Session->read('orders');
 
@@ -438,9 +418,6 @@ class ResturentController extends AppController {
                 // pr($oldorder);
                 array_push($oldorder, $products);
                 echo 'after:';
-                //
-                //  pr($oldorder);
-                //$this->Session->destroy('orders');
                 $this->Session->write('orders', $oldorder);
             } else {
 
@@ -476,10 +453,6 @@ class ResturentController extends AppController {
 //            $this->request->session()->delete('cart_item');die;
             if (!empty($this->Session->read('cart_item'))) {
 
-//                pr(array_merge($this->Session->read('cart_item'),$itemArray));die;
-////                pr($_SESSION);
-//                if (in_array($this->request->data('id'), array_column($this->Session->read('cart_item'), 'id'))&&
-//                        in_array($this->request->data('foodsize'), array_column($this->Session->read('cart_item'), 'foodsize'))) {
                 $curritem['foodsize'] = $this->request->data('foodsize');
                 $curritem['id'] = $this->request->data('id');
                 $currcartItem = array_filter($this->Session->read('cart_item'), function($v)use(&$curritem) {
@@ -487,27 +460,12 @@ class ResturentController extends AppController {
                 });
                 if (!empty($currcartItem)) {
 
-//                    $krt = $this->cartview();
-//            pr(array_values($this->Session->read('cart_item')));
-//            die;
-//                if (in_array($this->request->data('id'), current(array_column($this->Session->read('cart_item'),'id')))) {
-//            pr(array_column($this->Session->read('cart_item'),'id'));
-//                    foreach ($this->request->session()->read('cart_item') as $k => $v) {
-//                        if ($itemArray == $k) {
-//                            if (empty($this->request->session('cart_item')[$k]["quantity"])) {
-//                                $this->request->session('cart_item')[$k]["quantity"] = 0;
-//                            }
-//                            $this->request->session('cart_item')[$k]["quantity"] += $_POST["quantity"];
-//                        }
-//                    }
                     $krt = $this->cartview();
-//                    pr($krt); die;
                     if (!empty($krt)) {
                         echo '{"code":"0","msg":"You have already added in your cart!","cartvalue":' . $krt . '}';
                     }
                 } else {
                     $arr = array_merge($this->Session->read('cart_item'), $itemArray);
-//                    pr($this->Session->read('cart_item'));die;
                     $this->Session->write('cart_item', $arr);
                     $krt = $this->cartview();
                     echo '{"code":"1","msg":"Food is added to your account!","cartvalue":' . $krt . '}';
@@ -549,7 +507,8 @@ class ResturentController extends AppController {
         if (!empty($this->request->session()->read('cart_item'))) {
             foreach ($this->request->session()->read('cart_item') as $data) {
                 $view .= '<div class="cart-food" id="' . $data["id"] . '"><div class="detail">'
-                        . '<!--<a href="javascript:;" class="btn btn-danger pull-right" onclick="return deleteItem(' . $data["id"] . ');"><i class="icon-icons163"></i></a>-->'
+                        . '<a href="javascript:;" class="btn btn-danger pull-right" onclick="return deleteItem(' . $data["id"] . ',' . "'" . $data['foodsize'] . "'" . ');">'
+                        . '<i class="icon-icons163"></i></a>'
                         . '<img src="' . $data["image"] . '" alt=""><div class="text">';
                 $subtotal = $subtotal + ($data['foodprice'] * $data['quantity']);
                 $view .= '<a href="javascript:;">' . $data["foodname"] . '</a><p><span class="priceMoney hidden">' . $data["foodprice"] .
@@ -568,8 +527,6 @@ class ResturentController extends AppController {
     public function updateQcart() {
         if ((!empty($this->request->data("id"))) && ($this->request->data("value") > 0)) {
             $sessionArr = $this->request->session()->read('cart_item');
-//            $key=0;
-//            pr($this->request->session()->read('cart_item.'.$key.'.quantity')); die;
             foreach ($sessionArr as $key => $value) {
                 if (($value['id'] == $this->request->data("id")) && ($value['foodsize'] == $this->request->data("foodsize"))) {
                     $this->request->session()->write('cart_item.' . $key . '.quantity', $this->request->data("value"));
@@ -689,13 +646,10 @@ class ResturentController extends AppController {
     }
 
     public function transactiondetails() {
-
-        //$resultJ = json_encode(array('result' => $trnctnid, 'errors' => 'ggggg'));
-        //   $this->response->type('json');
-        //  $this->response->body($resultJ);
+        
     }
 
-    public function transactindtls($data) {
+    public function transactindtlsuccess($data) {
         $txndetails = (explode("|", $data));
         //pr($txndetails); die;
         $this->loadModel('Txn_master');
@@ -713,11 +667,12 @@ class ResturentController extends AppController {
                     'dr_amt' => 0.00,
                     'rec_no' => $orderCompleteDeatail['rec_no'],
                     'txn_mode' => 'payumony',
-                    'enter_date' => date('Y-m-d h:i:s'),
+                    'enter_date' => date('Y-m-d H:i:s'),
                     // 'txn_id' => $txnNo,
                     'bill_no' => $orderCompleteDeatail['bill_no'],
                     'description' => '',
-                    'eenter_by' => 'online'
+                    'eenter_by' => 'online',
+                    'txn_status' => $txndetails[2],
                 ]);
                 $savedDetails = $this->Txn_master->save($usertranscation);
                 $userid = $this->Auth->user('id');
@@ -730,9 +685,9 @@ class ResturentController extends AppController {
                     $this->Session->delete('orderCompleteDeatail');
                     $this->Session->delete('cart_item');
                     $orderCompleteDeatail = array();
-                    if (empty($this->Session->read('orderCompleteDeatail'))) {
-                        $this->Session->write('orderCompleteDeatail', $orderCompleteDeatail);
-                    }
+                    // if (empty($this->Session->read('orderCompleteDeatail'))) {
+                    $this->Session->write('orderCompleteDeatail', $orderCompleteDeatail);
+                    // }
                     $resultJ = json_encode('success');
                 }
             } else {
@@ -746,12 +701,55 @@ class ResturentController extends AppController {
         return $this->response;
     }
 
+    public function transactindtlfail($data) {
+        $txndetails = (explode("|", $data));
+        //pr($txndetails); die;
+        $this->loadModel('Txn_master');
+        $orderCompleteDeatail = $this->request->session()->read('orderCompleteDeatail');
+        $conn = ConnectionManager::get('default');
+        $txnNo = $conn->execute('select count(bill_no) as bill_no from txn_master where bill_no=?', [$orderCompleteDeatail['bill_no']])->fetchAll('assoc')[0]['bill_no'];
+        $usertranscation = $this->Txn_master->newEntity();
+        $resultJ = json_encode('error');
+        if ($txnNo <= 0) {
+            if ((!empty($txndetails)) && (!empty($orderCompleteDeatail))) {
+
+                $usertranscation = $this->Txn_master->patchEntity($usertranscation, [
+                    'txn_ref_id' => $txndetails[0],
+                    'cr_amt' => $txndetails[1],
+                    'dr_amt' => 0.00,
+                    'rec_no' => $orderCompleteDeatail['rec_no'],
+                    'txn_mode' => 'payumony',
+                    'enter_date' => date('Y-m-d H:i:s'),
+                    // 'txn_id' => $txnNo,
+                    'bill_no' => $orderCompleteDeatail['bill_no'],
+                    'description' => '',
+                    'eenter_by' => 'online',
+                    'txn_status' => $txndetails[2],
+                ]);
+                $savedDetails = $this->Txn_master->save($usertranscation);
+                $userid = $this->Auth->user('id');
+                $conn->begin();
+                $conn->execute('UPDATE orderlist SET order_status = ? WHERE user_id = ? and order_id=?', ['F', $userid, $orderCompleteDeatail['order_id']]);
+                $conn->execute('UPDATE payment_detail SET bill_status = ? WHERE customer_id = ? and order_id=?', ['F', $userid, $orderCompleteDeatail['order_id']]);
+                $conn->commit();
+                if ($savedDetails) {
+                    $resultJ = json_encode('success');
+                }
+            } else {
+                $resultJ = json_encode('error');
+            }
+        }
+        $this->response->type('json');
+        $this->response->body($resultJ);
+        return $this->response;
+    }
+
     public function applyDiscount() {
 
         $this->loadModel('orderlist');
-        $noofPrviousOrder = $this->orderlist->find()->where(['user_id' => $this->Auth->user('id'),'order_status !='=>'G'])->count();
+        $noofPrviousOrder = $this->orderlist->find()->where(['user_id' => $this->Auth->user('id'), 'order_status !=' => 'G'])->count();
         if ($noofPrviousOrder == 0) {
-            $discountPer = 20.00;
+            $discountPer = 10.00;
         } else {
             $discountPer = 0.00;
         }

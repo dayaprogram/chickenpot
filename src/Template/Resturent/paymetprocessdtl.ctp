@@ -4,11 +4,11 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="detail">
-                    <h1>order now</h1>
-                    <span>Ridiculus sociosqu cursus neque cursus curae ante scelerisque vehicula.</span>
+                    <h1>Pay now</h1>
+                    <span></span>
                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a class="select">Order Now</a></li>
+                        <li><a href="<?php echo $this->Url->build(["controller" => "users", "action" => "index"]); ?>">Home</a></li>
+                        <li><a class="select">Pay now</a></li>
                     </ul>
                 </div>
             </div>
@@ -164,8 +164,9 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
 
 
                                 <div class="shipping-method">
+                                    <h6>Payment Gateway</h6>
                                     <div class="shipping-across">
-                                        <span class="across">PayUmony</span>
+                                        <span class="across"><strong style="color: green;">PayUmoney</strong></span>
                                     </div>
                                 </div>
 
@@ -187,6 +188,7 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
                                     }
                                     $cartItem = $this->request->session()->read('cart_item');
                                     $shippindAddDtl = $this->request->session()->read('shippindAddDtl');
+                                    $orderdtl = $this->request->session()->read('orderCompleteDeatail');
                                     ?>
                                     <form action="<?php echo $action; ?>" method="post" name="payuForm">
                                         <input type="hidden" name="key" value="<?php echo $MERCHANT_KEY ?>" />
@@ -198,7 +200,7 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
                                             </tr>
                                             <tr>
                                                 <td>Amount: </td>
-                                                <td><input name="amount" value="<?php echo (empty($posted['amount'])) ? $subtotal : $posted['amount'] ?>" /></td>
+                                                <td><input name="amount" value="<?php echo (empty($posted['amount'])) ? $orderdtl['subtotal'] : $orderdtl['subtotal'] ?>" /></td>
                                                 <td>First Name: </td>
                                                 <td><input name="firstname" id="firstname" value="<?php echo (empty($posted['firstname'])) ? $shippindAddDtl['first_name'] : $posted['firstname']; ?>" /></td>
                                             </tr>
@@ -273,7 +275,7 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
 
 
                                         </table>
-<?php if (!$hash) { ?>
+                                        <?php if (!$hash) { ?>
                                             <input class="next-step" type="submit" value="Proceed To Payment" />
                                         <?php } ?>
                                     </form>

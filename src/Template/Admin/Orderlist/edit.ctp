@@ -79,20 +79,21 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="control-label col-lg-4">Order Gen. Time</label>
+                                    <div class="col-lg-8">
+                                        <input type="text" id="time" name="time" readonly="readonly" class="form-control" value="<?php echo $order['entry_date'] ?>"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <h1>Customer Details</h1>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-lg-4">Customer First Name</label>
+                                    <label class="control-label col-lg-4">Customer Name</label>
                                     <div class="col-lg-8">
-                                        <input type="text" id="time" name="name" readonly="readonly" class="form-control" value="<?php echo $customer_details['first_name'] ?>"/>
+                                        <input type="text" id="time" name="name" readonly="readonly" class="form-control" value="<?php echo $customer_details['first_name'] . ' ' . $customer_details['last_name'] ?>"/>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label col-lg-4">Customer Last Name</label>
-                                    <div class="col-lg-8">
-                                        <input type="text" id="time" name="lastname" readonly="readonly" class="form-control" value="<?php echo $customer_details['last_name'] ?>"/>
-                                    </div>
-                                </div>
+
                                 <div class="form-group">
                                     <label class="control-label col-lg-4">Email</label>
                                     <div class="col-lg-8">
@@ -136,32 +137,30 @@
                                                              value="<?php echo $areadetail['distance'] ?>"/>
                                     </div>
                                 </div>
+                                <?php echo $this->Form->create($order['order_status'], ['class' => 'form-horizontal', 'id' => 'user-validate']); ?>
                                 <div class="form-group">
-                                    <label class="control-label col-lg-4">Order Status:</label>
-                                    <div class="col-lg-8">
-                                        <div class="form-group">
-                                            <select class="form-control" id="orderstatus">
-                                                <?php foreach ($statuslist as $data) { ?>
-                                                    <option value="<?php echo $data['ref_code'] ?>"><?php echo $data['ref_desc'] ?></option>
-                                                <?php } ?>
-                                            </select>
-                                        </div>
-                                    </div>
+                                    <select class="form-control" id="order_status" name="order_status">
+                                        <?php foreach ($statuslist as $data) { ?>
+                                            <option value="<?php echo $data['ref_code'] ?>"><?php echo $data['ref_desc'] ?></option>
+                                        <?php } ?>
+                                    </select>
                                 </div>
-                                <div class="col-lg-8" style="text-align:left;"> 
-                                    <input type="submit" name="submit" value="Edit status" class="btn btn-primary" />
-                                </div>
-                                </form>
                             </div>
                         </div>
-                        <div class="clearfix"></div>
+                        <div class="col-lg-8" style="text-align:left;"> 
+                            <input type="submit" name="submit" value="Edit status" class="btn btn-primary" />
+                        </div>
+                        </form>
                     </div>
                 </div>
+                <div class="clearfix"></div>
             </div>
         </div>
     </div>
 </div>
+</div>
+</div>
 <script>
-    $('#orderstatus').val("<?php echo $order['order_status'] ?>");
+    //$('#order_status').val("<?php echo $order['order_status'] ?>");
 
 </script>

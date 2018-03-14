@@ -4,11 +4,11 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="detail">
-                    <h1>order now</h1>
+                    <h1>shipping details</h1>
                     <span>Ridiculus sociosqu cursus neque cursus curae ante scelerisque vehicula.</span>
                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a class="select">Order Now</a></li>
+                        <li><a href="<?php echo $this->Url->build(["controller" => "users", "action" => "index"]); ?>">Home</a></li>
+                        <li><a class="select">Shipping</a></li>
                     </ul>
                 </div>
             </div>

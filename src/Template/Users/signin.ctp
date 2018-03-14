@@ -4,11 +4,11 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="detail">
-                    <h1>order now</h1>
-                    <span>Ridiculus sociosqu cursus neque cursus curae ante scelerisque vehicula.</span>
+                    <h1>Log in</h1>
+                    <span></span>
                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a class="select">Order Now</a></li>
+                        <li><a href="<?php echo $this->Url->build(["controller" => "users", "action" => "index"]); ?>">Home</a></li>
+                        <li><a class="select">Log in</a></li>
                     </ul>
                 </div>
             </div>
@@ -49,7 +49,7 @@
 
                             <div class="already-account">
                                 <span>Don't have an account? Please 
-                                    <a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "signup"]); ?>">Sign Up</a></span>
+                                    <a href="<?php echo $this->Url->build(["controller" => "Users", "action" => "signup"]); ?>">Sign Up</a></span>
                             </div>
                         </div>
                     </div>

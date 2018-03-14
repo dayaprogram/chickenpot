@@ -5,10 +5,10 @@
             <div class="col-md-12">
                 <div class="detail">
                     <h1>Ooops!</h1>
-                    <span>Ridiculus sociosqu cursus neque cursus curae ante scelerisque vehicula.</span>
+                    <span></span>
                     <ul>
                         <li><a href="index.html">Home</a></li>
-                        <li><a class="select">Our Story</a></li>
+                        <li><a class="select">Txn Fail</a></li>
                     </ul>
                 </div>
             </div>
@@ -45,9 +45,12 @@ $hash = hash("sha512", $retHashSeq);
 if ($hash != $posted_hash) {
     echo "Invalid Transaction. Please try again";
 } else {
+    $this->requestAction('/resturent/transactindtlfail/' . $txnid . '|' . $amount.'|'.$status);
     echo "<h3>Your order status is " . $status . ".</h3>";
     echo "<h4>Your transaction id for this transaction is " . $txnid . ". You may try making the payment by clicking the link below.</h4>";
 }
+    pr($this->requestAction('/resturent/transactindtlfail/' .' $txnid' . '|' . '300'.'|'.'$statusf'));
+
 ?>
 
 

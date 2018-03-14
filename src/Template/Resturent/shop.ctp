@@ -27,106 +27,121 @@
 
     <!--Start The Menu-->
     <div class="our-menu">
-        <div id="filters-container" class="cbp-l-filters-list ">
+        <div class="row">
+            <div class="col-md-2"><h3>Category</h3>
+                <div id="filters-container" class="cbp-l-filters-list" style="text-align: left;">
 
-            <div data-filter="*" class="cbp-filter-item-active cbp-filter-item cbp-l-filters-list-first">
-                <a href="<?php echo $this->Url->build(["action" => "shop", 'ALL']); ?>">ALL PRODUCTS</a></div>
-            <?php
-            foreach ($foodcatagoryList as $foodcatagory) {
-                ?>    
-                <div data-filter=".starters" class="cbp-filter-item">
-                    <a href="<?php echo $this->Url->build(["action" => "shop", $foodcatagory['ref_code']]); ?>">
-                        <?php echo $foodcatagory['ref_desc'] ?>
-                    </a>
+                    <div data-filter="*" class="cbp-filter-item cbp-l-filters-list-first <?php
+                    if ($catagary == 'ALL') {
+                        echo ' cbp-filter-item-active';
+                    }
+                    ?>">
+                        <a href="<?php echo $this->Url->build(["action" => "shop", 'ALL']); ?>">ALL PRODUCTS</a></div>
+                    <?php
+                    foreach ($foodcatagoryList as $foodcatagory) {
+                        ?>    
+                        <div data-filter=".starters" class="cbp-filter-item <?php
+                        if ($catagary == $foodcatagory['ref_code']) {
+                            echo ' cbp-filter-item-active';
+                        }
+                        ?>">
+                            <a href="<?php echo $this->Url->build(["action" => "shop", $foodcatagory['ref_code']]); ?>">
+                                <?php echo $foodcatagory['ref_desc'] ?>
+                            </a>
+                        </div>
+                    <?php } ?>
                 </div>
-            <?php } ?>
-        </div>
-        <div class="container">
-            <div class="row">
-                <?php
-                foreach ($getitem as $items) {
-                    // $currfoodid=$items->id;
-                    $foodVar = array_filter($itemveriant, function($v)use(&$items) {
-                        return $v['id'] === $items['id'];
-                    });
-                    // var_dump($foodVar);
-                    ?>
-                    <div class="col-md-4 col-sm-12">
-                        <div class="food-sec <?php echo $items['food_category'] ?>">
-                            <img src="<?php echo $this->Url->build('/food_image/' . $items->image); ?>" alt="">
-                            <div class="detail">
-                                <!--  <a href="<?php echo $this->Url->build(["action" => "details", $items->id]); ?>">
-                                this link goes to active if detail page get modified for item size variants
-                                -->
-                                <a href="#">
-                                    <p style="font-weight: 600;font-size: 25px;"><?php echo $items['foodname'] ?></p>
-                                </a>
-                                <p><?php echo $items['description'] ?></p>
-                                <span class="addtokrt"></span>
-                                <span class="price hidden"><?php echo $items['price'] ?></span>
-                                <span class="item_<?php echo $items['id'] ?> hidden"></span>
-                                <span class="name hidden"><?php echo $items['foodname'] ?></span>
-                                <div class="row">
-                                    <?php
-                                    if (sizeof($foodVar) == 1) {
-                                        foreach ($foodVar as $first) {
-                                            echo('<div class="col-md-5 col-sm-5">
+            </div>
+            <div class="col-md-10">
+                <div class="row">
+                    <?php
+                    foreach ($getitem as $items) {
+                        // $currfoodid=$items->id;
+                        $foodVar = array_filter($itemveriant, function($v)use(&$items) {
+                            return $v['id'] === $items['id'];
+                        });
+                        // var_dump($foodVar);
+                        ?>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="food-sec <?php echo $items['food_category'] ?>">
+                                <img src="<?php echo $this->Url->build('/food_image/' . $items->image); ?>" alt="">
+                                <div class="detail">
+                                    <!--  <a href="<?php echo $this->Url->build(["action" => "details", $items->id]); ?>">
+                                    this link goes to active if detail page get modified for item size variants
+                                    -->
+                                    <a href="#">
+                                        <p style="font-weight: 600;font-size: 22px;"><?php echo $items['foodname'] ?></p>
+                                    </a>
+                                    <p><?php echo $items['description'] ?></p>
+                                    <span class="addtokrt"></span>
+                                    <span class="price hidden"><?php echo $items['price'] ?></span>
+                                    <span class="item_<?php echo $items['id'] ?> hidden"></span>
+                                    <span class="name hidden"><?php echo $items['foodname'] ?></span>
+                                    <div class="row">
+                                        <?php
+                                        if (sizeof($foodVar) == 1) {
+                                            foreach ($foodVar as $first) {
+                                                echo('<div class="col-md-5 col-sm-5">
                                                 <span class="small-tit" style="color: #dc4e20;">
                                             <strong> <i class="icon-inr"></i>&nbsp;&nbsp;');
-                                            echo(' <span class="singleItm_price_' . $items['id'] . ' hidden">' . $first['price'] . '</span>');
-                                            echo(' <span class="singleItm_sizevar_' . $items['id'] . ' hidden">' . $first['size_variant'] . '</span>');
-                                            echo(' <span class="singleItm_potpackchg_' . $items['id'] . ' hidden">' . $first['packing_charge'] . '</span>');
-                                            echo $first['price'];
-                                            echo('</strong>
+                                                echo(' <span class="singleItm_price_' . $items['id'] . ' hidden">' . $first['price'] . '</span>');
+                                                echo(' <span class="singleItm_sizevar_' . $items['id'] . ' hidden">' . $first['size_variant'] . '</span>');
+                                                echo(' <span class="singleItm_potpackchg_' . $items['id'] . ' hidden">' . $first['packing_charge'] . '</span>');
+                                                echo $first['price'];
+                                                echo('</strong>
                                                 </span>
                                             </div>');
-                                            break;
-                                        }
-                                    } else {
-                                        echo('<div class="col-md-5 col-sm-5">
+                                                break;
+                                            }
+                                        } else {
+                                            echo('<div class="col-md-5 col-sm-5">
                                             <div class="form-group">
-                                                <label for="sel1">Select list:</label>
+                                                <label for="sel1">Select size:</label>
                                                 <select class="form-control" id="multivarItm_' . $items['id'] . '" style="color: #dc4e20;font-size: 15px;font-weight: bold;">');
-                                        foreach ($foodVar as $first) {
-                                            echo('<option value="' . $first['size_variant'] . '_' . $first['price'] . '_' . $first['packing_charge'] . '" style="color: #dc4e20;font-size: 15px;font-weight: bold;">' . $first['size_variant'] . '&nbsp;' . $first['price'] . '</option>');
-                                        }
-                                        echo('</select>
+                                            foreach ($foodVar as $first) {
+                                                echo('<option value="' . $first['size_variant'] . '_' . $first['price'] . '_' . $first['packing_charge'] . '" style="color: #dc4e20;font-size: 15px;font-weight: bold;">' . $first['size_variant'] . '&nbsp;' . $first['price'] . '</option>');
+                                            }
+                                            echo('</select>
                                             </div>
                                             </div>');
-                                    }
-                                    ?>
-
-                                    <div class="col-md-4 col-sm-6">
-                                        <span class="small-tit" style="color: #dc4e20;">
-                                            <div class="input-group">
-                                                <span class="input-group-addon" style="background-color: #e6c16c;"><strong>Qn</strong></span>
-                                                <input id="quantity_<?php echo $items['id'] ?>" type="number" class="form-control" name="quantity" class="quantity" value="1" min="1">
-                                            </div>
-                                        </span>
-                                    </div>
-                                    <div class="col-md-3 col-sm-6">
-                                        <?php
-                                        $foodType = 'btn-success';
-                                        if ($items['food_type'] !== 'V') {
-                                            $foodType = 'btn-danger';
                                         }
                                         ?>
-                                        <span class="small-tit">
-                                            <a href="javascript:;" class="btn <?php echo $foodType ?>" 
-                                               onclick="addtocart(<?php echo $items['id'] ?>,<?php echo sizeof($foodVar) ?>)">
-                                                <strong>
-                                                    Add <i class="icon-mail-forward"></i><i class="icon-cart-plus"></i>
-                                                </strong>
-                                            </a>
-                                        </span>
+
+                                        <div class="col-md-4 col-sm-6">
+                                            <span class="small-tit" style="color: #dc4e20;">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon" style="background-color: #e6c16c;"><strong>Q.</strong></span>
+                                                    <input id="quantity_<?php echo $items['id'] ?>" type="number" class="form-control" name="quantity" class="quantity" value="1" min="1">
+                                                </div>
+                                            </span>
+                                        </div>
+                                        <div class="col-md-3 col-sm-6">
+                                            <?php
+                                            $foodType = 'btn-success';
+                                            if ($items['food_type'] !== 'V') {
+                                                $foodType = 'btn-danger';
+                                            }
+                                            ?>
+                                            <span class="small-tit">
+                                                <a href="javascript:;" class="btn <?php echo $foodType ?>" 
+                                                   onclick="addtocart(<?php echo $items['id'] ?>,<?php echo sizeof($foodVar) ?>)">
+                                                    <strong>
+                                                        Add <i class="icon-mail-forward"></i><i class="icon-cart-plus"></i>
+                                                    </strong>
+                                                </a>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                <?php } ?>
+                    <?php } ?>
+                </div>
+
             </div>
         </div>
+
+
     </div>
     <!--End The Menu-->
 
@@ -182,3 +197,20 @@
     }
 </script>
 
+<style>
+    .row{
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    .our-menu .food-sec .detail span.small-tit {
+        display: block;
+        font-size: 18px;
+        color: #999999;
+        margin: 15px -10px 0 -4px;
+    }
+    .cbp-l-filters-list .cbp-filter-item {
+        background-color: transparent;
+        padding: 0px 0px;
+        font-weight: 600;
+    }
+</style>
