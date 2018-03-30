@@ -73,7 +73,7 @@ if ($hash != $posted_hash) {
                         <i class="icon-checkmark3"></i>
 
                         <h5>Thank you for your Shopping!</h5>
-                        <span class="order-num">Order <?php echo $this->request->session()->read('billno'); ?></span>
+                        <span class="order-num">Bill No.- <?php echo $this->request->session()->read('billno'); ?></span>
                        <!-- <p>A confirmation email has been sent to johnsmith@gmail.com</p>-->
 
                         <p class="delivered-text">Your order would be delivered via Delivery Boy at your mentioned address.

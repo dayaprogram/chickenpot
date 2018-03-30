@@ -183,8 +183,8 @@ class ResturentController extends AppController {
             'subtotal' => $subtotal
         );
         $this->Session->write('orderCompleteDeatail', $orderCompleteDeatail);
-        $this->Session->write('billno', $billno);
         $this->set(compact('subtotal'));
+        $this->Session->write('billno', $billno);
     }
 
     public function paymentfailuredtl() {
