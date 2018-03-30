@@ -650,6 +650,7 @@ class ResturentController extends AppController {
     }
 
     public function transactindtlsuccess($data) {
+        date_default_timezone_set('Asia/Kolkata');
         $txndetails = (explode("|", $data));
         //pr($txndetails); die;
         $this->loadModel('Txn_master');
@@ -702,6 +703,7 @@ class ResturentController extends AppController {
     }
 
     public function transactindtlfail($data) {
+        date_default_timezone_set('Asia/Kolkata');
         $txndetails = (explode("|", $data));
         //pr($txndetails); die;
         $this->loadModel('Txn_master');

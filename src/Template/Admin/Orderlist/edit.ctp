@@ -141,7 +141,8 @@
                                 <div class="form-group">
                                     <select class="form-control" id="order_status" name="order_status">
                                         <?php foreach ($statuslist as $data) { ?>
-                                            <option value="<?php echo $data['ref_code'] ?>"><?php echo $data['ref_desc'] ?></option>
+                                            <option value="<?php echo $data['ref_code'] ?>">
+                                                <?php echo $data['ref_desc'] ?></option>
                                         <?php } ?>
                                     </select>
                                 </div>
@@ -161,6 +162,5 @@
 </div>
 </div>
 <script>
-    //$('#order_status').val("<?php echo $order['order_status'] ?>");
-
+    $('#order_status').val("<?php echo $order['order_status'] ?>");
 </script>
