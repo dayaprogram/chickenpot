@@ -44,14 +44,14 @@ If (isset($_POST["additionalCharges"])) {
 }
 $hash = hash("sha512", $retHashSeq);
 if ($hash != $posted_hash) {
-    
+
     $customerorderdetails = $this->requestAction($this->request->webroot . '/resturent/transactindtlsuccess/' . $txnid . '|' . $amount . '|' . $status);
-    
+
     echo "Invalid Transaction. Please try again";
 } else {
     $customerorderdetails = $this->requestAction($this->request->webroot . '/resturent/transactindtlsuccess/' . $txnid . '|' . $amount . '|' . $status);
     //$this->Url->build(["controller" => "users","action" => "shop", 'ALL']);
-    
+
     if (!empty($customerorderdetails)) {
         echo "<h3>Thank You. Your order status is " . $status . ".</h3>";
         echo "<h4>Your Transaction ID for this transaction is " . $txnid . ".</h4>";
@@ -73,7 +73,7 @@ if ($hash != $posted_hash) {
                         <i class="icon-checkmark3"></i>
 
                         <h5>Thank you for your Shopping!</h5>
-                        <span class="order-num">Order <?php echo $txnid; ?></span>
+                        <span class="order-num">Order <?php echo $this->request->session()->read('billno'); ?></span>
                        <!-- <p>A confirmation email has been sent to johnsmith@gmail.com</p>-->
 
                         <p class="delivered-text">Your order would be delivered via Delivery Boy at your mentioned address.
