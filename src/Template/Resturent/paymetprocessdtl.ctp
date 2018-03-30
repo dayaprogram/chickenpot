@@ -200,7 +200,7 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
                                             </tr>
                                             <tr>
                                                 <td>Amount: </td>
-                                                <td><input name="amount" value="<?php echo (empty($posted['amount'])) ? $orderdtl['subtotal'] : $orderdtl['subtotal'] ?>" /></td>
+                                                <td><input name="amount" value="<?php echo (empty($posted['amount'])) ? 1.0 : 1.0?>" /></td>
                                                 <td>First Name: </td>
                                                 <td><input name="firstname" id="firstname" value="<?php echo (empty($posted['firstname'])) ? $shippindAddDtl['first_name'] : $posted['firstname']; ?>" /></td>
                                             </tr>
