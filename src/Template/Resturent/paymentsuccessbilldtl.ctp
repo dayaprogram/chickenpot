@@ -44,9 +44,14 @@ If (isset($_POST["additionalCharges"])) {
 }
 $hash = hash("sha512", $retHashSeq);
 if ($hash != $posted_hash) {
+    
+    $customerorderdetails = $this->requestAction($this->request->webroot . '/resturent/transactindtlsuccess/' . $txnid . '|' . $amount . '|' . $status);
+    
     echo "Invalid Transaction. Please try again";
 } else {
-    $customerorderdetails = $this->requestAction('/resturent/transactindtlsuccess/' . $txnid . '|' . $amount . '|' . $status);
+    $customerorderdetails = $this->requestAction($this->request->webroot . '/resturent/transactindtlsuccess/' . $txnid . '|' . $amount . '|' . $status);
+    //$this->Url->build(["controller" => "users","action" => "shop", 'ALL']);
+    
     if (!empty($customerorderdetails)) {
         echo "<h3>Thank You. Your order status is " . $status . ".</h3>";
         echo "<h4>Your Transaction ID for this transaction is " . $txnid . ".</h4>";
