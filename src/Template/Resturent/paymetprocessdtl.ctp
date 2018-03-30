@@ -25,8 +25,8 @@
 $MERCHANT_KEY = "GlmxtHX5";
 $SALT = "qKF9WHhimi";
 // Merchant Key and Salt as provided by Payu.
-$PAYU_BASE_URL = "https://sandboxsecure.payu.in";  // For Sandbox Mode
-//$PAYU_BASE_URL = "https://secure.payu.in";   // For Production Mode
+//$PAYU_BASE_URL = "https://sandboxsecure.payu.in";  // For Sandbox Mode
+$PAYU_BASE_URL = "https://secure.payu.in";   // For Production Mode
 
 $action = '';
 
@@ -200,7 +200,7 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
                                             </tr>
                                             <tr>
                                                 <td>Amount: </td>
-                                                <td><input name="amount" value="<?php echo (empty($posted['amount'])) ? 1.0 : 1.0?>" /></td>
+                                                <td><input name="amount" value="<?php echo (empty($posted['amount'])) ? $orderdtl['subtotal'] : $orderdtl['subtotal'] ?>" /></td>
                                                 <td>First Name: </td>
                                                 <td><input name="firstname" id="firstname" value="<?php echo (empty($posted['firstname'])) ? $shippindAddDtl['first_name'] : $posted['firstname']; ?>" /></td>
                                             </tr>
