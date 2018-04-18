@@ -158,7 +158,7 @@
                                 <?php } else { ?>
                                     <li><a href="<?php echo $this->Url->build(["controller" => "Users", "action" => "signin"]); ?>">Log In</a></li>
                                 <?php } ?>
-                                <li><a href="<?php echo $this->Url->build(["controller" => "Users", "action" => "signup"]); ?>" >SIGNUP</a></li>
+                                <li><a href="<?php echo $this->Url->build(["controller" => "Users", "action" => "signup"]); ?>" >New User</a></li>
                             </ul>	
                         </nav>
                         <ul class="social-icons">
@@ -247,7 +247,7 @@
                             <?php } else { ?>
                                 <li><a href="<?php echo $this->Url->build(["controller" => "users", "action" => "signin"]); ?>">Log In</a></li>
                             <?php } ?>
-                            <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "signup"]); ?>" >SIGNUP</a></li>
+                            <li><a href="<?php echo $this->Url->build(["controller" => "resturent", "action" => "signup"]); ?>" >New User</a></li>
                         </ul>
                     </nav>
                 </div>
