@@ -85,13 +85,13 @@
                                             }
                                             ?> 
                                                 >
-                                                <input type="checkbox" name="potpackflg" 
+                                                <input type="checkbox" name="potpackflg" disabled="true"
                                                        id="potpackflg_<?php echo $data['id'] . "_" . $data['foodsize']; ?>" 
                                                        class="css-checkbox" <?php
                                                        if ($data['potpackflg'] == 'A') {
                                                            echo 'checked';
                                                        } else {
-                                                           echo '';
+                                                           echo 'checked';
                                                        }
                                                        ?>
                                                        onchange="potPackFlgHandle(<?php echo $data['id']; ?>,<?php echo "'" . $data['foodsize'] . "'"; ?>)">
@@ -202,15 +202,23 @@
                                             </span>
                                         </span>
                                     </div>
+                                    <div class="sub-total-sec">
+                                        <span class="left">GST&nbsp;5% <span style="color: rgb(76, 174, 76);"> (CGST&nbsp;2.5%+CGST&nbsp;2.5%)&nbsp;</span>  </span>
+                                        <span class="right"><span class="right"><i class="icon-inr"></i>
+                                                <?= ($subtotal - $dicountAmt) * 0.05 ?>
+                                                <?php $finaltotal = ($subtotal - $dicountAmt) + (($subtotal - $dicountAmt) * 0.05) ?>
+                                            </span>
+                                        </span>
+                                    </div>
                                     <div class="order-total">
                                         <span class="left">Order Total</span>
                                         <span class="right"><i class="icon-inr" ></i>
-                                            <?= $subtotal - $dicountAmt ?>
+                                            <?= $finaltotal ?>
                                         </span>
                                     </div>
                                     <?php
                                     if (!empty($user_details)) {
-                                        if (($subtotal - $dicountAmt ) >= 200.00) {
+                                        if ($finaltotal >= 200.00) {
                                             echo('<a href="' . $this->Url->build(["controller" => "resturent", "action" => "customerdetails"]) . '">proceed to checkout</a>');
                                         } else {
                                             echo('<a href="' . $this->Url->build(["controller" => "resturent", "action" => "shop"]) . '" >Add More Food to checkout</a>');

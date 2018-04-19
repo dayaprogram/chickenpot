@@ -179,7 +179,7 @@
         $.ajax({
             type: "POST",
             data: {id: id, foodprice: foodprice, foodname: foodname, quantity: quantity, img: image,
-                packCharge: potpackcharge, potpackflg: "N", foodsize: foodsize},
+                packCharge: potpackcharge, potpackflg: "A", foodsize: foodsize},
             dataType: "html",
             url: "<?php echo $this->request->webroot . 'resturent/addtokrt' ?>",
             success: function (data) {

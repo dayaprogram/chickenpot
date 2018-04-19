@@ -143,22 +143,21 @@ class ResturentController extends AppController {
                 }
                 $foodbillAmt = $foodbillAmt + ($data['foodprice'] * $data['quantity']);
             }
-            $finalbillamt = $subtotal;
         }
         $dicountAmt = 0.00;
         $discountper = 0.00;
         if (!empty($this->Auth->user('id'))) {
             $discountper = $this->Session->read('discountper');
             $dicountAmt = ($foodbillAmt * $discountper) / 100;
-            $subtotal = $subtotal - $dicountAmt;
         } else {
             $dicountAmt = 0.00;
         }
 
-        $tax = 0.00;
-        $finalbillamt = $finalbillamt + $tax;
-        $discount = $dicountAmt;
-        $finalpaid = $finalbillamt - $discount;
+        $finalbillamt = $subtotal - $dicountAmt;
+        //$finalbillamt = $subtotal + $tax;
+        $taxPer = 5.00;
+        $tax = ($finalbillamt * $taxPer) / 100;
+        $finalpaid = $finalbillamt + $tax;
         $payment = $this->payment_detail->newEntity();
         $paymentDetais = array(
             'bill_no' => $billno,
@@ -170,7 +169,7 @@ class ResturentController extends AppController {
             'final_paid_amt' => $finalpaid,
             'bill_status' => 'G',
             'applied_coupon' => '',
-            'discount_amt' => $discount,
+            'discount_amt' => $dicountAmt,
             'rec_no' => $recno,
             'entry_date' => date('Y-m-d H:i:s'),
         );
@@ -180,10 +179,9 @@ class ResturentController extends AppController {
             'bill_no' => $billno,
             'rec_no' => $recno,
             'order_id' => $orderid,
-            'subtotal' => $subtotal
+            'finalpaid' => $finalpaid
         );
         $this->Session->write('orderCompleteDeatail', $orderCompleteDeatail);
-        $this->set(compact('subtotal'));
         $this->Session->write('billno', $billno);
     }
 
