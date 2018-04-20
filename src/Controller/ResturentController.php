@@ -750,7 +750,7 @@ class ResturentController extends AppController {
         $this->loadModel('orderlist');
         $noofPrviousOrder = $this->orderlist->find()->where(['user_id' => $this->Auth->user('id'), 'order_status !=' => 'G'])->count();
         if ($noofPrviousOrder == 0) {
-            $discountPer = 10.00;
+            $discountPer = 20.00;
         } else {
             $discountPer = 0.00;
         }
